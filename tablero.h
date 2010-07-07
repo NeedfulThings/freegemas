@@ -3,11 +3,16 @@
 
 #include <Gosu/Gosu.hpp>
 
+#include <vector>
 #include <tr1/array>
 using namespace std;
 
 enum tCasilla { casVacia , casBlanca , casRoja, casLila, casNaranja, casVerde, casAmarilla, casAzul };
 
+struct coord{
+    int x, y;
+    coord(int x = 0, int y = 0) : x(x), y(y) { }
+};
 
 class Tablero{
 public:
@@ -15,12 +20,14 @@ public:
     ~Tablero();
 
     tCasilla get(int x, int y);
-    tCasilla swap(int x1, int y1, int x2, int y2);
-
+    void swap(int x1, int y1, int x2, int y2);
+    void del(int x, int y);
+    
     void generar();
-    bool comprobar();
-    bool comprobarFila(int i);
-    bool comprobarColumna(int i);
+    void rellenarEspacios();
+
+    vector<coord> comprobar();
+
     bool existeSolucion();
 private:
     tr1::array< tr1::array<tCasilla, 8>, 8> casillas;

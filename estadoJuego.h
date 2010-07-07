@@ -30,6 +30,7 @@
 
 #include <Gosu/Gosu.hpp>
 
+#include <utility>
 #include <tr1/memory>
 using namespace std;
 
@@ -60,9 +61,33 @@ public:
     ~EstadoJuego();
 
 private:
+
+    /// Carga las imágenes de las gemas
     void cargarGemas();
 
+    /// Indica si está sobre una gema
+    bool sobreGema(int mX, int mY);
+
+    /// Devuelve las coordenadas correspondientes a la gema marcada
+    pair<int,int> dameGema(int mX, int mY);
+
     Tablero tablero;
+
+    enum tEstado{
+	eEspera,
+	eGemaMarcada,
+	eGemasCambiando,
+	eGemasDesapareciendo,
+	eGemasNuevasCayendo
+    };
+
+    tEstado estado;
+
+    /// Coordenadas de la primera casilla marcada
+    int casillaMarcadaX, casillaMarcadaY;
+
+    /// Coordenadas de la segunda casilla marcada
+    int casillaMarcada2X, casillaMarcada2Y;
 
     tr1::shared_ptr<Gosu::Image> imgTablero;
 
@@ -74,7 +99,7 @@ private:
     tr1::shared_ptr<Gosu::Image> imgAmarilla;
     tr1::shared_ptr<Gosu::Image> imgAzul;
 
-    tr1::shared_ptr<Gosu::Image> selector;
+    tr1::shared_ptr<Gosu::Image> imgSelector;
 };
 
 #endif /* _ESTADOJUEGO_H_ */

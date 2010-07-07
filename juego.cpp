@@ -10,7 +10,7 @@ Juego::Juego () : Gosu::Window(800, 600, false) {
     setCaption(L"FreeGemas v0.1");
 
     puntero.reset(new Gosu::Image(graphics(), L"media/handCursor.png"));
-    selector.reset(new Gosu::Image(graphics(), L"media/selector.png"));
+
     cambiarEstado("estadoJuego");
 }
 
