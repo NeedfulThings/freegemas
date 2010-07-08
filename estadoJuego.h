@@ -89,6 +89,15 @@ private:
     /// Coordenadas de la segunda casilla marcada
     int casillaMarcada2X, casillaMarcada2Y;
 
+    /// Paso actual en la animación
+    int pasoAnim;
+
+    /// Total de pasos en la animación
+    int totalAnim;
+
+    /// Contenedor temporal de las casillas a borrar
+    vector<coord> casillasGanadoras;
+
     tr1::shared_ptr<Gosu::Image> imgTablero;
 
     tr1::shared_ptr<Gosu::Image> imgBlanca;

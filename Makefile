@@ -33,7 +33,7 @@ clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
 log.o: log.h
-juego.o: juego.h log.h estado.h
+juego.o: juego.h log.h estado.h estadoJuego.h
 estado.o: estado.h log.h
 estadoJuego.o: estadoJuego.h estado.h juego.h log.h tablero.h
 tablero.o: tablero.h log.h

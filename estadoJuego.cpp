@@ -3,7 +3,10 @@
 #include "juego.h"
 
 #include <cmath>
+#include <algorithm>
 
+#include <boost/format.hpp>
+using boost::format;
 
 EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
     lDEBUG << Log::CON("EstadoJuego");
@@ -20,9 +23,32 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
 
 
     cargarGemas();
+
+    pasoAnim = 0;
+    totalAnim = 15;
 }
 
 void EstadoJuego::update(){
+    if(estado == eGemasCambiando){
+	if(++pasoAnim == totalAnim){
+	    estado = eGemasDesapareciendo;
+	    tablero.swap(casillaMarcadaX, casillaMarcadaY,
+			 casillaMarcada2X, casillaMarcada2Y);
+
+	    pasoAnim = 0;
+	}
+    }
+
+    else if(estado == eGemasDesapareciendo){
+	if(pasoAnim++ == totalAnim){
+	    estado = eGemasNuevasCayendo;
+
+	    for(size_t i = 0; i < casillasGanadoras.size(); ++i){
+		tablero.del(casillasGanadoras[i].x,
+			    casillasGanadoras[i].y);
+	    }
+	}
+    }
 
 }
 
@@ -70,12 +96,47 @@ void EstadoJuego::draw(){
 		break;
 	    } // fin switch
 
-	    if(img != NULL){
-		img -> draw(posX + i * 65,
-			    posY + j * 65,
+
+	    // Implementar animación de la casilla moviéndose
+	    if(i == casillaMarcadaX && 
+	       j == casillaMarcadaY &&
+	       estado == eGemasCambiando){
+
+		img -> draw(posX + i * 65 + (casillaMarcada2X - casillaMarcadaX) * 65 * (float)pasoAnim/totalAnim,
+			    posY + j * 65 + (casillaMarcada2Y - casillaMarcadaY) * 65 * (float)pasoAnim/totalAnim,
 			    3);
 	    }
+		
+	    else if(i == casillaMarcada2X && 
+		    j == casillaMarcada2Y && 
+		    estado == eGemasCambiando){
+		
+		img -> draw(posX + i * 65 + (casillaMarcadaX - casillaMarcada2X) * 65 * (float)pasoAnim/totalAnim,
+			    posY + j * 65 + (casillaMarcadaY - casillaMarcada2Y) * 65 * (float)pasoAnim/totalAnim,
+			    3);
+	    }
+	    
+	    else if(img != NULL){
+		// Desaparición de las gemas ganadoras
 
+		if(estado == eGemasDesapareciendo && 
+		   find(casillasGanadoras.begin(), 
+			casillasGanadoras.end(), 
+			coord(i, j) ) 
+		   != casillasGanadoras.end() ){
+
+		    img -> draw(posX + i * 65,
+				posY + j * 65,
+				3, 1, 1,
+				Gosu::Color(255 * (1 -(float)pasoAnim/totalAnim), 255, 255, 255));
+
+		}else{
+		    img -> draw(posX + i * 65,
+				posY + j * 65,
+				3);
+		}
+	    }
+	    
 	    img.reset();
 	}
     }
@@ -115,6 +176,7 @@ void EstadoJuego::buttonDown(Gosu::Button B){
 
 	int mX = padre -> input().mouseX();
 	int mY = padre -> input().mouseY();
+	lDEBUG << "Click @ " << mX << "," << mY;
 
 	if(sobreGema(mX, mY)){ // Si se pulsó sobre una gema
 	
@@ -127,34 +189,42 @@ void EstadoJuego::buttonDown(Gosu::Button B){
 	    else if(estado == eGemaMarcada){ // Si ya había una gema marcada
 		pair<int,int> res = dameGema(mX, mY);
 
-		int selecX = res.first;
-		int selecY = res.second;
+		casillaMarcada2X = res.first;
+		casillaMarcada2Y = res.second;
 
-		if(abs(casillaMarcadaX - selecX) + abs(casillaMarcadaY - selecY) == 1){ 
+		// Si es una gema CONTIGUA
+		if(abs(casillaMarcadaX - casillaMarcada2X) 
+		   + abs(casillaMarcadaY - casillaMarcada2Y) == 1){ 
 
 		    lDEBUG << "Casilla contigua";
 
 		    Tablero temporal = tablero;
 		    temporal.swap(casillaMarcadaX, casillaMarcadaY,
-				  selecX, selecY);
+				  casillaMarcada2X, casillaMarcada2Y);
 
-		    vector<coord> casillasGanadoras = temporal.comprobar();
-		    if(!casillasGanadoras.empty()){
+		    casillasGanadoras = temporal.comprobar();
+		    
+		    // SI ES UN MOVIMIENTO GANADOR
+		    if(! casillasGanadoras.empty()){
 			lDEBUG << "Movimiento ganador!";
 
-			tablero.swap(casillaMarcadaX, casillaMarcadaY,
-				  selecX, selecY);
-
-			for(size_t i = 0; i < casillasGanadoras.size(); ++i){
-			    tablero.del(casillasGanadoras[i].x,
-					casillasGanadoras[i].y);
-			}
+			estado = eGemasCambiando;
+		    }
+		    
+		    // SI ES CONTIGUA pero no es un movimiento ganador
+		    else{
+			casillaMarcadaX = -1;
+			casillaMarcadaY = -1;
+			estado = eEspera;		    
 		    }
 		}
-
-		casillaMarcadaX = -1;
-		casillaMarcadaY = -1;
-		estado = eEspera;		    
+		
+		// Si NO ES contigua
+		else{
+		    casillaMarcadaX = -1;
+		    casillaMarcadaY = -1;
+		    estado = eEspera;		    
+		}
 	    }
 	}
 

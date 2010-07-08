@@ -12,6 +12,9 @@ enum tCasilla { casVacia , casBlanca , casRoja, casLila, casNaranja, casVerde, c
 struct coord{
     int x, y;
     coord(int x = 0, int y = 0) : x(x), y(y) { }
+    bool operator ==(const coord & c){
+	return (c.x == x && c.y == y);
+    }
 };
 
 class Tablero{
