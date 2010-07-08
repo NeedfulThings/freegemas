@@ -12,7 +12,7 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
     lDEBUG << Log::CON("EstadoJuego");
 
     imgTablero.reset(new Gosu::Image(padre -> graphics(),
-				  L"media/tablero.png"));
+				     L"media/tablero.png"));
 
     imgSelector.reset(new Gosu::Image(padre -> graphics(), 
 				      L"media/selector.png"));    
@@ -29,8 +29,10 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
 }
 
 void EstadoJuego::update(){
-    if(estado == eGemasCambiando){
+    if(estado == eGemasCambiando){	
 	if(++pasoAnim == totalAnim){
+	    lDEBUG << "Fin eGemasCambiando";
+
 	    estado = eGemasDesapareciendo;
 	    tablero.swap(casillaMarcadaX, casillaMarcadaY,
 			 casillaMarcada2X, casillaMarcada2Y);
@@ -41,11 +43,35 @@ void EstadoJuego::update(){
 
     else if(estado == eGemasDesapareciendo){
 	if(pasoAnim++ == totalAnim){
+	    lDEBUG << "Fin eGemasDesapareciendo";
+
 	    estado = eGemasNuevasCayendo;
 
 	    for(size_t i = 0; i < casillasGanadoras.size(); ++i){
 		tablero.del(casillasGanadoras[i].x,
 			    casillasGanadoras[i].y);
+	    }
+
+	    tablero.calcularMovimientosCaida();
+
+	    pasoAnim = 0;
+	}
+    }
+
+    else if(estado == eGemasNuevasCayendo){
+	if(pasoAnim++ == totalAnim){
+	    lDEBUG << "Fin eGemasNuevasCayendo";
+
+	    estado = eEspera;
+	    pasoAnim = 0;
+	    tablero.aplicarCaida();
+	    tablero.rellenarEspacios();
+
+	    for(int x = 0; x < 8; ++x){
+		for(int y = 0; y < 8; ++y){
+		    tablero.casillas[x][y].destY = 0;
+		    tablero.casillas[x][y].debeCaer = false;
+		}
 	    }
 	}
     }
@@ -96,47 +122,84 @@ void EstadoJuego::draw(){
 		break;
 	    } // fin switch
 
+	    if(img != NULL){
+		if(estado == eEspera || estado == eGemaMarcada){
 
-	    // Implementar animación de la casilla moviéndose
-	    if(i == casillaMarcadaX && 
-	       j == casillaMarcadaY &&
-	       estado == eGemasCambiando){
-
-		img -> draw(posX + i * 65 + (casillaMarcada2X - casillaMarcadaX) * 65 * (float)pasoAnim/totalAnim,
-			    posY + j * 65 + (casillaMarcada2Y - casillaMarcadaY) * 65 * (float)pasoAnim/totalAnim,
-			    3);
-	    }
-		
-	    else if(i == casillaMarcada2X && 
-		    j == casillaMarcada2Y && 
-		    estado == eGemasCambiando){
-		
-		img -> draw(posX + i * 65 + (casillaMarcadaX - casillaMarcada2X) * 65 * (float)pasoAnim/totalAnim,
-			    posY + j * 65 + (casillaMarcadaY - casillaMarcada2Y) * 65 * (float)pasoAnim/totalAnim,
-			    3);
-	    }
-	    
-	    else if(img != NULL){
-		// Desaparición de las gemas ganadoras
-
-		if(estado == eGemasDesapareciendo && 
-		   find(casillasGanadoras.begin(), 
-			casillasGanadoras.end(), 
-			coord(i, j) ) 
-		   != casillasGanadoras.end() ){
-
-		    img -> draw(posX + i * 65,
-				posY + j * 65,
-				3, 1, 1,
-				Gosu::Color(255 * (1 -(float)pasoAnim/totalAnim), 255, 255, 255));
-
-		}else{
 		    img -> draw(posX + i * 65,
 				posY + j * 65,
 				3);
 		}
-	    }
 	    
+
+		else if(estado == eGemasCambiando){
+		    if(i == casillaMarcadaX && 
+		       j == casillaMarcadaY){
+
+			img -> draw(posX + i * 65 + (casillaMarcada2X - casillaMarcadaX) * 65 
+				    * (float)pasoAnim/totalAnim,
+				    posY + j * 65 + (casillaMarcada2Y - casillaMarcadaY) * 65 
+				    * (float)pasoAnim/totalAnim,
+				    3);
+		    }
+		
+		    else if(i == casillaMarcada2X && 
+			    j == casillaMarcada2Y){
+		
+			img -> draw(posX + i * 65 + (casillaMarcadaX - casillaMarcada2X) * 65 
+				    * (float)pasoAnim/totalAnim,
+				    posY + j * 65 + (casillaMarcadaY - casillaMarcada2Y) * 65 
+				    * (float)pasoAnim/totalAnim,
+				    3);
+		    }
+
+		    else{
+			img -> draw(posX + i * 65,
+				    posY + j * 65,
+				    3);
+		    }
+		
+		}
+
+		else if(estado == eGemasDesapareciendo){
+		    // Desaparición de las gemas ganadoras
+		    
+		    if(find(casillasGanadoras.begin(), 
+			    casillasGanadoras.end(), 
+			    coord(i, j)) != casillasGanadoras.end() ){
+			
+			img -> draw(posX + i * 65,
+				    posY + j * 65,
+				    3, 1, 1,
+				    Gosu::Color(255 * (1 -(float)pasoAnim/totalAnim), 255, 255, 255));
+		    }
+		    else{
+			img -> draw(posX + i * 65,
+				    posY + j * 65,
+				    3);
+		    }
+		    
+
+		}
+	    
+		else if(estado == eGemasNuevasCayendo){
+		    if(tablero.casillas[i][j].debeCaer){
+			int origY = tablero.casillas[i][j].origY;
+			int destY = tablero.casillas[i][j].destY;
+
+//			lDEBUG << format("desty: %i, y: %i") % destY % j;
+			
+			img -> draw(posX + i * 65,
+				    posY + origY * 65 + destY * 65 
+				    * (float)pasoAnim/totalAnim,
+				    3);
+		    }else{
+			img -> draw(posX + i * 65,
+				    posY + j * 65,
+				    3);
+		    }
+		}
+	    } // Fin if (img != NULL)
+
 	    img.reset();
 	}
     }

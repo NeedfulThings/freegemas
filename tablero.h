@@ -7,7 +7,31 @@
 #include <tr1/array>
 using namespace std;
 
+#include "log.h"
+
 enum tCasilla { casVacia , casBlanca , casRoja, casLila, casNaranja, casVerde, casAmarilla, casAzul };
+
+struct Casilla{
+    tCasilla tipo;
+
+    Casilla(const tCasilla & t = casVacia) : origY(0), destY(0), debeCaer(false){
+	tipo = t;
+    }
+
+    bool operator==(const Casilla & C){
+	return C.tipo == tipo;
+    }
+
+    bool operator==(const tCasilla & t){
+	return tipo == t;
+    }
+
+    operator tCasilla(){ return tipo; }
+
+    int origY, destY;
+    bool debeCaer;
+};
+
 
 struct coord{
     int x, y;
@@ -27,12 +51,18 @@ public:
     void del(int x, int y);
     
     void generar();
+
+    /// Calcula las posiciones a las que tienen que caer las casillas al eliminar las premiadas
+    void calcularMovimientosCaida();
+
+    void aplicarCaida();
+
     void rellenarEspacios();
 
     vector<coord> comprobar();
 
     bool existeSolucion();
-private:
-    tr1::array< tr1::array<tCasilla, 8>, 8> casillas;
+
+    tr1::array< tr1::array<Casilla, 8>, 8> casillas;
 };
 #endif /* _TABLERO_H_ */

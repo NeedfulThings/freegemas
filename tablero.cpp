@@ -1,8 +1,10 @@
 #include "tablero.h"
-#include "log.h"
+
 
 #include <ctime>
 #include <iostream>
+#include <boost/format.hpp>
+using boost::format;
 
 Tablero::Tablero(){
     lDEBUG << Log::CON("Tablero");
@@ -97,19 +99,6 @@ bool Tablero::existeSolucion(){
 
 }
 
-void Tablero::rellenarEspacios(){
-    Tablero temporal = *this;
-    do{
-	for(int x = 0; x < 8; ++x){
-	    for(int y = 0; y < 8; ++y){
-		if(temporal.casillas[x][y] == casVacia){
-		    temporal.casillas[x][y] = static_cast<tCasilla>((int)Gosu::random(1,8));
-		}		
-	    }
-	}
-    }while(!temporal.comprobar().empty());    
-}
-
 vector<coord> Tablero::comprobar(){
     // Recorremos filas
     tr1::array<tr1::array<int, 8>, 8> comprobHor;
@@ -186,6 +175,64 @@ vector<coord> Tablero::comprobar(){
 
     return coordenadas;
 }
+
+
+void Tablero::calcularMovimientosCaida(){
+    
+    for(int x = 0; x < 8; ++x){
+	// De abajo a arriba
+	for(int y = 7; y >= 0; --y){
+
+	    // Si la casilla es vacía, bajamos todas las casillas por encima
+	    if(casillas[x][y] == casVacia){
+		lDEBUG << format("Casilla vacía: %i, %i") % x % y;
+
+		for(int k = y-1; k >= 0; --k){		    
+		    casillas[x][k].debeCaer = true;
+		    casillas[x][k].origY = k;
+		    casillas[x][k].destY ++;
+		    lDEBUG << format("Ap: %i %i, caída: %i") % x % k % casillas[x][k].destY;
+		}
+	    }
+	}
+    }
+}
+
+void Tablero::aplicarCaida(){
+    lDEBUG << "Tablero::aplicarCaida";
+    for(int x = 0; x < 8; ++x){
+	// Desde abajo a arriba para no sobreescribir casillas
+
+	for(int y = 7; y >= 0; --y){
+	    if(casillas[x][y].debeCaer && casillas[x][y] != casVacia){
+		int y0 = casillas[x][y].destY;
+		
+		lDEBUG << format(" - (%i,%i) debe caer %i casillas") % x % y % y0;
+
+
+		casillas[x][y + y0] = casillas[x][y];
+		casillas[x][y] = casVacia;
+	    }
+	}
+   }
+}
+
+void Tablero::rellenarEspacios(){
+    Tablero temporal = *this;
+    lDEBUG << "Tablero::rellenarEspacios";
+
+//    do{
+	lDEBUG << "AGAIN";
+	for(int x = 0; x < 8; ++x){
+	    for(int y = 0; y < 8; ++y){
+		if(temporal.casillas[x][y] == casVacia){
+		    temporal.casillas[x][y] = static_cast<tCasilla>((int)Gosu::random(1,8));
+		}		
+	    }
+	}
+//    }while(!temporal.comprobar().empty());    
+}
+
 
 Tablero::~Tablero(){
     lDEBUG << Log::DES("Tablero");
