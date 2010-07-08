@@ -68,9 +68,10 @@ private:
     /// Indica si está sobre una gema
     bool sobreGema(int mX, int mY);
 
-    /// Devuelve las coordenadas correspondientes a la gema marcada
+    /// Devuelve las coordenadas de casilla correspondientes a las coordenadas de ratón mX,mY.
     pair<int,int> dameGema(int mX, int mY);
 
+    /// Regenera la imagen del marcador de puntos
     void repintarPuntos();
 
     Tablero tablero;

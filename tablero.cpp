@@ -26,10 +26,6 @@ void Tablero::generar(){
     lDEBUG << "Generado un tablero con posibles soluciones, sin soluciones inmediatas";
 }
 
-tCasilla Tablero::get(int x, int y){
-    return casillas[x][y];
-}
-
 void Tablero::swap(int x1, int y1, int x2, int y2){
     tCasilla temp = casillas[x1][y1];
 
@@ -214,7 +210,6 @@ void Tablero::aplicarCaida(){
 		int y0 = casillas[x][y].destY;
 		
 		lDEBUG << format(" - (%i,%i) debe caer %i casillas") % x % y % y0;
-
 
 		casillas[x][y + y0] = casillas[x][y];
 		casillas[x][y] = casVacia;

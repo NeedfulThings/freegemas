@@ -105,6 +105,8 @@ void EstadoJuego::update(){
 		lDEBUG << "Movimiento ganador!";
 		
 		estado = eGemasDesapareciendo;
+	    }else if(!tablero.existeSolucion()){
+		lDEBUG << Log::cRojo << "ZOMG NO EXISTEN MÁS MOVIMIENTOS";
 	    }
 	}
     }
@@ -121,7 +123,7 @@ void EstadoJuego::draw(){
 
     for(int i = 0; i < 8; ++i){
 	for(int j = 0; j < 8; ++j){
-	    switch(tablero.get(i,j)){
+	    switch(tablero.casillas[i][j]){
 	    case casBlanca:
 		img = imgBlanca;
 		break;
