@@ -117,7 +117,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de j - 1 hasta el inicio */
 	    for(int k = x - 1; k >= 0; --k){ 
-		if(casillas[x][y] == casillas[k][y]){
+		if(casillas[x][y] == casillas[k][y] && casillas[x][y] != casVacia){
 		    comprobHor[x][y] = comprobHor[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -126,7 +126,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de j + 1 hasta el final */
 	    for(int k = x + 1; k < 8; ++k){
-		if(casillas[x][y] == casillas[k][y]){
+		if(casillas[x][y] == casillas[k][y] && casillas[x][y] != casVacia){
 		    comprobHor[x][y] = comprobHor[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -142,7 +142,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de y - 1 hasta el inicio */
 	    for(int k = y - 1; k >= 0; --k){ 
-		if(casillas[x][y] == casillas[x][k]){
+		if(casillas[x][y] == casillas[x][k] && casillas[x][y] != casVacia){
 		    comprobVer[x][y] = comprobVer[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -151,7 +151,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de y + 1 hasta el final */
 	    for(int k = y + 1; k < 8; ++k){
-		if(casillas[x][y] == casillas[x][k]){
+		if(casillas[x][y] == casillas[x][k] && casillas[x][y] != casVacia){
 		    comprobVer[x][y] = comprobVer[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -178,20 +178,26 @@ vector<coord> Tablero::comprobar(){
 
 
 void Tablero::calcularMovimientosCaida(){
-    
+    lDEBUG << "Tablero::calcularMovimientosCaida";
     for(int x = 0; x < 8; ++x){
+
 	// De abajo a arriba
 	for(int y = 7; y >= 0; --y){
 
+	    // origY guarda la posición en el inicio de la caida
+	    casillas[x][y].origY = y;
+	    
 	    // Si la casilla es vacía, bajamos todas las casillas por encima
 	    if(casillas[x][y] == casVacia){
-		lDEBUG << format("Casilla vacía: %i, %i") % x % y;
+		lDEBUG << " columna " << x;
+		lDEBUG << "  fila " << y;
+		lDEBUG << format("   Casilla vacía: %i, %i") % x % y;
 
 		for(int k = y-1; k >= 0; --k){		    
 		    casillas[x][k].debeCaer = true;
-		    casillas[x][k].origY = k;
 		    casillas[x][k].destY ++;
-		    lDEBUG << format("Ap: %i %i, caída: %i") % x % k % casillas[x][k].destY;
+
+		    lDEBUG << format("    origY: %i, destY: %i") % casillas[x][k].origY % casillas[x][k].destY;
 		}
 	    }
 	}
@@ -218,19 +224,36 @@ void Tablero::aplicarCaida(){
 }
 
 void Tablero::rellenarEspacios(){
-    Tablero temporal = *this;
+
     lDEBUG << "Tablero::rellenarEspacios";
 
-//    do{
-	lDEBUG << "AGAIN";
 	for(int x = 0; x < 8; ++x){
+	    // Contar cuántos espacios hay que bajar
+	    int saltos = 0;
+
 	    for(int y = 0; y < 8; ++y){
-		if(temporal.casillas[x][y] == casVacia){
-		    temporal.casillas[x][y] = static_cast<tCasilla>((int)Gosu::random(1,8));
+		if(casillas[x][y] != casVacia) break;
+		saltos ++;
+	    }
+
+	    lDEBUG << format("%i saltos calculados para la columna %i") % saltos % x;
+
+	    for(int y = 0; y < 8; ++y){
+		if(casillas[x][y] == casVacia) {
+		    
+		    lDEBUG << format("(%i,%i) está vacía, rellenar. OrigY: %i. Saltos: %i") % x % y % (y - saltos) % saltos;
+
+		    casillas[x][y] = static_cast<tCasilla> ( (int)Gosu::random(1,8) );
+
+		    
+		    casillas[x][y].debeCaer = true;  
+		    casillas[x][y].origY = y - saltos;
+		    casillas[x][y].destY = saltos;
+//*/
+
 		}		
 	    }
-	}
-//    }while(!temporal.comprobar().empty());    
+	}	
 }
 
 

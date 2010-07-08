@@ -52,7 +52,15 @@ void EstadoJuego::update(){
 			    casillasGanadoras[i].y);
 	    }
 
+	    lDEBUG << Log::cAmar << "Calculando los movimientos de caída...";
+
 	    tablero.calcularMovimientosCaida();
+
+	    lDEBUG << Log::cAmar << "Aplicando las modificaciones según caídas a la matriz de casillas...";
+	    tablero.aplicarCaida();
+
+	    lDEBUG << Log::cAmar << "Rellenando los espacios que han quedado por arriba";
+	    tablero.rellenarEspacios();
 
 	    pasoAnim = 0;
 	}
@@ -64,14 +72,22 @@ void EstadoJuego::update(){
 
 	    estado = eEspera;
 	    pasoAnim = 0;
-	    tablero.aplicarCaida();
-	    tablero.rellenarEspacios();
 
 	    for(int x = 0; x < 8; ++x){
 		for(int y = 0; y < 8; ++y){
+		    tablero.casillas[x][y].origY = y;
 		    tablero.casillas[x][y].destY = 0;
 		    tablero.casillas[x][y].debeCaer = false;
 		}
+	    }
+
+	    lDEBUG << Log::cAmar << "Fin de turno, pero comprobamos posibles movimientos ganadores indirectos";
+
+	    casillasGanadoras = tablero.comprobar();
+	    if(! casillasGanadoras.empty()){
+		lDEBUG << "Movimiento ganador!";
+		
+		estado = eGemasDesapareciendo;
 	    }
 	}
     }
@@ -186,11 +202,14 @@ void EstadoJuego::draw(){
 			int origY = tablero.casillas[i][j].origY;
 			int destY = tablero.casillas[i][j].destY;
 
-//			lDEBUG << format("desty: %i, y: %i") % destY % j;
-			
+			// Respecto a la posición que marca y = origY, diferencial de movimiento
+			float avance = (destY) * 65;
+
+			lDEBUG << format("Casilla %i,%i. OrigY: %i, destY: %i, avance: %i") % i % j % origY % destY % avance;
+
 			img -> draw(posX + i * 65,
-				    posY + origY * 65 + destY * 65 
-				    * (float)pasoAnim/totalAnim,
+				    posY + origY * 65 
+				    + avance * (float)pasoAnim/totalAnim,
 				    3);
 		    }else{
 			img -> draw(posX + i * 65,
