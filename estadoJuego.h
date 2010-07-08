@@ -71,6 +71,8 @@ private:
     /// Devuelve las coordenadas correspondientes a la gema marcada
     pair<int,int> dameGema(int mX, int mY);
 
+    void repintarPuntos();
+
     Tablero tablero;
 
     enum tEstado{
@@ -109,6 +111,9 @@ private:
     tr1::shared_ptr<Gosu::Image> imgAzul;
 
     tr1::shared_ptr<Gosu::Image> imgSelector;
+
+    tr1::shared_ptr<Gosu::Image> txtPuntos;
+    int puntos;
 };
 
 #endif /* _ESTADOJUEGO_H_ */

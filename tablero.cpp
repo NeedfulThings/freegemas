@@ -236,12 +236,12 @@ void Tablero::rellenarEspacios(){
 		saltos ++;
 	    }
 
-	    lDEBUG << format("%i saltos calculados para la columna %i") % saltos % x;
+	    // lDEBUG << format("%i saltos calculados para la columna %i") % saltos % x;
 
 	    for(int y = 0; y < 8; ++y){
 		if(casillas[x][y] == casVacia) {
 		    
-		    lDEBUG << format("(%i,%i) está vacía, rellenar. OrigY: %i. Saltos: %i") % x % y % (y - saltos) % saltos;
+		    // lDEBUG << format("(%i,%i) está vacía, rellenar. OrigY: %i. Saltos: %i") % x % y % (y - saltos) % saltos;
 
 		    casillas[x][y] = static_cast<tCasilla> ( (int)Gosu::random(1,8) );
 

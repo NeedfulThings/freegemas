@@ -6,6 +6,8 @@
 #include <algorithm>
 
 #include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
+
 using boost::format;
 
 EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
@@ -26,6 +28,18 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
 
     pasoAnim = 0;
     totalAnim = 15;
+
+    puntos = 0;
+
+    repintarPuntos();
+}
+
+void EstadoJuego::repintarPuntos(){
+    Gosu::Bitmap temporal = Gosu::createText(boost::lexical_cast<wstring>(puntos),
+					     L"media/fuentelcd.ttf", 33, 0, 190, Gosu::taRight);
+
+    txtPuntos.reset(new Gosu::Image(padre -> graphics(),
+				    temporal));
 }
 
 void EstadoJuego::update(){
@@ -46,6 +60,9 @@ void EstadoJuego::update(){
 	    lDEBUG << "Fin eGemasDesapareciendo";
 
 	    estado = eGemasNuevasCayendo;
+	    
+	    puntos += 10 * casillasGanadoras.size();
+	    repintarPuntos();
 
 	    for(size_t i = 0; i < casillasGanadoras.size(); ++i){
 		tablero.del(casillasGanadoras[i].x,
@@ -205,7 +222,7 @@ void EstadoJuego::draw(){
 			// Respecto a la posición que marca y = origY, diferencial de movimiento
 			float avance = (destY) * 65;
 
-			lDEBUG << format("Casilla %i,%i. OrigY: %i, destY: %i, avance: %i") % i % j % origY % destY % avance;
+			// lDEBUG << format("Casilla %i,%i. OrigY: %i, destY: %i, avance: %i") % i % j % origY % destY % avance;
 
 			img -> draw(posX + i * 65,
 				    posY + origY * 65 
@@ -237,6 +254,8 @@ void EstadoJuego::draw(){
 			    41 + casillaMarcadaY * 65,
 			    4);
     }
+
+    txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
 }
 
 bool EstadoJuego::sobreGema(int mX, int mY){
