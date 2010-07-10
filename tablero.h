@@ -127,7 +127,7 @@ public:
     vector<coord> comprobar();
 
     /// Comprueba si existen movimientos con los que hacer algún grupo en el tablero actual
-    bool existeSolucion();
+    vector<coord> existeSolucion();
 
     void cancelarAnimaciones();
 

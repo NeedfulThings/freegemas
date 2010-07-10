@@ -25,7 +25,7 @@ void Tablero::generar(){
 		casillas[i][j].destY = j - casillas[i][j].origY;
 	    }
 	}
-    }while(!comprobar().empty() || !existeSolucion()); // Regenera si hay alguna solución directa o si es imposible
+    }while(!comprobar().empty() || existeSolucion().empty()); // Regenera si hay alguna solución directa o si es imposible
     lDEBUG << "Generado un tablero con posibles soluciones, sin soluciones inmediatas";
 }
 
@@ -40,9 +40,14 @@ void Tablero::del(int x, int y){
     casillas[x][y] = casVacia;
 }
 
-bool Tablero::existeSolucion(){
-    if(!comprobar().empty())
-	return true;
+vector<coord> Tablero::existeSolucion(){
+    vector<coord> resultados;
+    
+    if(!comprobar().empty()){
+	resultados.push_back(coord(-1,-1));
+	return resultados;
+    }
+
 
     /* 
        Comprobaremos todos los posibles tableros
@@ -59,6 +64,7 @@ bool Tablero::existeSolucion(){
 	    if(y > 0){
 		temp.swap(x,y, x,y-1);
 		if(!temp.comprobar().empty()){
+		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x,y, x,y-1);
@@ -68,6 +74,7 @@ bool Tablero::existeSolucion(){
 	    if(y < 7){
 		temp.swap(x, y, x, y+1);
 		if(!temp.comprobar().empty()){
+		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x, y, x, y+1);
@@ -77,6 +84,7 @@ bool Tablero::existeSolucion(){
 	    if(x > 0){
 		temp.swap(x, y, x - 1, y);
 		if(!temp.comprobar().empty()){
+		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x, y, x - 1, y);
@@ -86,15 +94,18 @@ bool Tablero::existeSolucion(){
 	    if(x < 7){
 		temp.swap(x, y, x + 1, y);
 		if(!temp.comprobar().empty()){
+		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x, y, x + 1, y);
 	    }
+
+	    
 	}
     }
     
     
-    return flag;
+    return resultados;
 
 }
 

@@ -34,6 +34,9 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
     puntos = 0;
 
     repintarPuntos();
+
+    mostrandoPista = -1;
+    totalAnimPista = 50;
 }
 
 void EstadoJuego::repintarPuntos(){
@@ -118,7 +121,7 @@ void EstadoJuego::update(){
 		lDEBUG << "Movimiento ganador!";
 		
 		estado = eGemasDesapareciendo;
-	    }else if(!tablero.existeSolucion()){
+	    }else if(tablero.existeSolucion().empty()){
 		lDEBUG << Log::cRojo << "ZOMG NO EXISTEN MÁS MOVIMIENTOS";
 	    }
 	}
@@ -290,6 +293,14 @@ void EstadoJuego::draw(){
 			    Gosu::Color(0xffff0000));
     }
 
+    if(mostrandoPista != -1){
+	imgSelector -> draw(241 + coordPista.x * 65,
+			    41 + coordPista.y * 65,
+			    3, 1, 1,
+			    Gosu::Color((float)mostrandoPista / totalAnimPista * 255, 0, 255, 0));
+	mostrandoPista --;
+    }
+
     txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
 }
 
@@ -303,7 +314,7 @@ pair<int,int> EstadoJuego::dameGema(int mX, int mY){
 		     (mY - 41) / 65 );
 }
 
-void EstadoJuego::buttonDown(Gosu::Button B){
+void EstadoJuego::buttonDown (Gosu::Button B){
     if(B == Gosu::kbEscape){
 	padre -> close();
     }
@@ -364,6 +375,17 @@ void EstadoJuego::buttonDown(Gosu::Button B){
 	    }
 	}
 
+    }
+
+    else if(B == Gosu::kbH){
+	lDEBUG << "Hint...";
+	vector<coord> posibilidades = tablero.existeSolucion();
+	if(posibilidades.empty()){
+
+	}else{
+	    coordPista = posibilidades[0];
+	    mostrandoPista = totalAnimPista;
+	}	
     }
 }
 

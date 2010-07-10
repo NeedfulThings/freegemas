@@ -71,6 +71,11 @@ private:
     */
     static float eqMov(float t, float b, float c, float d);
 
+    int mostrandoPista;
+    int totalAnimPista;
+
+    coord coordPista;
+
     /// Carga las imágenes de las gemas
     void cargarGemas();
 
