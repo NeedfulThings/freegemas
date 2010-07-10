@@ -123,7 +123,28 @@ void EstadoJuego::update(){
 		estado = eGemasDesapareciendo;
 	    }else if(tablero.existeSolucion().empty()){
 		lDEBUG << Log::cRojo << "ZOMG NO EXISTEN MÁS MOVIMIENTOS";
+		
+		estado = eDesapareceTablero;
+
+		for(int x = 0; x < 8; ++x){
+		    for(int y = 0; y < 8; ++y){
+			tablero.casillas[x][y].debeCaer = true;
+			tablero.casillas[x][y].origY = y;
+			tablero.casillas[x][y].destY = 7 + Gosu::random(1,7);
+		    }
+		}
 	    }
+	}
+    }
+
+    else if(estado == eDesapareceTablero){
+	if(++pasoAnim == totalAnimInit){
+	    lDEBUG << "Tablero desaparecido";
+
+	    estado = eInicialGemas;
+	    tablero.generar();
+
+	    pasoAnim = 0;
 	}
     }
 
@@ -183,7 +204,7 @@ void EstadoJuego::draw(){
 	    } // fin switch
 
 	    if(img != NULL){
-		if(estado == eInicialGemas){
+		if(estado == eInicialGemas || estado == eDesapareceTablero){
 		    img -> draw(posX + i * 65,
 				eqMov(pasoAnim,
 				      posY + tablero.casillas[i][j].origY * 65,
@@ -386,6 +407,19 @@ void EstadoJuego::buttonDown (Gosu::Button B){
 	    coordPista = posibilidades[0];
 	    mostrandoPista = totalAnimPista;
 	}	
+    }
+
+    else if(B == Gosu::kbP){
+	estado = eDesapareceTablero;
+
+	for(int x = 0; x < 8; ++x){
+	    for(int y = 0; y < 8; ++y){
+		tablero.casillas[x][y].debeCaer = true;
+		tablero.casillas[x][y].origY = y;
+		tablero.casillas[x][y].destY = 8 + Gosu::random(1,7);
+	    }
+	}
+	
     }
 }
 

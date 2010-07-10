@@ -96,7 +96,8 @@ private:
 	eGemaMarcada,
 	eGemasCambiando,
 	eGemasDesapareciendo,
-	eGemasNuevasCayendo
+	eGemasNuevasCayendo,
+	eDesapareceTablero
     };
 
     tEstado estado;
