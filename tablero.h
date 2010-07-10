@@ -129,6 +129,8 @@ public:
     /// Comprueba si existen movimientos con los que hacer algún grupo en el tablero actual
     bool existeSolucion();
 
+    void cancelarAnimaciones();
+
     /// Matriz de casillas
     tr1::array< tr1::array<Casilla, 8>, 8> casillas;
 };

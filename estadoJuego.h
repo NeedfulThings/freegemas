@@ -62,6 +62,15 @@ public:
 
 private:
 
+    /** Función para el cálculo de animaciones.
+
+	@param t Tiempo transcurrido
+	@param b Valor inicial (beginning)
+	@param c Diferencia entre inicial y final (change)
+	@param d Duración
+    */
+    static float eqMov(float t, float b, float c, float d);
+
     /// Carga las imágenes de las gemas
     void cargarGemas();
 
@@ -77,6 +86,7 @@ private:
     Tablero tablero;
 
     enum tEstado{
+	eInicialGemas,
 	eEspera,
 	eGemaMarcada,
 	eGemasCambiando,
@@ -97,6 +107,9 @@ private:
 
     /// Total de pasos en la animación
     int totalAnim;
+
+    /// Total de pasos en la animación inicial
+    int totalAnimInit;
 
     /// Contenedor temporal de las casillas a borrar
     vector<coord> casillasGanadoras;

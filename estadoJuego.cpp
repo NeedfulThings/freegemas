@@ -19,7 +19,8 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
     imgSelector.reset(new Gosu::Image(padre -> graphics(), 
 				      L"media/selector.png"));    
 
-    estado = eEspera;
+    estado = eInicialGemas;
+
     casillaMarcadaX = -1;
     casillaMarcadaY = -1;
 
@@ -27,7 +28,8 @@ EstadoJuego::EstadoJuego(Juego * p) : Estado(p){
     cargarGemas();
 
     pasoAnim = 0;
-    totalAnim = 15;
+    totalAnim = 17;
+    totalAnimInit = 50;
 
     puntos = 0;
 
@@ -43,7 +45,18 @@ void EstadoJuego::repintarPuntos(){
 }
 
 void EstadoJuego::update(){
-    if(estado == eGemasCambiando){	
+    if(estado == eInicialGemas){
+	if(++pasoAnim == totalAnimInit){
+	    lDEBUG << "Fichas iniciales colocadas";
+
+	    estado = eEspera;
+	    tablero.cancelarAnimaciones();
+
+	    pasoAnim = 0;
+	}
+    }
+
+    else if(estado == eGemasCambiando){	
 	if(++pasoAnim == totalAnim){
 	    lDEBUG << "Fin eGemasCambiando";
 
@@ -113,6 +126,15 @@ void EstadoJuego::update(){
 
 }
 
+/*
+  tiempo pasado, beginning, change, duration
+ */
+float EstadoJuego::eqMov(float t, float b, float c, float d) {
+    t/=d;
+    return -c *(t)*(t-2) + b;
+};
+
+
 void EstadoJuego::draw(){
     imgTablero -> draw(0,0,1);
 
@@ -158,11 +180,28 @@ void EstadoJuego::draw(){
 	    } // fin switch
 
 	    if(img != NULL){
-		if(estado == eEspera || estado == eGemaMarcada){
-
+		if(estado == eInicialGemas){
 		    img -> draw(posX + i * 65,
-				posY + j * 65,
+				eqMov(pasoAnim,
+				      posY + tablero.casillas[i][j].origY * 65,
+				      tablero.casillas[i][j].destY * 65,
+				      totalAnimInit),
 				3);
+		}
+		else if(estado == eEspera || estado == eGemaMarcada || estado == eGemasNuevasCayendo){
+
+		    if(tablero.casillas[i][j].debeCaer){
+			img -> draw(posX + i * 65,
+				    eqMov(pasoAnim,
+					  posY + tablero.casillas[i][j].origY * 65,
+					  tablero.casillas[i][j].destY * 65,
+					  totalAnim),
+				    3);
+		    }else{
+			img -> draw(posX + i * 65,
+				    posY + j * 65,
+				    3);
+		    }
 		}
 	    
 
@@ -170,21 +209,35 @@ void EstadoJuego::draw(){
 		    if(i == casillaMarcadaX && 
 		       j == casillaMarcadaY){
 
-			img -> draw(posX + i * 65 + (casillaMarcada2X - casillaMarcadaX) * 65 
-				    * (float)pasoAnim/totalAnim,
-				    posY + j * 65 + (casillaMarcada2Y - casillaMarcadaY) * 65 
-				    * (float)pasoAnim/totalAnim,
+			img -> draw(eqMov(pasoAnim,
+					  posX + i * 65,
+					  (casillaMarcada2X - casillaMarcadaX) * 65,
+					  totalAnim),
+
+				    eqMov(pasoAnim,
+					  posY + j * 65,
+					  (casillaMarcada2Y - casillaMarcadaY) * 65,
+					  totalAnim),
+
 				    3);
+
 		    }
 		
 		    else if(i == casillaMarcada2X && 
 			    j == casillaMarcada2Y){
 		
-			img -> draw(posX + i * 65 + (casillaMarcadaX - casillaMarcada2X) * 65 
-				    * (float)pasoAnim/totalAnim,
-				    posY + j * 65 + (casillaMarcadaY - casillaMarcada2Y) * 65 
-				    * (float)pasoAnim/totalAnim,
+			img -> draw(eqMov(pasoAnim,
+					  posX + i * 65,
+					  (casillaMarcadaX - casillaMarcada2X) * 65,
+					  totalAnim),
+
+				    eqMov(pasoAnim,
+					  posY + j * 65,
+					  (casillaMarcadaY - casillaMarcada2Y) * 65,
+					  totalAnim),
+
 				    3);
+
 		    }
 
 		    else{
@@ -215,27 +268,6 @@ void EstadoJuego::draw(){
 		    
 
 		}
-	    
-		else if(estado == eGemasNuevasCayendo){
-		    if(tablero.casillas[i][j].debeCaer){
-			int origY = tablero.casillas[i][j].origY;
-			int destY = tablero.casillas[i][j].destY;
-
-			// Respecto a la posición que marca y = origY, diferencial de movimiento
-			float avance = (destY) * 65;
-
-			// lDEBUG << format("Casilla %i,%i. OrigY: %i, destY: %i, avance: %i") % i % j % origY % destY % avance;
-
-			img -> draw(posX + i * 65,
-				    posY + origY * 65 
-				    + avance * (float)pasoAnim/totalAnim,
-				    3);
-		    }else{
-			img -> draw(posX + i * 65,
-				    posY + j * 65,
-				    3);
-		    }
-		}
 	    } // Fin if (img != NULL)
 
 	    img.reset();
@@ -254,7 +286,8 @@ void EstadoJuego::draw(){
     if(estado == eGemaMarcada){
 	imgSelector -> draw(241 + casillaMarcadaX * 65,
 			    41 + casillaMarcadaY * 65,
-			    4);
+			    4, 1, 1,
+			    Gosu::Color(0xffff0000));
     }
 
     txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));

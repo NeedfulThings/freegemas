@@ -20,6 +20,9 @@ void Tablero::generar(){
 	    for (int j = 0; j < 8; ++j)
 	    {
 		casillas[i][j] = static_cast<tCasilla>((int)Gosu::random(1,8));
+		casillas[i][j].debeCaer = true;
+		casillas[i][j].origY = Gosu::random(-7, -1);
+		casillas[i][j].destY = j - casillas[i][j].origY;
 	    }
 	}
     }while(!comprobar().empty() || !existeSolucion()); // Regenera si hay alguna solución directa o si es imposible
@@ -251,6 +254,15 @@ void Tablero::rellenarEspacios(){
 	}	
 }
 
+void Tablero::cancelarAnimaciones(){
+    for(int x = 0; x < 8; ++x){
+	for(int y = 0; y < 8; ++y){
+	    casillas[x][y].debeCaer = false;
+	    casillas[x][y].origY = y;
+	    casillas[x][y].destY = 0;
+	}
+    }
+}
 
 Tablero::~Tablero(){
     lDEBUG << Log::DES("Tablero");
