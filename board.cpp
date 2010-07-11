@@ -1,4 +1,4 @@
-#include "tablero.h"
+#include "board.h"
 
 
 #include <ctime>
@@ -6,12 +6,12 @@
 #include <boost/format.hpp>
 using boost::format;
 
-Tablero::Tablero(){
-    lDEBUG << Log::CON("Tablero");
-    generar();
+Board::Board(){
+    lDEBUG << Log::CON("Board");
+    generate();
 }
 
-void Tablero::generar(){
+void Board::generate(){
     std::srand(time(0));
 
     do{
@@ -19,81 +19,83 @@ void Tablero::generar(){
 	{
 	    for (int j = 0; j < 8; ++j)
 	    {
-		casillas[i][j] = static_cast<tCasilla>((int)Gosu::random(1,8));
-		casillas[i][j].debeCaer = true;
-		casillas[i][j].origY = Gosu::random(-7, -1);
-		casillas[i][j].destY = j - casillas[i][j].origY;
+		squares[i][j] = static_cast<tSquare>((int)Gosu::random(1,8));
+		squares[i][j].mustFall = true;
+		squares[i][j].origY = Gosu::random(-7, -1);
+		squares[i][j].destY = j - squares[i][j].origY;
 	    }
 	}
-    }while(!comprobar().empty() || existeSolucion().empty()); // Regenera si hay alguna solución directa o si es imposible
-    lDEBUG << "Generado un tablero con posibles soluciones, sin soluciones inmediatas";
+    }while(!check().empty() || solutions().empty()); 
+    // Regenera si hay alguna solución directa o si es imposible
+
+    lDEBUG << "Generado un board con posibles soluciones, sin soluciones inmediatas";
 }
 
-void Tablero::swap(int x1, int y1, int x2, int y2){
-    tCasilla temp = casillas[x1][y1];
+void Board::swap(int x1, int y1, int x2, int y2){
+    tSquare temp = squares[x1][y1];
 
-    casillas[x1][y1] = casillas[x2][y2];
-    casillas[x2][y2] = temp;
+    squares[x1][y1] = squares[x2][y2];
+    squares[x2][y2] = temp;
 }
 
-void Tablero::del(int x, int y){
-    casillas[x][y] = casVacia;
+void Board::del(int x, int y){
+    squares[x][y] = sqEmpty;
 }
 
-vector<coord> Tablero::existeSolucion(){
+vector<coord> Board::solutions(){
     vector<coord> resultados;
     
-    if(!comprobar().empty()){
+    if(!check().empty()){
 	resultados.push_back(coord(-1,-1));
 	return resultados;
     }
 
 
     /* 
-       Comprobaremos todos los posibles tableros
+       Checkemos todos los posibles boards
        (49 * 4) + (32 * 2) aunque hay muchos repetidos
     */
     bool flag = false;
 
 
-    Tablero temp = *this;
+    Board temp = *this;
     for(int x = 0; x < 8; ++x){
 	for(int y = 0; y < 8; ++y){
 	    
-	    // Cambiar con superior y comprobar
+	    // Cambiar con superior y check
 	    if(y > 0){
 		temp.swap(x,y, x,y-1);
-		if(!temp.comprobar().empty()){
+		if(!temp.check().empty()){
 		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x,y, x,y-1);
 	    }
 
-	    // Cambiar con inferior y comprobar
+	    // Cambiar con inferior y check
 	    if(y < 7){
 		temp.swap(x, y, x, y+1);
-		if(!temp.comprobar().empty()){
+		if(!temp.check().empty()){
 		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x, y, x, y+1);
 	    }
 
-	    // Cambiar con celda izquierda y comprobar
+	    // Cambiar con celda izquierda y check
 	    if(x > 0){
 		temp.swap(x, y, x - 1, y);
-		if(!temp.comprobar().empty()){
+		if(!temp.check().empty()){
 		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
 		temp.swap(x, y, x - 1, y);
 	    }
 
-	    // Cambiar con celda derecha y comprobar
+	    // Cambiar con celda derecha y check
 	    if(x < 7){
 		temp.swap(x, y, x + 1, y);
-		if(!temp.comprobar().empty()){
+		if(!temp.check().empty()){
 		    resultados.push_back(coord(x,y));
 		    flag = true;
 		}
@@ -109,7 +111,7 @@ vector<coord> Tablero::existeSolucion(){
 
 }
 
-vector<coord> Tablero::comprobar(){
+vector<coord> Board::check(){
     // Recorremos filas
     tr1::array<tr1::array<int, 8>, 8> comprobHor;
     tr1::array<tr1::array<int, 8>, 8> comprobVer;
@@ -127,7 +129,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de j - 1 hasta el inicio */
 	    for(int k = x - 1; k >= 0; --k){ 
-		if(casillas[x][y] == casillas[k][y] && casillas[x][y] != casVacia){
+		if(squares[x][y] == squares[k][y] && squares[x][y] != sqEmpty){
 		    comprobHor[x][y] = comprobHor[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -136,7 +138,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de j + 1 hasta el final */
 	    for(int k = x + 1; k < 8; ++k){
-		if(casillas[x][y] == casillas[k][y] && casillas[x][y] != casVacia){
+		if(squares[x][y] == squares[k][y] && squares[x][y] != sqEmpty){
 		    comprobHor[x][y] = comprobHor[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -152,7 +154,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de y - 1 hasta el inicio */
 	    for(int k = y - 1; k >= 0; --k){ 
-		if(casillas[x][y] == casillas[x][k] && casillas[x][y] != casVacia){
+		if(squares[x][y] == squares[x][k] && squares[x][y] != sqEmpty){
 		    comprobVer[x][y] = comprobVer[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -161,7 +163,7 @@ vector<coord> Tablero::comprobar(){
 
 	    /* Recorremos de y + 1 hasta el final */
 	    for(int k = y + 1; k < 8; ++k){
-		if(casillas[x][y] == casillas[x][k] && casillas[x][y] != casVacia){
+		if(squares[x][y] == squares[x][k] && squares[x][y] != sqEmpty){
 		    comprobVer[x][y] = comprobVer[x][y] + 1;
 		}else{
 		    break; // Si alguna casilla no coincide, pues pasamos
@@ -187,95 +189,82 @@ vector<coord> Tablero::comprobar(){
 }
 
 
-void Tablero::calcularMovimientosCaida(){
-    lDEBUG << "Tablero::calcularMovimientosCaida";
+void Board::calcFallMovements(){
+    lDEBUG << "Board::calcFallMovements";
     for(int x = 0; x < 8; ++x){
 
 	// De abajo a arriba
 	for(int y = 7; y >= 0; --y){
 
 	    // origY guarda la posición en el inicio de la caida
-	    casillas[x][y].origY = y;
+	    squares[x][y].origY = y;
 	    
-	    // Si la casilla es vacía, bajamos todas las casillas por encima
-	    if(casillas[x][y] == casVacia){
-		lDEBUG << " columna " << x;
-		lDEBUG << "  fila " << y;
-		lDEBUG << format("   Casilla vacía: %i, %i") % x % y;
+	    // Si la casilla es vacía, bajamos todas las squares por encima
+	    if(squares[x][y] == sqEmpty){
 
 		for(int k = y-1; k >= 0; --k){		    
-		    casillas[x][k].debeCaer = true;
-		    casillas[x][k].destY ++;
+		    squares[x][k].mustFall = true;
+		    squares[x][k].destY ++;
 
-		    lDEBUG << format("    origY: %i, destY: %i") % casillas[x][k].origY % casillas[x][k].destY;
 		}
 	    }
 	}
     }
 }
 
-void Tablero::aplicarCaida(){
-    lDEBUG << "Tablero::aplicarCaida";
+void Board::applyFall(){
+    lDEBUG << "Board::applyFall";
     for(int x = 0; x < 8; ++x){
-	// Desde abajo a arriba para no sobreescribir casillas
+	// Desde abajo a arriba para no sobreescribir squares
 
 	for(int y = 7; y >= 0; --y){
-	    if(casillas[x][y].debeCaer && casillas[x][y] != casVacia){
-		int y0 = casillas[x][y].destY;
+	    if(squares[x][y].mustFall && squares[x][y] != sqEmpty){
+		int y0 = squares[x][y].destY;
 		
-		lDEBUG << format(" - (%i,%i) debe caer %i casillas") % x % y % y0;
-
-		casillas[x][y + y0] = casillas[x][y];
-		casillas[x][y] = casVacia;
+		squares[x][y + y0] = squares[x][y];
+		squares[x][y] = sqEmpty;
 	    }
 	}
    }
 }
 
-void Tablero::rellenarEspacios(){
+void Board::fillSpaces(){
 
-    lDEBUG << "Tablero::rellenarEspacios";
+    lDEBUG << "Board::fillSpaces";
 
 	for(int x = 0; x < 8; ++x){
 	    // Contar cuántos espacios hay que bajar
 	    int saltos = 0;
 
 	    for(int y = 0; y < 8; ++y){
-		if(casillas[x][y] != casVacia) break;
+		if(squares[x][y] != sqEmpty) break;
 		saltos ++;
 	    }
 
-	    // lDEBUG << format("%i saltos calculados para la columna %i") % saltos % x;
-
 	    for(int y = 0; y < 8; ++y){
-		if(casillas[x][y] == casVacia) {
+		if(squares[x][y] == sqEmpty) {
 		    
-		    // lDEBUG << format("(%i,%i) está vacía, rellenar. OrigY: %i. Saltos: %i") % x % y % (y - saltos) % saltos;
-
-		    casillas[x][y] = static_cast<tCasilla> ( (int)Gosu::random(1,8) );
-
+		    squares[x][y] = static_cast<tSquare> ( (int)Gosu::random(1,8) );
 		    
-		    casillas[x][y].debeCaer = true;  
-		    casillas[x][y].origY = y - saltos;
-		    casillas[x][y].destY = saltos;
-//*/
-
+		    squares[x][y].mustFall = true;  
+		    squares[x][y].origY = y - saltos;
+		    squares[x][y].destY = saltos;
 		}		
 	    }
 	}	
 }
 
-void Tablero::cancelarAnimaciones(){
+void Board::endAnimations(){
     for(int x = 0; x < 8; ++x){
 	for(int y = 0; y < 8; ++y){
-	    casillas[x][y].debeCaer = false;
-	    casillas[x][y].origY = y;
-	    casillas[x][y].destY = 0;
+	    squares[x][y].mustFall = false;
+	    squares[x][y].origY = y;
+	    squares[x][y].destY = 0;
 	}
     }
 }
 
-Tablero::~Tablero(){
-    lDEBUG << Log::DES("Tablero");
+Board::~Board(){
+    lDEBUG << Log::DES("Board");
 }
 

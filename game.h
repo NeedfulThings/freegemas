@@ -24,9 +24,8 @@
  * 02110-1301, USA.
  */
 
-
-#ifndef _JUEGO_H_
-#define _JUEGO_H_
+#ifndef _GAME_H_
+#define _GAME_H_
 
 #include <Gosu/Gosu.hpp>
 
@@ -36,7 +35,7 @@ using namespace std;
 
 #include "log.h"
 
-class Estado;
+class State;
 
 /**
  * @class Juego
@@ -48,24 +47,27 @@ class Estado;
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
  */
-class Juego : public Gosu::Window{
+class Game : public Gosu::Window{
 
 public:
-    Juego ();
+    Game ();
 
     void update();
 
     void draw();
 
-    void buttonDown(Gosu::Button boton);
+    void buttonDown(Gosu::Button button);
 
-    void cambiarEstado(string S);
-    ~Juego();
+    void changeState(string S);
+
+    ~Game();
 
 private:
-    tr1::shared_ptr<Estado> estadoActual;
-    tr1::shared_ptr<Gosu::Image> puntero;
-    string estadoActualString;
+    tr1::shared_ptr<State> currentState;
+    string currentStateString;
+
+    tr1::shared_ptr<Gosu::Image> mousePointer;
+
 };
 
 #endif /* _JUEGO_H_ */

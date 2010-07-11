@@ -16,7 +16,7 @@ OUTPUT += programa
 
 all: $(OUTPUT)
 
-SRCS += main.cpp log.cpp juego.cpp estado.cpp estadoJuego.cpp tablero.cpp
+SRCS += main.cpp log.cpp game.cpp state.cpp stateGame.cpp board.cpp
 
 OBJS += $(addsuffix .o,$(basename $(SRCS)))
 
@@ -33,7 +33,7 @@ clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
 log.o: log.h
-juego.o: juego.h log.h estado.h estadoJuego.h
-estado.o: estado.h log.h estadoJuego.h
-estadoJuego.o: estadoJuego.h estado.h juego.h log.h tablero.h
-tablero.o: tablero.h log.h
+game.o: game.h log.h state.h stateGame.h
+state.o: state.h log.h stateGame.h
+stateGame.o: stateGame.h state.h game.h log.h board.h
+board.o: board.h log.h

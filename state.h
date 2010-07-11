@@ -1,4 +1,4 @@
-// estado.h --- Clase base estado
+// state.h --- Clase base state
 
 // Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
 
@@ -19,8 +19,8 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301, USA.
 
-#ifndef _ESTADO_H_
-#define _ESTADO_H_
+#ifndef _STATE_H_
+#define _STATE_H_
 
 #include <Gosu/Gosu.hpp>
 #include <iostream>
@@ -29,51 +29,53 @@
 
 using namespace std;
 
-class Juego;
+class Game;
 
 /**
- * @class Estado
+ * @class State
  * 
- * @brief Clase base para los diferentes estados del juego.
+ * @brief Clase base para los diferentes states del juego.
  *
- * Esta clase abstracta tiene los métodos a los que llamará la clase de control (Juego).
- * Cada estado deberá implementar estos métodos con las acciones que crea conveniente.
+ * Esta clase abstracta tiene los métodos a los que llamará la clase de control (Game).
+ * Cada state deberá implementar estos métodos con las acciones que crea conveniente.
  * No puede instanciarse por sí misma, debe crearse una clase heredada.
 */
 
-class Estado{
+class State{
 protected:
     /**
      @brief Puntero al padre creador.
 
-     Nos sirve para poder cambiar de estado (llamando a #Juego::cambiarEstado()), acceder al sistema gráfico (con Juego::graphics()) y otras acciones.
+     Nos sirve para poder cambiar de state (llamando a #Game::cambiarState()), acceder al sistema gráfico (con Game::graphics()) y otras acciones.
     **/
-    Juego * padre;
+    Game * parent;
 public:
     /**
-       @brief Constructor - Crea un estado.
+       @brief Constructor - Crea un state.
 
-       Recibe un puntero a Juego, que será quien lleve el control de los estados.
+       Recibe un puntero a Game, que será quien lleve el control de los states.
 
-       @param p puntero a la clase Juego que controla la aplicación
+       @param p puntero a la clase Game que controla la aplicación
     **/
-    Estado(Juego * p);
+    State(Game * p);
 
+    /*
     /// Si es necesario lanzar acciones independientes del constructor, irán aquí.
     virtual void lanzar(){
 	lDEBUG << "lanzar";
     }
+    */
 
-    /// Virtual puro. Cada estado implementa la lógica de control aquí.
+    /// Virtual puro. Cada state implementa la lógica de control aquí.
     virtual void update() = 0;
 
-    /// Virtual puro. Cada estado implementa el redibujado aquí.
+    /// Virtual puro. Cada state implementa el redibujado aquí.
     virtual void draw() = 0;
 
-    /// Opcionalmente los estados pueden responder a la entrada redefiniendo este método.
+    /// Opcionalmente los states pueden responder a la entrada redefiniendo este método.
     virtual void buttonDown(Gosu::Button){};
 
-    virtual ~Estado();
+    virtual ~State();
 };
 
-#endif /* _ESTADO_H_ */
+#endif /* _STATE_H_ */

@@ -1,5 +1,5 @@
 /**
- * @file estadoJuego.h
+ * @file stateJuego.h
  * 
  * @author José Tomás Tocino García
  * @date 2010
@@ -25,8 +25,8 @@
  */
 
 
-#ifndef _ESTADOJUEGO_H_
-#define _ESTADOJUEGO_H_
+#ifndef _STATEGAME_H_
+#define _STATEGAME_H_
 
 #include <Gosu/Gosu.hpp>
 
@@ -34,31 +34,31 @@
 #include <tr1/memory>
 using namespace std;
 
-#include "estado.h"
-#include "tablero.h"
+#include "state.h"
+#include "board.h"
 
-class Juego;
+class Game;
 
 /**
- * @class EstadoJuego
+ * @class StateGame
  *
- * @brief Estado de juego principal, con tablero, gemas y demás.
+ * @brief State de game principal, con board, gemas y demás.
  *
- * Este es el estado en el que el jugador puede interactuar con el tablero y jugar.
+ * Este es el state en el que el jugador puede interactuar con el board y jugar.
  *
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
  */
 
 
-class EstadoJuego : public Estado{
+class StateGame : public State{
 public:
-    EstadoJuego(Juego * p);
+    StateGame(Game * p);
     void update();
     void draw();
     void buttonDown(Gosu::Button B);
 
-    ~EstadoJuego();
+    ~StateGame();
 
 private:
 
@@ -77,30 +77,39 @@ private:
     coord coordPista;
 
     /// Carga las imágenes de las gemas
-    void cargarGemas();
+    //void cargarGemas();
+
+    void loadGems();
 
     /// Indica si está sobre una gema
-    bool sobreGema(int mX, int mY);
+    //bool sobreGema(int mX, int mY);
+
+    bool overGem(int mX, int mY);
 
     /// Devuelve las coordenadas de casilla correspondientes a las coordenadas de ratón mX,mY.
-    pair<int,int> dameGema(int mX, int mY);
+    //pair<int,int> dameGema(int mX, int mY);
+
+    pair<int,int> getCoord(int mX, int mY);
+
 
     /// Regenera la imagen del marcador de puntos
-    void repintarPuntos();
+    //void repintarPuntos();
 
-    Tablero tablero;
+    void redrawPoints();
 
-    enum tEstado{
+    Board board;
+
+    enum tState{
 	eInicialGemas,
 	eEspera,
 	eGemaMarcada,
 	eGemasCambiando,
 	eGemasDesapareciendo,
 	eGemasNuevasCayendo,
-	eDesapareceTablero
+	eDesapareceBoard
     };
 
-    tEstado estado;
+    tState state;
 
     /// Coordenadas de la primera casilla marcada
     int casillaMarcadaX, casillaMarcadaY;
@@ -117,18 +126,18 @@ private:
     /// Total de pasos en la animación inicial
     int totalAnimInit;
 
-    /// Contenedor temporal de las casillas a borrar
-    vector<coord> casillasGanadoras;
+    /// Contenedor temporal de las squares a borrar
+    vector<coord> groupedSquares;
 
-    tr1::shared_ptr<Gosu::Image> imgTablero;
+    tr1::shared_ptr<Gosu::Image> imgBoard;
 
-    tr1::shared_ptr<Gosu::Image> imgBlanca;
-    tr1::shared_ptr<Gosu::Image> imgRoja;
-    tr1::shared_ptr<Gosu::Image> imgLila;
-    tr1::shared_ptr<Gosu::Image> imgNaranja;
-    tr1::shared_ptr<Gosu::Image> imgVerde;
-    tr1::shared_ptr<Gosu::Image> imgAmarilla;
-    tr1::shared_ptr<Gosu::Image> imgAzul;
+    tr1::shared_ptr<Gosu::Image> imgWhite;
+    tr1::shared_ptr<Gosu::Image> imgRed;
+    tr1::shared_ptr<Gosu::Image> imgPurple;
+    tr1::shared_ptr<Gosu::Image> imgOrange;
+    tr1::shared_ptr<Gosu::Image> imgGreen;
+    tr1::shared_ptr<Gosu::Image> imgYellow;
+    tr1::shared_ptr<Gosu::Image> imgBlue;
 
     tr1::shared_ptr<Gosu::Image> imgSelector;
 
@@ -136,4 +145,4 @@ private:
     int puntos;
 };
 
-#endif /* _ESTADOJUEGO_H_ */
+#endif /* _STATEGAME_H_ */

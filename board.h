@@ -1,5 +1,5 @@
-#ifndef _TABLERO_H_
-#define _TABLERO_H_
+#ifndef _BOARD_H_
+#define _BOARD_H_
 
 #include <Gosu/Gosu.hpp>
 
@@ -9,12 +9,12 @@ using namespace std;
 
 #include "log.h"
 
-enum tCasilla { casVacia , casBlanca , casRoja, casLila, casNaranja, casVerde, casAmarilla, casAzul };
+enum tSquare { sqEmpty, sqWhite, sqRed, sqPurple, sqOrange, sqGreen, sqYellow, sqBlue };
 
 /**
  * @class Casilla
  *
- * @brief Representa una casilla del tablero.
+ * @brief Representa una casilla del board.
  *
  * Además de la gema, tiene atributos para la gestión de las animaciones 
  * cuando desaparecen otras gemas.
@@ -24,23 +24,23 @@ enum tCasilla { casVacia , casBlanca , casRoja, casLila, casNaranja, casVerde, c
  */
 
 
-struct Casilla{
+struct Square{
     /// Tipo de gema que contiene la casilla.
-    tCasilla tipo;
+    tSquare tipo;
 
-    Casilla(const tCasilla & t = casVacia) : origY(0), destY(0), debeCaer(false){
+    Square(const tSquare & t = sqEmpty) : origY(0), destY(0), mustFall(false){
 	tipo = t;
     }
 
-    bool operator==(const Casilla & C){
+    bool operator==(const Square & C){
 	return C.tipo == tipo;
     }
 
-    bool operator==(const tCasilla & t){
+    bool operator==(const tSquare & t){
 	return tipo == t;
     }
 
-    operator tCasilla(){ return tipo; }
+    operator tSquare(){ return tipo; }
 
     /// Posición inicial vertical de la casilla - Se usa para hacer las animaciones
     int origY;
@@ -55,7 +55,7 @@ struct Casilla{
     int destY; 
     
     /// Indica si debe o no caer
-    bool debeCaer; 
+    bool mustFall; 
 };
 
 /**
@@ -75,22 +75,22 @@ struct coord{
 };
 
 /**
- * @class Tablero
+ * @class Board
  *
- * @brief Representa un tablero de juego en un momento dado.
+ * @brief Representa un board de juego en un momento dado.
  *
  * Contiene una matriz de 8x8 con el contenido de las casillas
- * además de algoritmos que permiten hacer comprobaciones sobre el tablero.
+ * además de algoritmos que permiten hacer comprobaciones sobre el board.
  *
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
  */
 
 
-class Tablero{
+class Board{
 public:
-    Tablero();
-    ~Tablero();
+    Board();
+    ~Board();
 
     /// Intercambia el valor de la casilla x1,y1 por el de x2,y2
     void swap(int x1, int y1, int x2, int y2);
@@ -98,8 +98,8 @@ public:
     /// Vacía la casilla x,y
     void del(int x, int y);
     
-    /// Genera un tablero nuevo completamente aleatorio
-    void generar();
+    /// Genera un board nuevo completamente aleatorio
+    void generate();
 
     /** Calcula las posiciones de las casillas tras borrar otras casillas. 
 
@@ -108,14 +108,17 @@ public:
 	una nueva posición.
     */
 
-    void calcularMovimientosCaida();
+    void calcFallMovements();
+    // void calcularMovimientosCaida();
 
 
     /// Aplica los cambios calculados en la función calcularMovimientosCaida
-    void aplicarCaida();
+    //void aplicarCaida();
+    void applyFall();
 
     /// Rellena los espacios vacíos con nuevas casillas aleatorias
-    void rellenarEspacios();
+    //void rellenarEspacios();
+    void fillSpaces();
 
     /**
      * @brief Comprueba si hay algún grupo de tres o más casillas en horizontal o vertical
@@ -124,14 +127,17 @@ public:
      *
      */
 
-    vector<coord> comprobar();
+    //vector<coord> comprobar();
+    vector<coord> check();
 
-    /// Comprueba si existen movimientos con los que hacer algún grupo en el tablero actual
-    vector<coord> existeSolucion();
+    /// Comprueba si existen movimientos con los que hacer algún grupo en el board actual
+    ///vector<coord> existeSolucion();
+    vector<coord> solutions();
 
-    void cancelarAnimaciones();
+    //void cancelarAnimaciones();
+    void endAnimations();
 
     /// Matriz de casillas
-    tr1::array< tr1::array<Casilla, 8>, 8> casillas;
+    tr1::array< tr1::array<Square, 8>, 8> squares;
 };
-#endif /* _TABLERO_H_ */
+#endif /* _BOARD_H_ */
