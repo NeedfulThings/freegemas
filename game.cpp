@@ -1,9 +1,10 @@
- #include "game.h"
+#include "game.h"
 
- #include "log.h"
- #include "state.h"
+#include "log.h"
+#include "state.h"
 
- #include "stateGame.h"
+#include "stateGame.h"
+#include "stateMainMenu.h"
 
 
 Game::Game () : Gosu::Window(800, 600, false) {
@@ -12,7 +13,7 @@ Game::Game () : Gosu::Window(800, 600, false) {
     
     mousePointer.reset(new Gosu::Image(graphics(), L"media/handCursor.png"));
     
-    changeState("estadoGame");
+    changeState("stateMainMenu");
 }
 
 void Game::update(){
@@ -32,7 +33,11 @@ void Game::changeState(string S){
     if(S == currentStateString)
 	return;
 
-    if(S == "estadoGame"){
+    if(S == "stateMainMenu"){
+	currentState . reset(new StateMainMenu(this));
+	currentStateString = "stateMainMenu";
+    }
+    else if(S == "stateGame"){
 	currentState . reset(new StateGame(this));
 	currentStateString = "estadoGame";
     }

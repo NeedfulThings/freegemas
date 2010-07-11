@@ -48,6 +48,7 @@ void StateGame::redrawPoints(){
 }
 
 void StateGame::update(){
+
     if(state == eInicialGemas){
 	if(++pasoAnim == totalAnimInit){
 	    lDEBUG << "Fichas iniciales colocadas";
@@ -155,6 +156,8 @@ void StateGame::update(){
 	    pasoAnim = 0;
 	}
     }
+
+    if(mostrandoPista != -1) mostrandoPista --;
 
 }
 
@@ -327,7 +330,7 @@ void StateGame::draw(){
 			    41 + coordPista.y * 65,
 			    3, 1, 1,
 			    Gosu::Color((float)mostrandoPista / totalAnimPista * 255, 0, 255, 0));
-	mostrandoPista --;
+
     }
 
     txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
