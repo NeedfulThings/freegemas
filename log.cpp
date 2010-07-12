@@ -16,12 +16,12 @@ string Log::ToString(TLogLevel T){
 	break;
     }
 }
+
 string Log::cRojo = "\033[01;31m";
 string Log::cVerde =  "\033[01;32m";
 string Log::cAzul = "\033[01;34m";
 string Log::cAmar = "\033[01;33m";
 string Log::cDef = "\033[00m";
-
 
 string Log::CON(string s){
     return cVerde + "[++ Constructor] " + s + cDef;
