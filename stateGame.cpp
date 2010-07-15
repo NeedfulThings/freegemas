@@ -25,8 +25,8 @@ StateGame::StateGame(Game * p) : State(p){
 
     state = eInicialGemas;
 
-    casillaMarcadaX = -1;
-    casillaMarcadaY = -1;
+    selectedSquareFirst.x = -1;
+    selectedSquareFirst.y = -1;
 
 
     loadGems();
@@ -72,7 +72,6 @@ void StateGame::update(){
 
     if(state == eInicialGemas){
 	if(++pasoAnim == totalAnimInit){
-	    lDEBUG << "Fichas iniciales colocadas";
 
 	    state = eEspera;
 	    board.endAnimations();
@@ -87,10 +86,9 @@ void StateGame::update(){
 
     else if(state == eGemasCambiando){	
 	if(++pasoAnim == totalAnim){
-	    lDEBUG << "Fin eGemasCambiando";
 
 	    state = eGemasDesapareciendo;
-	    board.swap(casillaMarcadaX, casillaMarcadaY,
+	    board.swap(selectedSquareFirst.x, selectedSquareFirst.y,
 			 casillaMarcada2X, casillaMarcada2Y);
 
 	    createFloatingScores();
@@ -101,7 +99,6 @@ void StateGame::update(){
 
     else if(state == eGemasDesapareciendo){
 	if(pasoAnim++ == totalAnim){
-	    lDEBUG << "Fin eGemasDesapareciendo";
 
 	    state = eGemasNuevasCayendo;
 	    
@@ -134,7 +131,6 @@ void StateGame::update(){
 
     else if(state == eGemasNuevasCayendo){
 	if(pasoAnim++ == totalAnim){
-	    lDEBUG << "Fin eGemasNuevasCayendo";
 
 	    state = eEspera;
 	    pasoAnim = 0;
@@ -178,7 +174,6 @@ void StateGame::update(){
 
     else if(state == eDesapareceBoard){
 	if(++pasoAnim == totalAnimInit){
-	    lDEBUG << "Board desaparecido";
 
 	    state = eInicialGemas;
 	    board.generate();
@@ -275,17 +270,17 @@ void StateGame::draw(){
 	    
 
 		else if(state == eGemasCambiando){
-		    if(i == casillaMarcadaX && 
-		       j == casillaMarcadaY){
+		    if(i == selectedSquareFirst.x && 
+		       j == selectedSquareFirst.y){
 
 			img -> draw(eqMov(pasoAnim,
 					  posX + i * 65,
-					  (casillaMarcada2X - casillaMarcadaX) * 65,
+					  (casillaMarcada2X - selectedSquareFirst.x) * 65,
 					  totalAnim),
 
 				    eqMov(pasoAnim,
 					  posY + j * 65,
-					  (casillaMarcada2Y - casillaMarcadaY) * 65,
+					  (casillaMarcada2Y - selectedSquareFirst.y) * 65,
 					  totalAnim),
 
 				    3);
@@ -297,12 +292,12 @@ void StateGame::draw(){
 		
 			img -> draw(eqMov(pasoAnim,
 					  posX + i * 65,
-					  (casillaMarcadaX - casillaMarcada2X) * 65,
+					  (selectedSquareFirst.x - casillaMarcada2X) * 65,
 					  totalAnim),
 
 				    eqMov(pasoAnim,
 					  posY + j * 65,
-					  (casillaMarcadaY - casillaMarcada2Y) * 65,
+					  (selectedSquareFirst.y - casillaMarcada2Y) * 65,
 					  totalAnim),
 
 				    3);
@@ -345,14 +340,14 @@ void StateGame::draw(){
     int mY = parent -> input().mouseY();
 
     if(overGem(mX, mY) ){
-	imgSelector -> draw( 241 + getCoord(mX, mY).first * 65,
-			     41 + getCoord(mX, mY).second * 65,
+	imgSelector -> draw( 241 + getCoord(mX, mY).x * 65,
+			     41 + getCoord(mX, mY).y * 65,
 			     4);
     }
 
     if(state == eGemaMarcada){
-	imgSelector -> draw(241 + casillaMarcadaX * 65,
-			    41 + casillaMarcadaY * 65,
+	imgSelector -> draw(241 + selectedSquareFirst.x * 65,
+			    41 + selectedSquareFirst.y * 65,
 			    4, 1, 1,
 			    Gosu::Color(0xffff0000));
     }
@@ -373,9 +368,56 @@ bool StateGame::overGem(int mX, int mY){
 	    mY > 41 && mY < 41 + 65 * 8);
 }
 
-pair<int,int> StateGame::getCoord(int mX, int mY){
-    return make_pair((mX - 241) / 65 , 
-		     (mY - 41) / 65 );
+coord StateGame::getCoord(int mX, int mY){
+    return coord((mX - 241) / 65 , 
+		 (mY - 41) / 65 );
+}
+
+bool StateGame::checkClickedSquare(int mX, int mY){
+    coord res = getCoord(mX, mY);
+    
+    casillaMarcada2X = res.x;
+    casillaMarcada2Y = res.y;
+
+    bool returnValue = false;
+
+    // Si es una gema CONTIGUA
+    if(abs(selectedSquareFirst.x - casillaMarcada2X) 
+       + abs(selectedSquareFirst.y - casillaMarcada2Y) == 1){ 
+	
+	Board temporal = board;
+	temporal.swap(selectedSquareFirst.x, selectedSquareFirst.y,
+		      casillaMarcada2X, casillaMarcada2Y);
+	
+	groupedSquares = temporal.check();
+	
+	// SI ES UN MOVIMIENTO GANADOR
+	if(! groupedSquares.empty()){
+	    state = eGemasCambiando;
+	    returnValue = true;
+	}else{
+	    returnValue = false;
+	}
+    }
+
+    return returnValue;
+}
+
+void StateGame::buttonUp (Gosu::Button B){
+    if(B == Gosu::msLeft){
+	clicking = false;
+
+	if(state == eGemaMarcada){
+	    int mX = parent -> input().mouseX();
+	    int mY = parent -> input().mouseY();
+
+	    coord res = getCoord(mX, mY);
+
+	    if(!(res == selectedSquareFirst)){
+		checkClickedSquare(mX, mY);
+	    }
+	}
+    }
 }
 
 void StateGame::buttonDown (Gosu::Button B){
@@ -384,65 +426,30 @@ void StateGame::buttonDown (Gosu::Button B){
     }
 
     else if(B == Gosu::msLeft){ // Se pulsó el ratón
+	clicking = true;
 
 	int mX = parent -> input().mouseX();
 	int mY = parent -> input().mouseY();
-	lDEBUG << "Click @ " << mX << "," << mY;
 
 	if(overGem(mX, mY)){ // Si se pulsó sobre una gema
 	
 	    if(state == eEspera){ // Si no hay ninguna gema marcada
 		state = eGemaMarcada;
-		casillaMarcadaX = getCoord(mX, mY).first;
-		casillaMarcadaY = getCoord(mX, mY).second;
+		selectedSquareFirst.x = getCoord(mX, mY).x;
+		selectedSquareFirst.y = getCoord(mX, mY).y;
 	    }
 
 	    else if(state == eGemaMarcada){ // Si ya había una gema marcada
-		pair<int,int> res = getCoord(mX, mY);
-
-		casillaMarcada2X = res.first;
-		casillaMarcada2Y = res.second;
-
-		// Si es una gema CONTIGUA
-		if(abs(casillaMarcadaX - casillaMarcada2X) 
-		   + abs(casillaMarcadaY - casillaMarcada2Y) == 1){ 
-
-		    lDEBUG << "Casilla contigua";
-
-		    Board temporal = board;
-		    temporal.swap(casillaMarcadaX, casillaMarcadaY,
-				  casillaMarcada2X, casillaMarcada2Y);
-
-		    groupedSquares = temporal.check();
-		    
-		    // SI ES UN MOVIMIENTO GANADOR
-		    if(! groupedSquares.empty()){
-			lDEBUG << "Movimiento ganador!";
-
-			state = eGemasCambiando;
-		    }
-		    
-		    // SI ES CONTIGUA pero no es un movimiento ganador
-		    else{
-			casillaMarcadaX = -1;
-			casillaMarcadaY = -1;
-			state = eEspera;		    
-		    }
-		}
-		
-		// Si NO ES contigua
-		else{
-		    casillaMarcadaX = -1;
-		    casillaMarcadaY = -1;
+		if(!checkClickedSquare(mX, mY)){
+		    selectedSquareFirst.x = -1;
+		    selectedSquareFirst.y = -1;
 		    state = eEspera;		    
 		}
 	    }
 	}
-
     }
 
     else if(B == Gosu::kbH){
-	lDEBUG << "Hint...";
 	vector<coord> posibilidades = board.solutions();
 	if(posibilidades.empty()){
 

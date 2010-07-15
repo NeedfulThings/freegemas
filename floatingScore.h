@@ -16,7 +16,8 @@ public:
     FloatingScore(Gosu::Graphics & g, int score, int x, int y) : 
 	scoreText(boost::lexical_cast<string>(score)), x_(x), y_(y), currentStep(0), totalSteps(100){
 
-	lDEBUG << Log::CON("FloatingScore") << " " << x << "," << y;
+	// lDEBUG << Log::CON("FloatingScore") << " " << x << "," << y;
+
 	Gosu::Bitmap B = Gosu::createText(Gosu::widen(scoreText),
 					  L"media/fuentelcd.ttf", 60);
 	scoreImage.reset(new Gosu::Image(g, B));

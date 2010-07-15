@@ -58,6 +58,8 @@ public:
 
     void buttonDown(Gosu::Button button);
 
+    void buttonUp(Gosu::Button button);
+
     void changeState(string S);
 
     ~Game();

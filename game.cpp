@@ -29,6 +29,10 @@ void Game::buttonDown(Gosu::Button button){
     currentState -> buttonDown(button);
 }
 
+void Game::buttonUp(Gosu::Button button){
+    currentState -> buttonUp(button);
+}
+
 void Game::changeState(string S){
     if(S == currentStateString)
 	return;

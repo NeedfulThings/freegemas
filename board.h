@@ -71,9 +71,9 @@ struct Square{
 
 struct coord{
     int x, y;
-    coord(int x = 0, int y = 0) : x(x), y(y) { }
+    coord(int x = -1, int y = -1) : x(x), y(y) { }
 
-    bool operator ==(const coord & c){
+    bool operator ==(const coord & c) const{
 	return (c.x == x && 
 		c.y == y);
     }

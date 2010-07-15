@@ -59,7 +59,7 @@ public:
     void update();
     void draw();
     void buttonDown(Gosu::Button B);
-
+    void buttonUp(Gosu::Button B);
     ~StateGame();
 
 private:
@@ -91,13 +91,16 @@ private:
     /// Devuelve las coordenadas de casilla correspondientes a las coordenadas de ratón mX,mY.
     //pair<int,int> dameGema(int mX, int mY);
 
-    pair<int,int> getCoord(int mX, int mY);
+    coord getCoord(int mX, int mY);
 
     /// Regenera la imagen del marcador de puntos
 
     void redrawScoreboard();
 
     void createFloatingScores();
+    
+    bool checkClickedSquare(int mX, int mY);
+
     Board board;
 
     enum tState{
@@ -114,6 +117,8 @@ private:
 
     /// Coordenadas de la primera casilla marcada
     int casillaMarcadaX, casillaMarcadaY;
+
+    coord selectedSquareFirst;
 
     /// Coordenadas de la segunda casilla marcada
     int casillaMarcada2X, casillaMarcada2Y;
@@ -148,6 +153,8 @@ private:
     vector<FloatingScore> scoreSet;
 
     int acumulator;
+
+    bool clicking;
 };
 
 #endif /* _STATEGAME_H_ */

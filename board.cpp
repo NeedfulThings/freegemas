@@ -29,19 +29,19 @@ void Board::generate(){
 	    }
 	}
 	if(!check().empty()){
-	    lDEBUG << "Generated board has matches. Repeating...";
+	    // lDEBUG << "Generated board has matches. Repeating...";
 	    repeat = true;
 	} 
 
 	else if(solutions().empty()){
-	    lDEBUG << "Generated board has no solutions. Repeating...";
+	    // lDEBUG << "Generated board has no solutions. Repeating...";
 	    repeat = true;
 	} 
 
     }while(repeat);
     // Regenera si hay alguna solución directa o si es imposible
 
-    lDEBUG << "Generado un board con posibles soluciones, sin soluciones inmediatas";
+    lDEBUG << "The generated board has no direct matches but some possible solutions.";
 }
 
 void Board::swap(int x1, int y1, int x2, int y2){
@@ -118,9 +118,7 @@ vector<coord> Board::solutions(){
 	    
 	}
     }
-    if(resultados.size() > 0){
-	lDEBUG << "The checked board has at least one valid movement";
-    }
+
     return resultados;
 
 }
@@ -194,7 +192,8 @@ ostream& operator <<(ostream& out, Board & B){
 }
 
 void Board::calcFallMovements(){
-    lDEBUG << "Board::calcFallMovements";
+    //lDEBUG << "Board::calcFallMovements";
+
     for(int x = 0; x < 8; ++x){
 
 	// De abajo a arriba
@@ -217,7 +216,8 @@ void Board::calcFallMovements(){
 }
 
 void Board::applyFall(){
-    lDEBUG << "Board::applyFall";
+    //lDEBUG << "Board::applyFall";
+ 
     for(int x = 0; x < 8; ++x){
 	// Desde abajo a arriba para no sobreescribir squares
 
@@ -234,7 +234,7 @@ void Board::applyFall(){
 
 void Board::fillSpaces(){
 
-    lDEBUG << "Board::fillSpaces";
+    //lDEBUG << "Board::fillSpaces";
 
 	for(int x = 0; x < 8; ++x){
 	    // Contar cuántos espacios hay que bajar

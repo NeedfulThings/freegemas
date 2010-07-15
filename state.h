@@ -75,6 +75,8 @@ public:
     /// Opcionalmente los states pueden responder a la entrada redefiniendo este método.
     virtual void buttonDown(Gosu::Button){};
 
+    virtual void buttonUp(Gosu::Button){};
+
     virtual ~State();
 };
 
