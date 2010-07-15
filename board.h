@@ -3,6 +3,9 @@
 
 #include <Gosu/Gosu.hpp>
 
+#include <boost/foreach.hpp>
+
+#include <algorithm>
 #include <vector>
 #include <tr1/array>
 using namespace std;
@@ -69,9 +72,68 @@ struct Square{
 struct coord{
     int x, y;
     coord(int x = 0, int y = 0) : x(x), y(y) { }
+
     bool operator ==(const coord & c){
-	return (c.x == x && c.y == y);
+	return (c.x == x && 
+		c.y == y);
     }
+
+    friend ostream& operator << (ostream& out, coord & C){
+	out << "(" << C.x << "," << C.y << ")";
+
+	return out;
+    }
+};
+
+class Match{
+public:
+    void push_back(const coord & c){
+	matchedSquares.push_back(c);
+    }
+
+    coord midSquare() const{
+	return matchedSquares[ matchedSquares.size() / 2];
+    }
+
+    int numSquares() const{
+	return matchedSquares.size();
+    }
+
+    bool find(coord c) {
+	return (std::find(matchedSquares.begin(), matchedSquares.end(), c) 
+		!= matchedSquares.end());
+    }
+    int size() const{
+	return matchedSquares.size();
+    }
+    coord operator[](size_t n) const{
+	return matchedSquares[n];
+    }
+
+    friend ostream& operator << (ostream& out, Match & M){
+	out << "Match (" << M.matchedSquares.size() << "): ";
+	for (size_t i = 0; i < M.matchedSquares.size(); ++i)
+	{
+	    out << M.matchedSquares[i] << ", ";
+	}
+	
+	return out;
+    }
+
+    vector<coord> matchedSquares;
+};
+
+class MultipleMatch : public vector<Match>{
+public:
+    bool matched(coord C){
+	vector<Match>::iterator it;
+	for(it = begin(); it != end(); ++it){
+	    if(it -> find(C))
+	       return true;
+	}
+	return false;
+    }
+    
 };
 
 /**
@@ -128,7 +190,7 @@ public:
      */
 
     //vector<coord> comprobar();
-    vector<coord> check();
+    MultipleMatch check();
 
     /// Comprueba si existen movimientos con los que hacer algún grupo en el board actual
     ///vector<coord> existeSolucion();
@@ -139,5 +201,6 @@ public:
 
     /// Matriz de casillas
     tr1::array< tr1::array<Square, 8>, 8> squares;
+    friend ostream& operator <<(ostream& out, Board & B);
 };
 #endif /* _BOARD_H_ */

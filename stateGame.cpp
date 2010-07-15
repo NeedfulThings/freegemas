@@ -7,6 +7,10 @@
 
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/foreach.hpp>
+#include <boost/bind.hpp>
+
+#define foreach BOOST_FOREACH
 
 using boost::format;
 
@@ -33,13 +37,15 @@ StateGame::StateGame(Game * p) : State(p){
 
     puntos = 0;
 
-    redrawPoints();
+    redrawScoreboard();
 
     mostrandoPista = -1;
     totalAnimPista = 50;
+
+    acumulator = 1;
 }
 
-void StateGame::redrawPoints(){
+void StateGame::redrawScoreboard(){
     Gosu::Bitmap temporal = Gosu::createText(boost::lexical_cast<wstring>(puntos),
 					     L"media/fuentelcd.ttf", 33, 0, 190, Gosu::taRight);
 
@@ -47,7 +53,22 @@ void StateGame::redrawPoints(){
 				    temporal));
 }
 
+void StateGame::createFloatingScores(){
+    acumulator ++;
+    foreach(Match & m, groupedSquares){
+	scoreSet.push_back(FloatingScore(parent -> graphics(),
+					 m.size() * 5 * acumulator,
+					 m.midSquare().x,
+					 m.midSquare().y));
+	puntos += m.size() * 5 * acumulator;       
+    }
+
+    redrawScoreboard();
+}
 void StateGame::update(){
+
+    scoreSet.erase(remove_if(scoreSet.begin(), scoreSet.end(), 
+			     boost::bind<bool>(&FloatingScore::ended, _1)), scoreSet.end());
 
     if(state == eInicialGemas){
 	if(++pasoAnim == totalAnimInit){
@@ -60,6 +81,10 @@ void StateGame::update(){
 	}
     }
 
+    else if(state == eEspera){
+	acumulator = 0;
+    }
+
     else if(state == eGemasCambiando){	
 	if(++pasoAnim == totalAnim){
 	    lDEBUG << "Fin eGemasCambiando";
@@ -67,6 +92,8 @@ void StateGame::update(){
 	    state = eGemasDesapareciendo;
 	    board.swap(casillaMarcadaX, casillaMarcadaY,
 			 casillaMarcada2X, casillaMarcada2Y);
+
+	    createFloatingScores();
 
 	    pasoAnim = 0;
 	}
@@ -78,12 +105,15 @@ void StateGame::update(){
 
 	    state = eGemasNuevasCayendo;
 	    
-	    puntos += 10 * groupedSquares.size();
-	    redrawPoints();
+	    //TO-DO
+	    //puntos += 10 * groupedSquares.size();
+	    redrawScoreboard();
 
 	    for(size_t i = 0; i < groupedSquares.size(); ++i){
-		board.del(groupedSquares[i].x,
-			    groupedSquares[i].y);
+		for(int j = 0; j < groupedSquares[i].size(); ++j){
+		    board.del(groupedSquares[i][j].x,
+			      groupedSquares[i][j].y);
+		}
 	    }
 
 	    // Calculando los movimientos de caída...
@@ -123,7 +153,7 @@ void StateGame::update(){
 
 	    if(! groupedSquares.empty()){
 		// Si encontramos más filas o columnas
-		
+		createFloatingScores();
 		state = eGemasDesapareciendo;
 	    }
 
@@ -177,6 +207,10 @@ void StateGame::draw(){
 	posY = 41;
 
     tr1::shared_ptr<Gosu::Image> img;
+
+    foreach(FloatingScore & f, scoreSet){
+	f . draw();
+    }
 
     for(int i = 0; i < 8; ++i){
 	for(int j = 0; j < 8; ++j){
@@ -286,9 +320,7 @@ void StateGame::draw(){
 		else if(state == eGemasDesapareciendo){
 		    // Desaparición de las gemas ganadoras
 		    
-		    if(find(groupedSquares.begin(), 
-			    groupedSquares.end(), 
-			    coord(i, j)) != groupedSquares.end() ){
+		    if(groupedSquares.matched(coord(i,j))){
 			
 			img -> draw(posX + i * 65,
 				    posY + j * 65,

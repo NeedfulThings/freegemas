@@ -13,8 +13,11 @@ Board::Board(){
 
 void Board::generate(){
     std::srand(time(0));
-
+    bool repeat = false;
     do{
+	lDEBUG << "### Generating..."; 
+	repeat = false;
+
 	for (int i = 0; i < 8; ++i)
 	{
 	    for (int j = 0; j < 8; ++j)
@@ -25,7 +28,17 @@ void Board::generate(){
 		squares[i][j].destY = j - squares[i][j].origY;
 	    }
 	}
-    }while(!check().empty() || solutions().empty()); 
+	if(!check().empty()){
+	    lDEBUG << "Generated board has matches. Repeating...";
+	    repeat = true;
+	} 
+
+	else if(solutions().empty()){
+	    lDEBUG << "Generated board has no solutions. Repeating...";
+	    repeat = true;
+	} 
+
+    }while(repeat);
     // Regenera si hay alguna solución directa o si es imposible
 
     lDEBUG << "Generado un board con posibles soluciones, sin soluciones inmediatas";
@@ -105,13 +118,15 @@ vector<coord> Board::solutions(){
 	    
 	}
     }
-    
-    
+    if(resultados.size() > 0){
+	lDEBUG << "The checked board has at least one valid movement";
+    }
     return resultados;
 
 }
 
-vector<coord> Board::check(){
+MultipleMatch Board::check(){
+    //lDEBUG << "Checking board..."; 
     // Recorremos filas
     tr1::array<tr1::array<int, 8>, 8> comprobHor;
     tr1::array<tr1::array<int, 8>, 8> comprobVer;
@@ -122,72 +137,78 @@ vector<coord> Board::check(){
 	    comprobHor[x][y] = comprobVer[x][y] = 0;
 	}
     }
+    int k;
 
-    // Rellenamos la matriz de comprobaciones por FILAS
-    for(int y = 0; y < 8; ++y){ 
-	for(int x = 0; x < 8; ++x){ 
 
-	    /* Recorremos de j - 1 hasta el inicio */
-	    for(int k = x - 1; k >= 0; --k){ 
-		if(squares[x][y] == squares[k][y] && squares[x][y] != sqEmpty){
-		    comprobHor[x][y] = comprobHor[x][y] + 1;
+    MultipleMatch matches;    
+
+    for(int y = 0; y < 8; ++y){
+
+	for(int x = 0; x < 8; ++x){
+
+	    Match currentRow;
+	    currentRow.push_back(coord(x,y));
+
+	    for(k = x+1; k < 8; ++k){
+		if(squares[x][y] == squares[k][y] &&
+		   squares[x][y] != sqEmpty){
+		    currentRow.push_back(coord(k,y));
 		}else{
-		    break; // Si alguna casilla no coincide, pues pasamos
+		    break;
 		}
 	    }
 
-	    /* Recorremos de j + 1 hasta el final */
-	    for(int k = x + 1; k < 8; ++k){
-		if(squares[x][y] == squares[k][y] && squares[x][y] != sqEmpty){
-		    comprobHor[x][y] = comprobHor[x][y] + 1;
+	    if(currentRow . numSquares() > 2){
+		matches.push_back(currentRow);
+	    }
+
+	    x = k - 1;
+	}	
+    }
+
+    for(int x = 0; x < 8; ++x){
+	for(int y = 0; y < 8; ++y){
+
+	    Match currentColumn;
+	    currentColumn.push_back(coord(x,y));
+
+	    for(k = y + 1; k < 8; ++k){
+		if(squares[x][y] == squares[x][k] &&
+		   squares[x][y] != sqEmpty){
+		    currentColumn.push_back(coord(x,k));
 		}else{
-		    break; // Si alguna casilla no coincide, pues pasamos
+		    break;
 		}
 	    }
+
+	    if(currentColumn.numSquares() > 2){
+		matches.push_back(currentColumn);
+	    }
+
+	    y = k - 1;
 	}
     }
 
-
-    // Rellenamos la matriz de comprobaciones por COLUMNAS
-    for(int x = 0; x < 8; ++x){ 
-	for(int y = 0; y < 8; ++y){ 
-
-	    /* Recorremos de y - 1 hasta el inicio */
-	    for(int k = y - 1; k >= 0; --k){ 
-		if(squares[x][y] == squares[x][k] && squares[x][y] != sqEmpty){
-		    comprobVer[x][y] = comprobVer[x][y] + 1;
-		}else{
-		    break; // Si alguna casilla no coincide, pues pasamos
-		}
-	    }
-
-	    /* Recorremos de y + 1 hasta el final */
-	    for(int k = y + 1; k < 8; ++k){
-		if(squares[x][y] == squares[x][k] && squares[x][y] != sqEmpty){
-		    comprobVer[x][y] = comprobVer[x][y] + 1;
-		}else{
-		    break; // Si alguna casilla no coincide, pues pasamos
-		}
-	    }
-	}
+    /*
+    if(matches.size() > 0){
+	lDEBUG << "The checked board has " << matches.size() << " matches"; 
+	cout << *this;
     }
+    //*/
 
-
-    bool flag = false;
-
-    vector<coord> coordenadas;
-
-    for(int y = 0; y < 8; ++y){ 
-	for(int x = 0; x < 8; ++x){ 
-	    if(comprobHor[x][y] > 1 || comprobVer[x][y] > 1){
-		coordenadas.push_back(coord(x,y));
-	    }
-	}
-    }
-
-    return coordenadas;
+    return matches;
 }
 
+ostream& operator <<(ostream& out, Board & B){
+    for(int i = 0; i < 8; ++i){
+	for(int j = 0; j < 8; ++j){
+	    out << B.squares[j][i] << " ";
+	}
+	out << endl;
+    }
+
+    return out;
+}
 
 void Board::calcFallMovements(){
     lDEBUG << "Board::calcFallMovements";

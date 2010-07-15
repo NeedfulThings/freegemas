@@ -23,6 +23,8 @@ OBJS += $(addsuffix .o,$(basename $(SRCS)))
 $(OUTPUT): $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) 
 
+test1: board.o log.o testBoard.o
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 libgosu:
 	cd gosu/linux ; make clean ; ./configure && make
 
@@ -35,6 +37,6 @@ clean:
 log.o: log.h
 game.o: game.h log.h state.h stateGame.h
 state.o: state.h log.h stateGame.h stateMainMenu.h
-stateGame.o: stateGame.h state.h game.h log.h board.h
+stateGame.o: stateGame.h state.h game.h log.h board.h floatingScore.h
 stateMainMenu.o: stateMainMenu.h state.h game.h log.h
 board.o: board.h log.h

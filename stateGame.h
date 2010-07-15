@@ -32,10 +32,12 @@
 
 #include <utility>
 #include <tr1/memory>
+#include <set>
 using namespace std;
 
 #include "state.h"
 #include "board.h"
+#include "floatingScore.h"
 
 class Game;
 
@@ -91,12 +93,11 @@ private:
 
     pair<int,int> getCoord(int mX, int mY);
 
-
     /// Regenera la imagen del marcador de puntos
-    //void repintarPuntos();
 
-    void redrawPoints();
+    void redrawScoreboard();
 
+    void createFloatingScores();
     Board board;
 
     enum tState{
@@ -127,7 +128,7 @@ private:
     int totalAnimInit;
 
     /// Contenedor temporal de las squares a borrar
-    vector<coord> groupedSquares;
+    MultipleMatch groupedSquares;
 
     tr1::shared_ptr<Gosu::Image> imgBoard;
 
@@ -143,6 +144,10 @@ private:
 
     tr1::shared_ptr<Gosu::Image> txtPuntos;
     int puntos;
+
+    vector<FloatingScore> scoreSet;
+
+    int acumulator;
 };
 
 #endif /* _STATEGAME_H_ */
