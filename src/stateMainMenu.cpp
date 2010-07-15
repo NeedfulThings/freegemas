@@ -17,13 +17,14 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     currentTransitionState = TransitionIn;
 
     imgBackground.reset(new Gosu::Image(parent -> graphics(),
-					L"media/stateMainMenu/mainMenuBackground.png"));
+					Gosu::resourcePrefix() + L"media/stateMainMenu/mainMenuBackground.png"));
 
     imgLogo.reset(new Gosu::Image(parent -> graphics(),
-				  L"media/stateMainMenu/mainMenuLogo.png"));
+				  Gosu::resourcePrefix() + L"media/stateMainMenu/mainMenuLogo.png"));
 
 
-    font.reset(new Gosu::Font(parent -> graphics(), L"media/fuenteMenu.ttf", 30));
+    font.reset(new Gosu::Font(parent -> graphics(), 
+		Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 30));
 
     animationTotalSteps = 30;
     animationLogoSteps = 30;

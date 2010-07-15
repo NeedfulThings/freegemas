@@ -18,10 +18,10 @@ StateGame::StateGame(Game * p) : State(p){
     lDEBUG << Log::CON("StateGame");
 
     imgBoard.reset(new Gosu::Image(parent -> graphics(),
-				     L"media/board.png"));
+				     Gosu::resourcePrefix() + L"media/board.png"));
 
     imgSelector.reset(new Gosu::Image(parent -> graphics(), 
-				      L"media/selector.png"));    
+				      Gosu::resourcePrefix() + L"media/selector.png"));    
 
     state = eInicialGemas;
 
@@ -47,7 +47,7 @@ StateGame::StateGame(Game * p) : State(p){
 
 void StateGame::redrawScoreboard(){
     Gosu::Bitmap temporal = Gosu::createText(boost::lexical_cast<wstring>(puntos),
-					     L"media/fuentelcd.ttf", 33, 0, 190, Gosu::taRight);
+					     Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33, 0, 190, Gosu::taRight);
 
     txtPuntos.reset(new Gosu::Image(parent -> graphics(),
 				    temporal));
@@ -480,12 +480,12 @@ StateGame::~StateGame(){
 void StateGame::loadGems(){
     Gosu::Graphics & g = parent -> graphics();
 
-    imgWhite.reset(new Gosu::Image(g, L"media/gemWhite.png"));
-    imgRed.reset(new Gosu::Image(g, L"media/gemRed.png"));
-    imgPurple.reset(new Gosu::Image(g, L"media/gemPurple.png"));
-    imgOrange.reset(new Gosu::Image(g, L"media/gemOrange.png"));
-    imgGreen.reset(new Gosu::Image(g, L"media/gemGreen.png"));
-    imgYellow.reset(new Gosu::Image(g, L"media/gemYellow.png"));
-    imgBlue.reset(new Gosu::Image(g, L"media/gemBlue.png"));
+    imgWhite.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemWhite.png"));
+    imgRed.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemRed.png"));
+    imgPurple.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemPurple.png"));
+    imgOrange.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemOrange.png"));
+    imgGreen.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemGreen.png"));
+    imgYellow.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemYellow.png"));
+    imgBlue.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemBlue.png"));
 
 }
