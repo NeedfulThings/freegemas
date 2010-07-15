@@ -85,42 +85,25 @@ struct coord{
     }
 };
 
-class Match{
+class Match : public vector<coord>{
 public:
-    void push_back(const coord & c){
-	matchedSquares.push_back(c);
-    }
-
     coord midSquare() const{
-	return matchedSquares[ matchedSquares.size() / 2];
+	return at(size() / 2);
     }
 
-    int numSquares() const{
-	return matchedSquares.size();
-    }
-
-    bool find(coord c) {
-	return (std::find(matchedSquares.begin(), matchedSquares.end(), c) 
-		!= matchedSquares.end());
-    }
-    int size() const{
-	return matchedSquares.size();
-    }
-    coord operator[](size_t n) const{
-	return matchedSquares[n];
+    bool matched(coord c) {
+	return (std::find(begin(), end(), c) != end());
     }
 
     friend ostream& operator << (ostream& out, Match & M){
-	out << "Match (" << M.matchedSquares.size() << "): ";
-	for (size_t i = 0; i < M.matchedSquares.size(); ++i)
+	out << "Match (" << M.size() << "): ";
+	for (size_t i = 0; i < M.size(); ++i)
 	{
-	    out << M.matchedSquares[i] << ", ";
+	    out << M[i] << ", ";
 	}
 	
 	return out;
     }
-
-    vector<coord> matchedSquares;
 };
 
 class MultipleMatch : public vector<Match>{
@@ -128,7 +111,7 @@ public:
     bool matched(coord C){
 	vector<Match>::iterator it;
 	for(it = begin(); it != end(); ++it){
-	    if(it -> find(C))
+	    if(it -> matched(C))
 	       return true;
 	}
 	return false;

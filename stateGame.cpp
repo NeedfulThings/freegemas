@@ -110,7 +110,7 @@ void StateGame::update(){
 	    redrawScoreboard();
 
 	    for(size_t i = 0; i < groupedSquares.size(); ++i){
-		for(int j = 0; j < groupedSquares[i].size(); ++j){
+		for(size_t j = 0; j < groupedSquares[i].size(); ++j){
 		    board.del(groupedSquares[i][j].x,
 			      groupedSquares[i][j].y);
 		}

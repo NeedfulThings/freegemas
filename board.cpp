@@ -127,18 +127,8 @@ vector<coord> Board::solutions(){
 
 MultipleMatch Board::check(){
     //lDEBUG << "Checking board..."; 
-    // Recorremos filas
-    tr1::array<tr1::array<int, 8>, 8> comprobHor;
-    tr1::array<tr1::array<int, 8>, 8> comprobVer;
 
-    // Ponemos matrices de comprobación a cero
-    for(int y = 0; y < 8; ++y){
-	for(int x = 0; x < 8; ++x){
-	    comprobHor[x][y] = comprobVer[x][y] = 0;
-	}
-    }
     int k;
-
 
     MultipleMatch matches;    
 
@@ -158,7 +148,7 @@ MultipleMatch Board::check(){
 		}
 	    }
 
-	    if(currentRow . numSquares() > 2){
+	    if(currentRow . size() > 2){
 		matches.push_back(currentRow);
 	    }
 
@@ -181,7 +171,7 @@ MultipleMatch Board::check(){
 		}
 	    }
 
-	    if(currentColumn.numSquares() > 2){
+	    if(currentColumn.size() > 2){
 		matches.push_back(currentColumn);
 	    }
 
@@ -286,6 +276,6 @@ void Board::endAnimations(){
 }
 
 Board::~Board(){
-    lDEBUG << Log::DES("Board");
+
 }
 
