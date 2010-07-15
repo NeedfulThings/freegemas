@@ -31,9 +31,11 @@
 #include <Gosu/Gosu.hpp>
 
 #include <utility>
-#include <tr1/memory>
 #include <set>
 using namespace std;
+
+#include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include "state.h"
 #include "board.h"
@@ -135,19 +137,19 @@ private:
     /// Contenedor temporal de las squares a borrar
     MultipleMatch groupedSquares;
 
-    tr1::shared_ptr<Gosu::Image> imgBoard;
+	boost::scoped_ptr<Gosu::Image> imgBoard;
 
-    tr1::shared_ptr<Gosu::Image> imgWhite;
-    tr1::shared_ptr<Gosu::Image> imgRed;
-    tr1::shared_ptr<Gosu::Image> imgPurple;
-    tr1::shared_ptr<Gosu::Image> imgOrange;
-    tr1::shared_ptr<Gosu::Image> imgGreen;
-    tr1::shared_ptr<Gosu::Image> imgYellow;
-    tr1::shared_ptr<Gosu::Image> imgBlue;
+    boost::shared_ptr<Gosu::Image> imgWhite;
+    boost::shared_ptr<Gosu::Image> imgRed;
+    boost::shared_ptr<Gosu::Image> imgPurple;
+    boost::shared_ptr<Gosu::Image> imgOrange;
+    boost::shared_ptr<Gosu::Image> imgGreen;
+    boost::shared_ptr<Gosu::Image> imgYellow;
+    boost::shared_ptr<Gosu::Image> imgBlue;
 
-    tr1::shared_ptr<Gosu::Image> imgSelector;
+    boost::shared_ptr<Gosu::Image> imgSelector;
 
-    tr1::shared_ptr<Gosu::Image> txtPuntos;
+    boost::shared_ptr<Gosu::Image> txtPuntos;
     int puntos;
 
     vector<FloatingScore> scoreSet;

@@ -5,7 +5,7 @@
 
 #include "state.h"
 
-#include <tr1/memory>
+#include <boost/scoped_ptr.hpp>
 using namespace std;
 
 class Game;
@@ -34,10 +34,10 @@ private:
     int animationLogoSteps;
     int animationTotalSteps;
 			  
-    tr1::shared_ptr<Gosu::Image> imgBackground;
-    tr1::shared_ptr<Gosu::Image> imgLogo;
+    boost::scoped_ptr<Gosu::Image> imgBackground;
+    boost::scoped_ptr<Gosu::Image> imgLogo;
 
-    tr1::shared_ptr<Gosu::Font> font;
+    boost::scoped_ptr<Gosu::Font> font;
 
 };
 

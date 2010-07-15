@@ -7,8 +7,9 @@
 
 #include <algorithm>
 #include <vector>
-#include <tr1/array>
 using namespace std;
+
+#include <boost/array.hpp>
 
 #include "log.h"
 
@@ -165,7 +166,7 @@ public:
     /// Resets squares' animations
     void endAnimations();
 
-    tr1::array< tr1::array<Square, 8>, 8> squares;
+    boost::array< boost::array<Square, 8>, 8> squares;
     friend ostream& operator <<(ostream& out, Board & B);
 };
 #endif /* _BOARD_H_ */

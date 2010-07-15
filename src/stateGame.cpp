@@ -201,7 +201,7 @@ void StateGame::draw(){
     int posX = 241, 
 	posY = 41;
 
-    tr1::shared_ptr<Gosu::Image> img;
+	boost::shared_ptr<Gosu::Image> img;
 
     foreach(FloatingScore & f, scoreSet){
 	f . draw();

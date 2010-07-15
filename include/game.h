@@ -29,7 +29,7 @@
 
 #include <Gosu/Gosu.hpp>
 
-#include <tr1/memory>
+#include <boost/scoped_ptr.hpp>
 #include <string>
 using namespace std;
 
@@ -65,10 +65,10 @@ public:
     ~Game();
 
 private:
-    tr1::shared_ptr<State> currentState;
+    boost::scoped_ptr<State> currentState;
     string currentStateString;
 
-    tr1::shared_ptr<Gosu::Image> mousePointer;
+    boost::scoped_ptr<Gosu::Image> mousePointer;
 
 };
 
