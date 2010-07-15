@@ -135,54 +135,36 @@ public:
 class Board{
 public:
     Board();
+
     ~Board();
 
-    /// Intercambia el valor de la casilla x1,y1 por el de x2,y2
+    /// Swaps squares x1,y1 and x2,y2
     void swap(int x1, int y1, int x2, int y2);
 
-    /// Vacía la casilla x,y
+    /// Empties square (x,y)
     void del(int x, int y);
     
-    /// Genera un board nuevo completamente aleatorio
+    /// Generates a random board.
     void generate();
 
-    /** Calcula las posiciones de las casillas tras borrar otras casillas. 
-
-	Cuando se hace un grupo de tres o más casillas, esta función
-	actualiza las casillas que estuvieran por encima para asignarles
-	una nueva posición.
-    */
-
+    /// Calculates squares' positions after deleting the matching gems.
     void calcFallMovements();
-    // void calcularMovimientosCaida();
 
-
-    /// Aplica los cambios calculados en la función calcularMovimientosCaida
-    //void aplicarCaida();
+    /// Applies calculated positions on previous method
     void applyFall();
 
-    /// Rellena los espacios vacíos con nuevas casillas aleatorias
-    //void rellenarEspacios();
+    /// Fills board's gaps with newly generated gems
     void fillSpaces();
 
-    /**
-     * @brief Comprueba si hay algún grupo de tres o más casillas en horizontal o vertical
-     *
-     * @return Conjunto de coordenadas con las casillas que forman parte de un grupo
-     *
-     */
-
-    //vector<coord> comprobar();
+    /// Checks if there are matching horizontal and/or vertical groups
     MultipleMatch check();
 
-    /// Comprueba si existen movimientos con los que hacer algún grupo en el board actual
-    ///vector<coord> existeSolucion();
+    /// Checks if current board has any possible valid movement
     vector<coord> solutions();
 
-    //void cancelarAnimaciones();
+    /// Resets squares' animations
     void endAnimations();
 
-    /// Matriz de casillas
     tr1::array< tr1::array<Square, 8>, 8> squares;
     friend ostream& operator <<(ostream& out, Board & B);
 };

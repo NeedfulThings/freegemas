@@ -179,13 +179,6 @@ MultipleMatch Board::check(){
 	}
     }
 
-    /*
-    if(matches.size() > 0){
-	lDEBUG << "The checked board has " << matches.size() << " matches"; 
-	cout << *this;
-    }
-    //*/
-
     return matches;
 }
 
