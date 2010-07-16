@@ -40,6 +40,7 @@ using namespace std;
 #include "state.h"
 #include "board.h"
 #include "floatingScore.h"
+#include "baseButton.h"
 
 class Game;
 
@@ -151,6 +152,8 @@ private:
 
     boost::shared_ptr<Gosu::Image> txtPuntos;
     int puntos;
+
+	boost::scoped_ptr<BaseButton> hintButton;
 
     vector<FloatingScore> scoreSet;
 

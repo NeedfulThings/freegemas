@@ -23,6 +23,9 @@ StateGame::StateGame(Game * p) : State(p){
     imgSelector.reset(new Gosu::Image(parent -> graphics(), 
 				      Gosu::resourcePrefix() + L"media/selector.png"));    
 
+	hintButton.reset(new BaseButton(parent -> graphics(),
+			L"Mostrar pista"));
+
     state = eInicialGemas;
 
     selectedSquareFirst.x = -1;
@@ -197,6 +200,7 @@ float StateGame::eqMov(float t, float b, float c, float d) {
 
 void StateGame::draw(){
     imgBoard -> draw(0,0,1);
+	hintButton -> draw(17, 180, 2);
 
     int posX = 241, 
 	posY = 41;
