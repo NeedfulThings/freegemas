@@ -33,6 +33,9 @@ StateGame::StateGame(Game * p) : State(p){
     exitButton.reset(new BaseButton(parent -> graphics(),
 				     L"Salir"));
 
+    musicButton.reset(new BaseButton(parent -> graphics(),
+				     L"Apagar música"));
+
     imgTimeBackground.reset(new Gosu::Image(parent -> graphics(),
 					    Gosu::resourcePrefix() + L"media/timeBackground.png"));
 
@@ -49,6 +52,8 @@ StateGame::StateGame(Game * p) : State(p){
 
     sfxFall.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/fall.ogg"));
 
+    sfxSong.reset(new Gosu::Song(Gosu::resourcePrefix() + L"media/music1.ogg"));
+    
     state = eInicialGemas;
 
     selectedSquareFirst.x = -1;
@@ -70,7 +75,8 @@ StateGame::StateGame(Game * p) : State(p){
 
     acumulator = 1;
 
-    timeStart = Gosu::milliseconds() + 5 * 60 * 1000;
+    timeStart = Gosu::milliseconds() + 1.5 * 60 * 1000;
+    sfxSong -> play(true);
 }
 
 void StateGame::redrawScoreboard(){
@@ -82,7 +88,6 @@ void StateGame::redrawScoreboard(){
 }
 
 void StateGame::playMatchSound(){
-    lDEBUG << "Acumulator: " << acumulator;
     if(acumulator == 1){
 	sfxMatch1 -> play();
     }else if(acumulator == 2){
@@ -262,8 +267,13 @@ float StateGame::eqMovOut(float t, float b, float c, float d) {
 
 void StateGame::draw(){
     imgBoard -> draw(0,0,1);
-    hintButton -> draw(17, 380, 2);
-    resetButton -> draw(17, 380 + 47, 2);
+
+    int vertButStart = 360;
+
+    hintButton -> draw(17, vertButStart, 2);
+    resetButton -> draw(17, vertButStart + 47, 2);
+    musicButton -> draw(17, vertButStart + 47 * 2, 2);
+
     exitButton -> draw(17, 538, 2);
 
     imgTimeBackground -> draw(17, 195, 2);
@@ -438,10 +448,14 @@ void StateGame::draw(){
 	}
 
 	if(mostrandoPista != -1){
-	    imgSelector -> draw(241 + coordPista.x * 65,
-				41 + coordPista.y * 65,
-				3, 1, 1,
-				Gosu::Color((float)mostrandoPista / totalAnimPista * 255, 0, 255, 0));
+	    float p1 = (float)mostrandoPista / totalAnimPista;
+
+	    float pX1 = 241 + coordPista.x * 65 - imgSelector -> width() * (2 - p1) / 2 + 65 / 2;
+	    float pY1 = 41 + coordPista.y * 65 - imgSelector -> height() * (2 - p1) / 2 + 65 / 2;
+
+	    imgSelector -> draw(pX1, pY1,
+				3, 2 - p1, 2 - p1,
+				Gosu::Color(p1 * 255, 0, 255, 0));
 
 	}
     }else{
@@ -525,11 +539,20 @@ void StateGame::buttonDown (Gosu::Button B){
 	    showHint();
 	}
 
+	else if(musicButton -> clicked(mX, mY)){
+	    if(sfxSong -> playing()){
+		musicButton -> changeText(L"Encender música");
+		sfxSong -> stop();
+	    }else{
+		musicButton -> changeText(L"Apagar música");
+		sfxSong -> play(true);
+	    }	    
+	}
 	else if (resetButton -> clicked(mX, mY)){
 	    state = eDesapareceBoard;
 	    gemsOutScreen();
 	    puntos = 0;
-	    timeStart = Gosu::milliseconds() + 5 * 60 * 1000;
+	    timeStart = Gosu::milliseconds() + 1.5 * 60 * 1000;
 	    redrawScoreboard();
 	    
 	}
@@ -567,6 +590,7 @@ void StateGame::buttonDown (Gosu::Button B){
 void StateGame::showHint(){
     vector<coord> posibilidades = board.solutions();
     coordPista = posibilidades[0];
+    lDEBUG << "showHint: " << coordPista;
     mostrandoPista = totalAnimPista;   
 }
 

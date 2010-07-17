@@ -163,7 +163,8 @@ private:
     boost::scoped_ptr<BaseButton> hintButton;
     boost::scoped_ptr<BaseButton> resetButton;
     boost::scoped_ptr<BaseButton> exitButton;
-	
+    boost::scoped_ptr<BaseButton> musicButton;
+    
     vector<FloatingScore> scoreSet;
 
     boost::scoped_ptr<Gosu::Image> imgTimeBackground;
@@ -176,7 +177,7 @@ private:
     boost::scoped_ptr<Gosu::Sample> sfxSelect;
     boost::scoped_ptr<Gosu::Sample> sfxFall;
 
-
+    boost::scoped_ptr<Gosu::Song> sfxSong;
     int acumulator;
 
     bool clicking;
