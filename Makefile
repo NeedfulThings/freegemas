@@ -44,6 +44,6 @@ clean:
 obj/log.o: include/log.h
 obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h
 obj/state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h
-obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h
+obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h include/baseButton.h
 obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h
 obj/board.o: include/board.h include/log.h

@@ -108,6 +108,8 @@ private:
     
     bool checkClickedSquare(int mX, int mY);
 
+    void showHint();
+
     Board board;
 
     enum tState{
@@ -141,7 +143,7 @@ private:
     /// Contenedor temporal de las squares a borrar
     MultipleMatch groupedSquares;
 
-	boost::scoped_ptr<Gosu::Image> imgBoard;
+    boost::scoped_ptr<Gosu::Image> imgBoard;
 
     boost::shared_ptr<Gosu::Image> imgWhite;
     boost::shared_ptr<Gosu::Image> imgRed;
@@ -156,20 +158,22 @@ private:
     boost::shared_ptr<Gosu::Image> txtPuntos;
     int puntos;
 
-	boost::scoped_ptr<BaseButton> hintButton;
+    boost::scoped_ptr<BaseButton> hintButton;
+    boost::scoped_ptr<BaseButton> resetButton;
+    boost::scoped_ptr<BaseButton> exitButton;
 	
     vector<FloatingScore> scoreSet;
 
-	boost::scoped_ptr<Gosu::Image> imgTimeBackground;
-	boost::scoped_ptr<Gosu::Font> fontTime;
-	string txtTime;
-	double timeStart;
+    boost::scoped_ptr<Gosu::Image> imgTimeBackground;
+    boost::scoped_ptr<Gosu::Font> fontTime;
+    string txtTime;
+    double timeStart;
 
     int acumulator;
 
     bool clicking;
 
-	boost::scoped_ptr<ScoreTable> scoreTable;
+    boost::scoped_ptr<ScoreTable> scoreTable;
 };
 
 #endif /* _STATEGAME_H_ */

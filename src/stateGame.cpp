@@ -26,6 +26,12 @@ StateGame::StateGame(Game * p) : State(p){
     hintButton.reset(new BaseButton(parent -> graphics(),
 				    L"Mostrar pista"));
 
+    resetButton.reset(new BaseButton(parent -> graphics(),
+				     L"Reiniciar juego"));
+
+    exitButton.reset(new BaseButton(parent -> graphics(),
+				     L"Salir"));
+
     imgTimeBackground.reset(new Gosu::Image(parent -> graphics(),
 					    Gosu::resourcePrefix() + L"media/timeBackground.png"));
 
@@ -187,7 +193,6 @@ void StateGame::update(){
 		lDEBUG << Log::cRojo << "ZOMG NO EXISTEN MÁS MOVIMIENTOS";
 
 		state = eDesapareceBoard;
-
 		gemsOutScreen();
 
 	    }
@@ -234,6 +239,9 @@ float StateGame::eqMovOut(float t, float b, float c, float d) {
 void StateGame::draw(){
     imgBoard -> draw(0,0,1);
     hintButton -> draw(17, 380, 2);
+    resetButton -> draw(17, 380 + 47, 2);
+    exitButton -> draw(17, 538, 2);
+
     imgTimeBackground -> draw(17, 195, 2);
 
     fontTime ->draw(Gosu::widen(txtTime), 
@@ -485,7 +493,23 @@ void StateGame::buttonDown (Gosu::Button B){
 	int mX = parent -> input().mouseX();
 	int mY = parent -> input().mouseY();
 
-	if(overGem(mX, mY)){ // Si se pulsó sobre una gema
+	if(exitButton -> clicked(mX, mY)){
+	    parent -> close();
+	}
+
+	else if(hintButton -> clicked(mX, mY)){
+	    showHint();
+	}
+
+	else if (resetButton -> clicked(mX, mY)){
+	    state = eDesapareceBoard;
+	    gemsOutScreen();
+	    puntos = 0;
+	    timeStart = Gosu::milliseconds() + 5 * 60 * 1000;
+	    redrawScoreboard();
+	    
+	}
+	else if(overGem(mX, mY)){ // Si se pulsó sobre una gema
 
 	    if(state == eEspera){ // Si no hay ninguna gema marcada
 		state = eGemaMarcada;
@@ -504,13 +528,7 @@ void StateGame::buttonDown (Gosu::Button B){
     }
 
     else if(B == Gosu::kbH){
-	vector<coord> posibilidades = board.solutions();
-	if(posibilidades.empty()){
-
-	}else{
-	    coordPista = posibilidades[0];
-	    mostrandoPista = totalAnimPista;
-	}	
+	showHint();
     }
 
     else if(B == Gosu::kbP){
@@ -519,6 +537,12 @@ void StateGame::buttonDown (Gosu::Button B){
 	gemsOutScreen();
 
     }
+}
+
+void StateGame::showHint(){
+    vector<coord> posibilidades = board.solutions();
+    coordPista = posibilidades[0];
+    mostrandoPista = totalAnimPista;   
 }
 
 void StateGame::gemsOutScreen(){
