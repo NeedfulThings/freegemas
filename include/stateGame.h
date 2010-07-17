@@ -112,6 +112,7 @@ private:
 
     void playMatchSound();
 
+	void resetGame();
     Board board;
 
     enum tState{

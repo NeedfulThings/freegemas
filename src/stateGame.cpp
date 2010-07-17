@@ -25,16 +25,16 @@ StateGame::StateGame(Game * p) : State(p){
 				      Gosu::resourcePrefix() + L"media/selector.png"));    
 
     hintButton.reset(new BaseButton(parent -> graphics(),
-				    L"Mostrar pista"));
+				    Gosu::utf8ToWstring("Mostrar pista")));
 
     resetButton.reset(new BaseButton(parent -> graphics(),
-				     L"Reiniciar juego"));
+				     Gosu::utf8ToWstring("Reiniciar juego")));
 
     exitButton.reset(new BaseButton(parent -> graphics(),
-				     L"Salir"));
+				     Gosu::utf8ToWstring("Salir")));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
-				     L"Apagar música"));
+				     Gosu::utf8ToWstring("Apagar música")));
 
     imgTimeBackground.reset(new Gosu::Image(parent -> graphics(),
 					    Gosu::resourcePrefix() + L"media/timeBackground.png"));
@@ -66,17 +66,23 @@ StateGame::StateGame(Game * p) : State(p){
     totalAnim = 17;
     totalAnimInit = 50;
 
-    puntos = 0;
-
     redrawScoreboard();
 
     mostrandoPista = -1;
     totalAnimPista = 50;
 
     acumulator = 1;
+    
+	resetGame();
 
-    timeStart = Gosu::milliseconds() + 1.5 * 60 * 1000;
     sfxSong -> play(true);
+	sfxSong -> changeVolume(0.5);
+}
+
+void StateGame::resetGame(){
+	puntos = 0;
+	redrawScoreboard();
+	timeStart = Gosu::milliseconds() + 2 * 60 * 1000;
 }
 
 void StateGame::redrawScoreboard(){
@@ -541,19 +547,17 @@ void StateGame::buttonDown (Gosu::Button B){
 
 	else if(musicButton -> clicked(mX, mY)){
 	    if(sfxSong -> playing()){
-		musicButton -> changeText(L"Encender música");
+			musicButton -> changeText(Gosu::utf8ToWstring("Encender música"));
 		sfxSong -> stop();
 	    }else{
-		musicButton -> changeText(L"Apagar música");
+		musicButton -> changeText(Gosu::utf8ToWstring("Apagar música"));
 		sfxSong -> play(true);
 	    }	    
 	}
 	else if (resetButton -> clicked(mX, mY)){
 	    state = eDesapareceBoard;
 	    gemsOutScreen();
-	    puntos = 0;
-	    timeStart = Gosu::milliseconds() + 1.5 * 60 * 1000;
-	    redrawScoreboard();
+	    resetGame();
 	    
 	}
 	else if(overGem(mX, mY)){ // Si se pulsó sobre una gema
