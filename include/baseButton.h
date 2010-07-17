@@ -12,7 +12,7 @@ public:
 	BaseButton(Gosu::Graphics & g, std::wstring text){
 		buttonBackground.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/buttonBackground.png"));
 		
-		Gosu::Bitmap B = Gosu::createText(text, Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 0, buttonBackground -> width(), Gosu::taCenter);
+		Gosu::Bitmap B = Gosu::createText(text, Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 0, buttonBackground -> width(), Gosu::taCenter, 0);
 		buttonText.reset(new Gosu::Image(g, B));
 	}
 

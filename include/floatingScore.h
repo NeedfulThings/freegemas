@@ -19,7 +19,7 @@ public:
 	// lDEBUG << Log::CON("FloatingScore") << " " << x << "," << y;
 
 	Gosu::Bitmap B = Gosu::createText(Gosu::widen(scoreText),
-					  Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 60);
+					  Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 60, 0);
 	scoreImage.reset(new Gosu::Image(g, B));
     }
 

@@ -41,6 +41,7 @@ using namespace std;
 #include "board.h"
 #include "floatingScore.h"
 #include "baseButton.h"
+#include "scoreTable.h"
 
 class Game;
 
@@ -113,7 +114,9 @@ private:
 	eGemasCambiando,
 	eGemasDesapareciendo,
 	eGemasNuevasCayendo,
-	eDesapareceBoard
+	eDesapareceBoard,
+	eTimeFinished,
+	eShowingScoreTable
     };
 
     tState state;
@@ -154,12 +157,19 @@ private:
     int puntos;
 
 	boost::scoped_ptr<BaseButton> hintButton;
-
+	
     vector<FloatingScore> scoreSet;
+
+	boost::scoped_ptr<Gosu::Image> imgTimeBackground;
+	boost::scoped_ptr<Gosu::Font> fontTime;
+	string txtTime;
+	double timeStart;
 
     int acumulator;
 
     bool clicking;
+
+	boost::scoped_ptr<ScoreTable> scoreTable;
 };
 
 #endif /* _STATEGAME_H_ */
