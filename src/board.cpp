@@ -29,12 +29,12 @@ void Board::generate(){
 	    }
 	}
 	if(!check().empty()){
-	    // lDEBUG << "Generated board has matches. Repeating...";
+	    lDEBUG << "Generated board has matches. Repeating...";
 	    repeat = true;
 	} 
 
 	else if(solutions().empty()){
-	    // lDEBUG << "Generated board has no solutions. Repeating...";
+	    lDEBUG << "Generated board has no solutions. Repeating...";
 	    repeat = true;
 	} 
 

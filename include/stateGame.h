@@ -75,7 +75,10 @@ private:
 	@param c Diferencia entre inicial y final (change)
 	@param d Duración
     */
-    static float eqMov(float t, float b, float c, float d);
+    static float eqMovIn(float t, float b, float c, float d);
+    static float eqMovOut(float t, float b, float c, float d);
+
+    void gemsOutScreen();
 
     int mostrandoPista;
     int totalAnimPista;
@@ -120,9 +123,6 @@ private:
     };
 
     tState state;
-
-    /// Coordenadas de la primera casilla marcada
-    int casillaMarcadaX, casillaMarcadaY;
 
     coord selectedSquareFirst;
 

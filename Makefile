@@ -41,9 +41,9 @@ regosu:
 clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
-log.o: include/log.h
-game.o: include/game.h include/log.h include/state.h include/stateGame.h
-state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h
-stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h
-stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h
-board.o: include/board.h include/log.h
+obj/log.o: include/log.h
+obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h
+obj/state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h
+obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h
+obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h
+obj/board.o: include/board.h include/log.h
