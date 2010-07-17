@@ -110,6 +110,8 @@ private:
 
     void showHint();
 
+    void playMatchSound();
+
     Board board;
 
     enum tState{
@@ -168,6 +170,12 @@ private:
     boost::scoped_ptr<Gosu::Font> fontTime;
     string txtTime;
     double timeStart;
+
+
+    boost::scoped_ptr<Gosu::Sample> sfxMatch1, sfxMatch2, sfxMatch3;
+    boost::scoped_ptr<Gosu::Sample> sfxSelect;
+    boost::scoped_ptr<Gosu::Sample> sfxFall;
+
 
     int acumulator;
 

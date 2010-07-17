@@ -17,6 +17,7 @@ using boost::format;
 StateGame::StateGame(Game * p) : State(p){
     lDEBUG << Log::CON("StateGame");
 
+    // Images initialization
     imgBoard.reset(new Gosu::Image(parent -> graphics(),
 				   Gosu::resourcePrefix() + L"media/board.png"));
 
@@ -37,6 +38,16 @@ StateGame::StateGame(Game * p) : State(p){
 
     fontTime.reset(new Gosu::Font(parent -> graphics(), 
 				  Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62, 0));
+
+
+    // Sound loading
+    sfxMatch1.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match1.ogg"));
+    sfxMatch2.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match2.ogg"));
+    sfxMatch3.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match3.ogg"));
+
+    sfxSelect.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/select.ogg"));
+
+    sfxFall.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/fall.ogg"));
 
     state = eInicialGemas;
 
@@ -68,6 +79,17 @@ void StateGame::redrawScoreboard(){
 
     txtPuntos.reset(new Gosu::Image(parent -> graphics(),
 				    temporal));
+}
+
+void StateGame::playMatchSound(){
+    lDEBUG << "Acumulator: " << acumulator;
+    if(acumulator == 1){
+	sfxMatch1 -> play();
+    }else if(acumulator == 2){
+	sfxMatch2 -> play();
+    }else{
+	sfxMatch3 -> play();
+    }
 }
 
 void StateGame::createFloatingScores(){
@@ -124,6 +146,7 @@ void StateGame::update(){
 		       casillaMarcada2X, casillaMarcada2Y);
 
 	    ++acumulator;
+	    playMatchSound();
 	    createFloatingScores();
 	    pasoAnim = 0;
 	}
@@ -163,7 +186,7 @@ void StateGame::update(){
 
     else if(state == eGemasNuevasCayendo){
 	if(pasoAnim++ == totalAnim){
-
+	    sfxFall -> play();
 	    state = eEspera;
 	    pasoAnim = 0;
 
@@ -183,6 +206,7 @@ void StateGame::update(){
 		// Si encontramos más filas o columnas
 		++acumulator;
 		createFloatingScores();
+		playMatchSound();
 		state = eGemasDesapareciendo;
 	    }
 
@@ -510,6 +534,7 @@ void StateGame::buttonDown (Gosu::Button B){
 	    
 	}
 	else if(overGem(mX, mY)){ // Si se pulsó sobre una gema
+	    sfxSelect -> play();
 
 	    if(state == eEspera){ // Si no hay ninguna gema marcada
 		state = eGemaMarcada;
