@@ -16,8 +16,20 @@ using boost::format;
 
 StateGame::StateGame(Game * p) : State(p){
     lDEBUG << Log::CON("StateGame");
+    //state = eInicialGemas;
+    state = eLoading;
 
+    imgLoadingBanner.reset(new Gosu::Image(parent -> graphics(),
+        Gosu::resourcePrefix() + L"media/loadingBanner.png"));
+
+}
+
+void StateGame::init(){
+    state = eInicialGemas;
     // Images initialization
+    fontTime.reset(new Gosu::Font(parent -> graphics(), 
+				  Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62, 0));
+
     imgBoard.reset(new Gosu::Image(parent -> graphics(),
 				   Gosu::resourcePrefix() + L"media/board.png"));
 
@@ -25,23 +37,19 @@ StateGame::StateGame(Game * p) : State(p){
 				      Gosu::resourcePrefix() + L"media/selector.png"));    
 
     hintButton.reset(new BaseButton(parent -> graphics(),
-				    Gosu::utf8ToWstring("Mostrar pista")));
+				    Gosu::utf8ToWstring("Mostrar pista"), L"iconHint.png"));
 
     resetButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring("Reiniciar juego")));
+				     Gosu::utf8ToWstring("Reiniciar juego"), L"iconRestart.png"));
 
     exitButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring("Salir")));
+				     Gosu::utf8ToWstring("Salir"), L"iconExit.png"));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring("Apagar música")));
+				     Gosu::utf8ToWstring("Apagar música"), L"iconMusic.png"));
 
     imgTimeBackground.reset(new Gosu::Image(parent -> graphics(),
 					    Gosu::resourcePrefix() + L"media/timeBackground.png"));
-
-    fontTime.reset(new Gosu::Font(parent -> graphics(), 
-				  Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62, 0));
-
 
     // Sound loading
     sfxMatch1.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match1.ogg"));
@@ -54,7 +62,7 @@ StateGame::StateGame(Game * p) : State(p){
 
     sfxSong.reset(new Gosu::Song(Gosu::resourcePrefix() + L"media/music1.ogg"));
     
-    state = eInicialGemas;
+    
 
     selectedSquareFirst.x = -1;
     selectedSquareFirst.y = -1;
@@ -76,7 +84,7 @@ StateGame::StateGame(Game * p) : State(p){
 	resetGame();
 
     sfxSong -> play(true);
-	sfxSong -> changeVolume(0.5);
+	sfxSong -> changeVolume(0.5);    
 }
 
 void StateGame::resetGame(){
@@ -115,6 +123,14 @@ void StateGame::createFloatingScores(){
     redrawScoreboard();
 }
 void StateGame::update(){
+
+    if(state == eLoading)
+        return;
+
+    if(state == eFirstFlip){
+        init();
+        return;
+    }
 
     double timeDiff = (timeStart - Gosu::milliseconds()) / 1000;
 	
@@ -272,6 +288,13 @@ float StateGame::eqMovOut(float t, float b, float c, float d) {
 
 
 void StateGame::draw(){
+    if(state == eLoading || state == eFirstFlip){
+        state = eFirstFlip;
+        imgLoadingBanner -> draw(156, 200, 2);
+        return;
+    }
+
+
     imgBoard -> draw(0,0,1);
 
     int vertButStart = 360;

@@ -88,6 +88,7 @@ private:
     /// Carga las imágenes de las gemas
     //void cargarGemas();
 
+    void init();
     void loadGems();
 
     /// Indica si está sobre una gema
@@ -116,6 +117,8 @@ private:
     Board board;
 
     enum tState{
+        eFirstFlip,
+        eLoading,
 	eInicialGemas,
 	eEspera,
 	eGemaMarcada,
@@ -170,6 +173,9 @@ private:
 
     boost::scoped_ptr<Gosu::Image> imgTimeBackground;
     boost::scoped_ptr<Gosu::Font> fontTime;
+    
+    boost::scoped_ptr<Gosu::Image> imgLoadingBanner;
+
     string txtTime;
     double timeStart;
 
