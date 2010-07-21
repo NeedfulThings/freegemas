@@ -34,10 +34,10 @@ private:
     int animationLogoSteps;
     int animationTotalSteps;
 			  
-    boost::scoped_ptr<Gosu::Image> imgBackground;
-    boost::scoped_ptr<Gosu::Image> imgLogo;
+    boost::shared_ptr<Gosu::Image> imgBackground;
+    boost::shared_ptr<Gosu::Image> imgLogo;
 
-    boost::scoped_ptr<Gosu::Font> font;
+    boost::shared_ptr<Gosu::Font> font;
 
 };
 

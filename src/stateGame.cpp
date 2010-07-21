@@ -1,6 +1,7 @@
 #include "stateGame.h"
 #include "log.h"
 #include "game.h"
+#include "resManager.h"
 
 #include <cmath>
 #include <algorithm>
@@ -19,22 +20,19 @@ StateGame::StateGame(Game * p) : State(p){
     //state = eInicialGemas;
     state = eLoading;
 
-    imgLoadingBanner.reset(new Gosu::Image(parent -> graphics(),
-        Gosu::resourcePrefix() + L"media/loadingBanner.png"));
+    imgLoadingBanner = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/loadingBanner.png");
 
 }
 
 void StateGame::init(){
     state = eInicialGemas;
     // Images initialization
-    fontTime.reset(new Gosu::Font(parent -> graphics(), 
-				  Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62, 0));
+    fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
 
-    imgBoard.reset(new Gosu::Image(parent -> graphics(),
-				   Gosu::resourcePrefix() + L"media/board.png"));
+    imgBoard = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/board.png");
+    imgSelector = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/selector.png");    
+    imgTimeBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/timeBackground.png");
 
-    imgSelector.reset(new Gosu::Image(parent -> graphics(), 
-				      Gosu::resourcePrefix() + L"media/selector.png"));    
 
     hintButton.reset(new BaseButton(parent -> graphics(),
 				    Gosu::utf8ToWstring("Mostrar pista"), L"iconHint.png"));
@@ -48,22 +46,16 @@ void StateGame::init(){
     musicButton.reset(new BaseButton(parent -> graphics(),
 				     Gosu::utf8ToWstring("Apagar música"), L"iconMusic.png"));
 
-    imgTimeBackground.reset(new Gosu::Image(parent -> graphics(),
-					    Gosu::resourcePrefix() + L"media/timeBackground.png"));
+
 
     // Sound loading
     sfxMatch1.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match1.ogg"));
     sfxMatch2.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match2.ogg"));
     sfxMatch3.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match3.ogg"));
-
     sfxSelect.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/select.ogg"));
-
     sfxFall.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/fall.ogg"));
-
     sfxSong.reset(new Gosu::Song(Gosu::resourcePrefix() + L"media/music1.ogg"));
     
-    
-
     selectedSquareFirst.x = -1;
     selectedSquareFirst.y = -1;
     //17 195
@@ -97,8 +89,7 @@ void StateGame::redrawScoreboard(){
     Gosu::Bitmap temporal = Gosu::createText(boost::lexical_cast<wstring>(puntos),
 					     Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33, 0, 190, Gosu::taRight);
 
-    txtPuntos.reset(new Gosu::Image(parent -> graphics(),
-				    temporal));
+    txtPuntos.reset(new Gosu::Image(parent -> graphics(), temporal));
 }
 
 void StateGame::playMatchSound(){

@@ -149,7 +149,7 @@ private:
     /// Contenedor temporal de las squares a borrar
     MultipleMatch groupedSquares;
 
-    boost::scoped_ptr<Gosu::Image> imgBoard;
+    boost::shared_ptr<Gosu::Image> imgBoard;
 
     boost::shared_ptr<Gosu::Image> imgWhite;
     boost::shared_ptr<Gosu::Image> imgRed;
@@ -171,10 +171,10 @@ private:
     
     vector<FloatingScore> scoreSet;
 
-    boost::scoped_ptr<Gosu::Image> imgTimeBackground;
-    boost::scoped_ptr<Gosu::Font> fontTime;
+    boost::shared_ptr<Gosu::Image> imgTimeBackground;
+    boost::shared_ptr<Gosu::Font> fontTime;
     
-    boost::scoped_ptr<Gosu::Image> imgLoadingBanner;
+    boost::shared_ptr<Gosu::Image> imgLoadingBanner;
 
     string txtTime;
     double timeStart;
