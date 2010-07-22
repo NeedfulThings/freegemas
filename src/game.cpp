@@ -5,6 +5,7 @@
 
 #include "stateGame.h"
 #include "stateMainMenu.h"
+#include "stateHowtoplay.h"
 
 #include "resManager.h"
 
@@ -46,6 +47,13 @@ void Game::changeState(string S){
     else if(S == "stateGame"){
 	currentState . reset(new StateGame(this));
 	currentStateString = "estadoGame";
+    }
+    else if(S == "stateHowtoplay"){
+	currentState . reset(new StateHowtoplay(this));
+	currentStateString = "stateHowtoplay";
+    }
+    else if(S == "stateQuit"){
+	close();
     }
 }
 

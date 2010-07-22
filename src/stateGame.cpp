@@ -41,7 +41,7 @@ void StateGame::init(){
 				     Gosu::utf8ToWstring("Reiniciar juego"), L"iconRestart.png"));
 
     exitButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring("Salir"), L"iconExit.png"));
+				    Gosu::utf8ToWstring("Salir"), L"iconExit.png"));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
 				     Gosu::utf8ToWstring("Apagar música"), L"iconMusic.png"));
@@ -73,16 +73,16 @@ void StateGame::init(){
 
     acumulator = 1;
     
-	resetGame();
+    resetGame();
 
-    sfxSong -> play(true);
-	sfxSong -> changeVolume(0.5);    
+    //sfxSong -> play(true);
+    sfxSong -> changeVolume(0.5);    
 }
 
 void StateGame::resetGame(){
-	puntos = 0;
-	redrawScoreboard();
-	timeStart = Gosu::milliseconds() + 2 * 60 * 1000;
+    puntos = 0;
+    redrawScoreboard();
+    timeStart = Gosu::milliseconds() + 2 * 60 * 1000;
 }
 
 void StateGame::redrawScoreboard(){
@@ -253,7 +253,7 @@ void StateGame::update(){
 
     else if(state == eTimeFinished){
 	if(++pasoAnim == totalAnimInit){
-	    scoreTable.reset(new ScoreTable(parent -> graphics(), puntos));
+	    scoreTable.reset(new ScoreTable(parent, puntos));
 	    state = eShowingScoreTable;
 			 
 	    pasoAnim = 0;
@@ -353,28 +353,29 @@ void StateGame::draw(){
 		    if(state == eInicialGemas){
 			img -> draw(posX + i * 65,
 				    eqMovOut(pasoAnim,
-					  posY + board.squares[i][j].origY * 65,
-					  board.squares[i][j].destY * 65,
-					  totalAnimInit),
+					     posY + board.squares[i][j].origY * 65,
+					     board.squares[i][j].destY * 65,
+					     totalAnimInit),
 				    3);
 		    }
 		    else if(state == eDesapareceBoard || state == eTimeFinished){
 			img -> draw(posX + i * 65,
 				    eqMovIn(pasoAnim,
-					  posY + board.squares[i][j].origY * 65,
-					  board.squares[i][j].destY * 65,
-					  totalAnimInit),
+					    posY + board.squares[i][j].origY * 65,
+					    board.squares[i][j].destY * 65,
+					    totalAnimInit),
 				    3);
 		    }
 
-		    else if(state == eEspera || state == eGemaMarcada || state == eGemasNuevasCayendo){
+		    else if(state == eEspera || state == eGemaMarcada ||
+			    state == eGemasNuevasCayendo){
 
 			if(board.squares[i][j].mustFall){
 			    img -> draw(posX + i * 65,
 					eqMovOut(pasoAnim,
-					      posY + board.squares[i][j].origY * 65,
-					      board.squares[i][j].destY * 65,
-					      totalAnim),
+						 posY + board.squares[i][j].origY * 65,
+						 board.squares[i][j].destY * 65,
+						 totalAnim),
 					3);
 			}else{
 			    img -> draw(posX + i * 65,
@@ -389,14 +390,14 @@ void StateGame::draw(){
 			   j == selectedSquareFirst.y){
 
 			    img -> draw(eqMovOut(pasoAnim,
-					      posX + i * 65,
-					      (casillaMarcada2X - selectedSquareFirst.x) * 65,
-					      totalAnim),
+						 posX + i * 65,
+						 (casillaMarcada2X - selectedSquareFirst.x) * 65,
+						 totalAnim),
 
 					eqMovOut(pasoAnim,
-					      posY + j * 65,
-					      (casillaMarcada2Y - selectedSquareFirst.y) * 65,
-					      totalAnim),
+						 posY + j * 65,
+						 (casillaMarcada2Y - selectedSquareFirst.y) * 65,
+						 totalAnim),
 
 					3);
 
@@ -406,14 +407,14 @@ void StateGame::draw(){
 				j == casillaMarcada2Y){
 
 			    img -> draw(eqMovOut(pasoAnim,
-					      posX + i * 65,
-					      (selectedSquareFirst.x - casillaMarcada2X) * 65,
-					      totalAnim),
+						 posX + i * 65,
+						 (selectedSquareFirst.x - casillaMarcada2X) * 65,
+						 totalAnim),
 
 					eqMovOut(pasoAnim,
-					      posY + j * 65,
-					      (selectedSquareFirst.y - casillaMarcada2Y) * 65,
-					      totalAnim),
+						 posY + j * 65,
+						 (selectedSquareFirst.y - casillaMarcada2Y) * 65,
+						 totalAnim),
 
 					3);
 
@@ -435,7 +436,8 @@ void StateGame::draw(){
 			    img -> draw(posX + i * 65,
 					posY + j * 65,
 					3, 1, 1,
-					Gosu::Color(255 * (1 -(float)pasoAnim/totalAnim), 255, 255, 255));
+					Gosu::Color(255 * (1 -(float)pasoAnim/totalAnim), 
+						    255, 255, 255));
 			}
 			else{
 			    img -> draw(posX + i * 65,
@@ -479,7 +481,7 @@ void StateGame::draw(){
 
 	}
     }else{
-	scoreTable -> draw(400, 130, 3);
+	scoreTable -> draw(241 + (65 * 8) / 2 - 150  , 105, 3);
     }
 }
 
@@ -542,7 +544,7 @@ void StateGame::buttonUp (Gosu::Button B){
 
 void StateGame::buttonDown (Gosu::Button B){
     if(B == Gosu::kbEscape){
-	parent -> close();
+	parent -> changeState("stateMainMenu");
     }
 
     else if(B == Gosu::msLeft){ // Se pulsó el ratón
@@ -552,7 +554,7 @@ void StateGame::buttonDown (Gosu::Button B){
 	int mY = parent -> input().mouseY();
 
 	if(exitButton -> clicked(mX, mY)){
-	    parent -> close();
+	    parent -> changeState("stateMainMenu");
 	}
 
 	else if(hintButton -> clicked(mX, mY)){
@@ -561,7 +563,7 @@ void StateGame::buttonDown (Gosu::Button B){
 
 	else if(musicButton -> clicked(mX, mY)){
 	    if(sfxSong -> playing()){
-			musicButton -> changeText(Gosu::utf8ToWstring("Encender música"));
+		musicButton -> changeText(Gosu::utf8ToWstring("Encender música"));
 		sfxSong -> stop();
 	    }else{
 		musicButton -> changeText(Gosu::utf8ToWstring("Apagar música"));
@@ -626,14 +628,13 @@ StateGame::~StateGame(){
 }
 
 void StateGame::loadGems(){
-    Gosu::Graphics & g = parent -> graphics();
 
-    imgWhite.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemWhite.png"));
-    imgRed.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemRed.png"));
-    imgPurple.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemPurple.png"));
-    imgOrange.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemOrange.png"));
-    imgGreen.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemGreen.png"));
-    imgYellow.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemYellow.png"));
-    imgBlue.reset(new Gosu::Image(g, Gosu::resourcePrefix() + L"media/gemBlue.png"));
+    imgWhite = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemWhite.png");
+    imgRed = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemRed.png");
+    imgPurple = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemPurple.png");
+    imgOrange = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemOrange.png");
+    imgGreen = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemGreen.png");
+    imgYellow = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemYellow.png");
+    imgBlue = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemBlue.png");
 
 }

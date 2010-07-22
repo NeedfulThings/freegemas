@@ -6,6 +6,7 @@
 #include <boost/scoped_ptr.hpp>
 
 #include <string>
+using std::wstring;
 
 #include "resManager.h"
 
@@ -13,6 +14,7 @@ class BaseButton{
 public:
     BaseButton(Gosu::Graphics & g, std::wstring text, std::wstring imgIconPath = L"") : g(g){
 	buttonBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/buttonBackground.png");
+	buttonFont = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 27);
 
 	if(imgIconPath != L""){
 	    imgIcon = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/" + imgIconPath);	
@@ -22,10 +24,14 @@ public:
     }
 
     void changeText(std::wstring text){
-	Gosu::Bitmap B = Gosu::createText(text, Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 0, 
-					  buttonBackground -> width() - ((imgIcon != 0) ? 40 : 0), 
-					  Gosu::taCenter, 0);
-	buttonText.reset(new Gosu::Image(g, B));
+	buttonText = text;
+	int text_w = buttonFont -> textWidth(buttonText) / 2;
+
+	if(imgIcon != 0){
+	    textX = 40 + (buttonBackground -> width() - 40) / 2 - text_w;
+	}else{
+	    textX = buttonBackground -> width() / 2 - text_w;
+	}
     }
 
     void draw(int x, int y, double z){
@@ -34,10 +40,15 @@ public:
 
 	if(imgIcon != 0){
 	    imgIcon -> draw(x + 7, y, z + 0.1);
-	    buttonText -> draw(x + 40, y + 5, z + 0.1);
-	}else{
-	    buttonText -> draw(x, y + 5, z + 0.1);
 	}
+
+	buttonFont -> draw(buttonText,
+			   x + textX, y + 4, z + 0.2);
+
+	buttonFont -> draw(buttonText,
+			   x + textX + 1, y + 6, z + 0.1,
+			   1,1,0x44000000);
+
 	buttonBackground -> draw(x, y, z);
 	
     }
@@ -53,8 +64,13 @@ public:
 
 private:
     boost::shared_ptr<Gosu::Image> buttonBackground;
-    boost::shared_ptr<Gosu::Image> buttonText;
+    //boost::shared_ptr<Gosu::Image> buttonText;
     boost::shared_ptr<Gosu::Image> imgIcon;
+
+    wstring buttonText;
+    int textX;
+
+    boost::shared_ptr<Gosu::Font> buttonFont;
 
     Gosu::Graphics & g;
 

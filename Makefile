@@ -42,8 +42,10 @@ clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
 obj/log.o: include/log.h
-obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h include/stateMainMenu.h include/resManager.h
-obj/state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h
+obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h include/stateMainMenu.h include/resManager.h include/stateHowtoplay.h
+obj/state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h include/stateHowtoplay.h
 obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h include/baseButton.h include/resManager.h
-obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h include/resManager.h
+obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h include/resManager.h include/jewelGroupAnim.h
 obj/board.o: include/board.h include/log.h
+obj/scoreTable.o: include/scoreTable.h include/game.h
+obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h

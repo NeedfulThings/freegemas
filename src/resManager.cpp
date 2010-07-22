@@ -42,7 +42,7 @@ boost::shared_ptr<Gosu::Font> ResourceManager::getFont(wstring path, int size){
     if(loadedFonts.find(key) == loadedFonts.end()){
 	lDEBUG << "Fetching " << Gosu::narrow(key) << "... NOT loaded. Loading now.";
 
-	loadedFonts[key].reset(new Gosu::Font(*g, path, size));
+	loadedFonts[key].reset(new Gosu::Font(*g, path, size, 0));
     }else{
 	lDEBUG << "Fetching " << Gosu::narrow(key) << "... previously loaded.";
     }
