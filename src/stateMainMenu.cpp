@@ -4,6 +4,7 @@
 #include "log.h"
 
 #include "resManager.h"
+#include "inter.h"
 
 template <typename T, typename R>
 
@@ -34,10 +35,10 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     animationLogoSteps = 30;
     animationCurrentStep = 0;
 
-    menuOptions.push_back(make_pair(L"Modo contrarreloj", "stateGame"));
-    menuOptions.push_back(make_pair(L"¿Cómo se juega?", "stateHowtoplay"));
+    menuOptions.push_back(make_pair(Gosu::utf8ToWstring(_("Modo contrarreloj")), "stateGame"));
+    menuOptions.push_back(make_pair(Gosu::utf8ToWstring(_("¿Cómo se juega?")), "stateHowtoplay"));
 //    menuOptions.push_back(make_pair(L"Créditos");
-    menuOptions.push_back(make_pair(L"Salir", "stateQuit"));
+    menuOptions.push_back(make_pair(Gosu::utf8ToWstring(_("Salir")), "stateQuit"));
 
     menuSelectedOption = 0;
     menuYStart = 350;
@@ -76,7 +77,6 @@ void StateMainMenu::update(){
 
     }
 
-    int mX = parent -> input().mouseX();
     int mY = parent -> input().mouseY();
 
     if(mY >= menuYStart && mY < menuYEnd){
@@ -120,7 +120,7 @@ void StateMainMenu::buttonDown(Gosu::Button B){
     }
 
     else if(B == Gosu::kbDown){
-	if(++menuSelectedOption == menuOptions.size()){
+	if(++menuSelectedOption == (int)menuOptions.size()){
 	    menuSelectedOption = 0;
 	}
     }

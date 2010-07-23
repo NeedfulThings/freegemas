@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR José Tomás Tocino García <theom3ga@gmail.com>
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: freegemas 0.4\n"
+"Report-Msgid-Bugs-To: theom3ga@gmail.com\n"
+"POT-Creation-Date: 2010-07-23 02:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/stateHowtoplay.cpp:15 src/stateHowtoplay.cpp:17
+msgid ""
+"\n"
+"\n"
+msgstr ""
+
+#: src/stateGame.cpp:48 src/stateGame.cpp:570
+msgid "Apagar música"
+msgstr ""
+
+#: src/stateHowtoplay.cpp:36
+msgid "Cómo jugar"
+msgstr ""
+
+#: src/stateHowtoplay.cpp:14
+msgid ""
+"El objetivo del juego es formar grupos de tres o más gemas iguales, en "
+"horizontal o vertical, intercambiando gemas adyacentes."
+msgstr ""
+
+#: src/stateGame.cpp:567
+msgid "Encender música"
+msgstr ""
+
+#: src/scoreTable.cpp:33
+msgid "Escribe tu nombre:"
+msgstr ""
+
+#: src/scoreTable.cpp:32
+msgid "FIN DEL JUEGO"
+msgstr ""
+
+#: src/stateHowtoplay.cpp:16
+msgid ""
+"Haz click en la primera gema y luego haz click en la gema por la que la "
+"quieras intercambiar. si el movimiento es correcto, se intercambiarán y las "
+"gemas que formen grupos desaparecerán, dándote puntos."
+msgstr ""
+
+#: src/stateMainMenu.cpp:38
+msgid "Modo contrarreloj"
+msgstr ""
+
+#: src/stateGame.cpp:39
+msgid "Mostrar pista"
+msgstr ""
+
+#: src/stateHowtoplay.cpp:18
+msgid ""
+"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más "
+"puntos, y pensar en estrategias para provocar reacciones en cadena."
+msgstr ""
+
+#: src/stateHowtoplay.cpp:37
+msgid "Pulsa escape para volver"
+msgstr ""
+
+#: src/stateGame.cpp:42
+msgid "Reiniciar juego"
+msgstr ""
+
+#: src/stateGame.cpp:45 src/stateMainMenu.cpp:41
+msgid "Salir"
+msgstr ""
+
+#: src/stateMainMenu.cpp:39
+msgid "¿Cómo se juega?"
+msgstr ""

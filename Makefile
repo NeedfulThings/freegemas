@@ -12,7 +12,7 @@ LDFLAGS   += `gosu/bin/gosu-config --libs --cxxflags`
 
 LIBS      := gosu/lib/libgosu.a
 
-OUTPUT += programa
+OUTPUT += freegemas
 
 OBJDIR := obj
 SRCDIR := src

@@ -2,6 +2,7 @@
 
 #include "game.h"
 #include "resManager.h"
+#include "inter.h"
 
 StateHowtoplay::StateHowtoplay(Game * p) : State(p){
     imgBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/howtoScreen.png");
@@ -10,11 +11,11 @@ StateHowtoplay::StateHowtoplay(Game * p) : State(p){
     fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 23);
 
     wstring bodyText;
-    bodyText += L"El objetivo del juego es formar grupos de tres o más gemas iguales, en horizontal o vertical, intercambiando gemas adyacentes.";
-    bodyText += L"\n\n";
-    bodyText += L"Haz click en la primera gema y luego haz click en la gema por la que la quieras intercambiar. si el movimiento es correcto, se intercambiarán y las gemas que formen grupos desaparecerán, dándote puntos.";
-    bodyText += L"\n\n";
-    bodyText += L"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más puntos, y pensar en estrategias para provocar reacciones en cadena.";
+    bodyText += Gosu::utf8ToWstring(_("El objetivo del juego es formar grupos de tres o más gemas iguales, en horizontal o vertical, intercambiando gemas adyacentes."));
+    bodyText += Gosu::utf8ToWstring(_("\n\n"));
+    bodyText += Gosu::utf8ToWstring(_("Haz click en la primera gema y luego haz click en la gema por la que la quieras intercambiar. si el movimiento es correcto, se intercambiarán y las gemas que formen grupos desaparecerán, dándote puntos."));
+    bodyText += Gosu::utf8ToWstring(_("\n\n"));
+    bodyText += Gosu::utf8ToWstring(_("Puedes intentar hacer grupos de cuatro o más gemas para conseguir más puntos, y pensar en estrategias para provocar reacciones en cadena."));
 
     Gosu::Bitmap B = Gosu::createText(bodyText, 
 				      Gosu::resourcePrefix() + L"media/fNormal.ttf", 
@@ -32,8 +33,8 @@ void StateHowtoplay::update(){
 void StateHowtoplay::draw(){
     imgBackground -> draw(0,0,0);
 
-    wstring titleText = L"Cómo jugar";
-    wstring exitText = L"Pulsa escape para volver";
+    wstring titleText = Gosu::utf8ToWstring(_("Cómo jugar"));
+    wstring exitText = Gosu::utf8ToWstring(_("Pulsa escape para volver"));
 
     fontTitle -> draw(titleText, 
 		      300 + 470 / 2 - fontTitle -> textWidth(titleText) / 2,

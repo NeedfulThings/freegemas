@@ -11,7 +11,7 @@
 
 Game::Game () : Gosu::Window(800, 600, false) {
     lDEBUG << Log::CON("Game");
-    setCaption(L"FreeGemas v0.3");
+    setCaption(L"FreeGemas v0.4");
     
     mousePointer.reset(new Gosu::Image(graphics(), Gosu::resourcePrefix() + L"media/handCursor.png"));
     ResourceManager::instance() -> init(graphics());    

@@ -2,6 +2,7 @@
 #include "log.h"
 #include "game.h"
 #include "resManager.h"
+#include "inter.h"
 
 #include <cmath>
 #include <algorithm>
@@ -35,16 +36,16 @@ void StateGame::init(){
 
 
     hintButton.reset(new BaseButton(parent -> graphics(),
-				    Gosu::utf8ToWstring("Mostrar pista"), L"iconHint.png"));
+				    Gosu::utf8ToWstring(_("Mostrar pista")), L"iconHint.png"));
 
     resetButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring("Reiniciar juego"), L"iconRestart.png"));
+				     Gosu::utf8ToWstring(_("Reiniciar juego")), L"iconRestart.png"));
 
     exitButton.reset(new BaseButton(parent -> graphics(),
-				    Gosu::utf8ToWstring("Salir"), L"iconExit.png"));
+				    Gosu::utf8ToWstring(_("Salir")), L"iconExit.png"));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring("Apagar música"), L"iconMusic.png"));
+				     Gosu::utf8ToWstring(_("Apagar música")), L"iconMusic.png"));
 
 
 
@@ -563,10 +564,10 @@ void StateGame::buttonDown (Gosu::Button B){
 
 	else if(musicButton -> clicked(mX, mY)){
 	    if(sfxSong -> playing()){
-		musicButton -> changeText(Gosu::utf8ToWstring("Encender música"));
+		musicButton -> changeText(Gosu::utf8ToWstring(_("Encender música")));
 		sfxSong -> stop();
 	    }else{
-		musicButton -> changeText(Gosu::utf8ToWstring("Apagar música"));
+		musicButton -> changeText(Gosu::utf8ToWstring(_("Apagar música")));
 		sfxSong -> play(true);
 	    }	    
 	}

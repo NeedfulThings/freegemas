@@ -1,6 +1,7 @@
 #include "scoreTable.h"
 #include "resManager.h"
 
+#include "inter.h"
 
 ScoreTable::ScoreTable(Game * p, int points) : parent(p){
     fntH1 = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 50);
@@ -28,8 +29,8 @@ ScoreTable::ScoreTable(Game * p, int points) : parent(p){
 #define KOL 0xffffffff
 
 void ScoreTable::draw(int x, int y, double z){
-    wstring stringTitle = L"FIN DEL JUEGO",
-	stringSubtitle = L"Escribe tu nombre:";
+    wstring stringTitle = Gosu::utf8ToWstring(_("FIN DEL JUEGO")),
+	stringSubtitle = Gosu::utf8ToWstring(_("Escribe tu nombre:"));
     
     int w1 = fntH1 -> textWidth(stringTitle);
     int w2 = fntH2 -> textWidth(stringSubtitle);

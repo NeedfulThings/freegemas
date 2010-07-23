@@ -24,10 +24,16 @@
  * 02110-1301, USA.
  */
 
+#include "inter.h"
 #include "game.h"
 
 int main(int argc, char *argv[])
 {
+//    bind_textdomain_codeset ("freegemas", "UTF-8");
+    setlocale(LC_ALL, "");
+    bindtextdomain("freegemas", "lang" );
+    textdomain("freegemas");
+
     Game j;
     j.show();
 

@@ -1,0 +1,95 @@
+# English translations for PACKAGE package.
+# Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
+# This file is distributed under the same license as the PACKAGE package.
+# jose <jose@jose-desktop>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freegemas 0.4\n"
+"Report-Msgid-Bugs-To: theom3ga@gmail.com\n"
+"POT-Creation-Date: 2010-07-23 02:42+0200\n"
+"PO-Revision-Date: 2010-07-23 01:49+0200\n"
+"Last-Translator: jose <jose@jose-desktop>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/stateHowtoplay.cpp:15 src/stateHowtoplay.cpp:17
+msgid ""
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+
+#: src/stateGame.cpp:48 src/stateGame.cpp:570
+msgid "Apagar música"
+msgstr "Turn off music"
+
+#: src/stateHowtoplay.cpp:36
+msgid "Cómo jugar"
+msgstr "How to play?"
+
+#: src/stateHowtoplay.cpp:14
+msgid ""
+"El objetivo del juego es formar grupos de tres o más gemas iguales, en "
+"horizontal o vertical, intercambiando gemas adyacentes."
+msgstr ""
+"El objetivo del juego es formar grupos de tres o más gemas iguales, en "
+"horizontal o vertical, intercambiando gemas adyacentes."
+
+#: src/stateGame.cpp:567
+msgid "Encender música"
+msgstr "Turn on music"
+
+#: src/scoreTable.cpp:33
+msgid "Escribe tu nombre:"
+msgstr "Write your name"
+
+#: src/scoreTable.cpp:32
+msgid "FIN DEL JUEGO"
+msgstr "GAME OVER"
+
+#: src/stateHowtoplay.cpp:16
+msgid ""
+"Haz click en la primera gema y luego haz click en la gema por la que la "
+"quieras intercambiar. si el movimiento es correcto, se intercambiarán y las "
+"gemas que formen grupos desaparecerán, dándote puntos."
+msgstr ""
+"Haz click en la primera gema y luego haz click en la gema por la que la "
+"quieras intercambiar. si el movimiento es correcto, se intercambiarán y las "
+"gemas que formen grupos desaparecerán, dándote puntos."
+
+#: src/stateMainMenu.cpp:38
+msgid "Modo contrarreloj"
+msgstr "Timetrial mode"
+
+#: src/stateGame.cpp:39
+msgid "Mostrar pista"
+msgstr "Show hint"
+
+#: src/stateHowtoplay.cpp:18
+msgid ""
+"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más "
+"puntos, y pensar en estrategias para provocar reacciones en cadena."
+msgstr ""
+"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más "
+"puntos, y pensar en estrategias para provocar reacciones en cadena."
+
+#: src/stateHowtoplay.cpp:37
+msgid "Pulsa escape para volver"
+msgstr "Press escape to come back"
+
+#: src/stateGame.cpp:42
+msgid "Reiniciar juego"
+msgstr "Reset game"
+
+#: src/stateGame.cpp:45 src/stateMainMenu.cpp:41
+msgid "Salir"
+msgstr "Exit"
+
+#: src/stateMainMenu.cpp:39
+msgid "¿Cómo se juega?"
+msgstr "How to play?"
