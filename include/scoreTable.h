@@ -1,3 +1,30 @@
+/**
+ * @file scoreTable.h
+ * 
+ * @author José Tomás Tocino García
+ * @date 2010
+ *
+ * 
+ * 
+ * Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ */
+
+
 #ifndef _SCORETABLE_
 #define _SCORETABLE_
 
@@ -5,6 +32,7 @@
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/bind.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <fstream>
 #include <string>
@@ -42,28 +70,38 @@ public:
     ScoreTable(Game * p, int points);
 
     void draw(int x, int y, double z);
+    void buttonDown(Gosu::Button B);
 
 private:
+
+    void fillEmptyScoreFile();
+
     boost::shared_ptr<Gosu::Font> fntH1, fntH2;
+
+    boost::shared_ptr<Gosu::Font> fntLcdBig, fntLcdSmall;
     fstream scoreFile;
 
     enum tState{
-	eRequestPlayerName
+	eRequestPlayerName,
+	eShowScores
     };
 
     tState state;
 
     struct scoreComp{
 	bool operator()(const pair<string,int> & A, const pair<string,int>& B){
-	    return A.second < B.second;
+	    return A.second > B.second;
 	}
     };
 
     set<pair<string, int>, scoreComp > readScoreSet;
+    typedef set<pair<string, int>, scoreComp >::iterator scoreSetIterator;
     int scoreBoardWidth;
 
     Game * parent;
     ScoreTableInput nameInput;
+    
+    int points;
 };
 
 #endif

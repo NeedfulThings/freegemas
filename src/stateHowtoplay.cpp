@@ -58,9 +58,11 @@ void StateHowtoplay::draw(){
 }
 
 void StateHowtoplay::buttonDown(Gosu::Button B){
-    if(B == Gosu::kbEscape){
+    if(B == Gosu::kbEscape || B == Gosu::msLeft){
 	parent -> changeState("stateMainMenu");
     }
+
+
 }
 
 StateHowtoplay::~StateHowtoplay(){

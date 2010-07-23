@@ -606,6 +606,11 @@ void StateGame::buttonDown (Gosu::Button B){
 	gemsOutScreen();
 
     }
+
+
+    if(state == eShowingScoreTable){
+	scoreTable -> buttonDown(B);
+    }
 }
 
 void StateGame::showHint(){
