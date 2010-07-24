@@ -45,7 +45,7 @@ void StateGame::init(){
 				    Gosu::utf8ToWstring(_("Salir")), L"iconExit.png"));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
-				     Gosu::utf8ToWstring(_("Apagar música")), L"iconMusic.png"));
+				     Gosu::utf8ToWstring(_("Encender música")), L"iconMusic.png"));
 
 
 
@@ -95,11 +95,11 @@ void StateGame::redrawScoreboard(){
 
 void StateGame::playMatchSound(){
     if(acumulator == 1){
-	sfxMatch1 -> play();
+	sfxMatch1 -> play(0.35);
     }else if(acumulator == 2){
-	sfxMatch2 -> play();
+	sfxMatch2 -> play(0.35);
     }else{
-	sfxMatch3 -> play();
+	sfxMatch3 -> play(0.35);
     }
 }
 
@@ -205,7 +205,7 @@ void StateGame::update(){
 
     else if(state == eGemasNuevasCayendo){
 	if(pasoAnim++ == totalAnim){
-	    sfxFall -> play();
+	    sfxFall -> play(0.3);
 	    state = eEspera;
 	    pasoAnim = 0;
 
@@ -578,7 +578,7 @@ void StateGame::buttonDown (Gosu::Button B){
 	    
 	}
 	else if(overGem(mX, mY)){ // Si se pulsó sobre una gema
-	    sfxSelect -> play();
+	    sfxSelect -> play(0.3);
 
 	    if(state == eEspera){ // Si no hay ninguna gema marcada
 		state = eGemaMarcada;
