@@ -195,11 +195,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\resManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\scoreTable.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\state.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\stateGame.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\stateHowtoplay.cpp"
 				>
 			</File>
 			<File
@@ -229,7 +241,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\inter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\jewelGroupAnim.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\log.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\resManager.h"
 				>
 			</File>
 			<File
@@ -242,6 +266,10 @@
 			</File>
 			<File
 				RelativePath="..\include\stateGame.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\stateHowtoplay.h"
 				>
 			</File>
 			<File
