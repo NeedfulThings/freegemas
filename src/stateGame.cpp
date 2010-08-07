@@ -29,10 +29,24 @@ void StateGame::init(){
     state = eInicialGemas;
     // Images initialization
     fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
+//    fontHeaders = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 30);
 
     imgBoard = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/board.png");
     imgSelector = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/selector.png");    
+
     imgTimeBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/timeBackground.png");
+    imgScoreBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/scoreBackground.png");
+    
+    Gosu::Bitmap bmpTemp;
+    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("puntos")),
+			       Gosu::resourcePrefix() + L"media/fNormal.ttf", 
+			       30, 0, 190, Gosu::taCenter);
+    imgScoreHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
+
+    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("tiempo restante")),
+			       Gosu::resourcePrefix() + L"media/fNormal.ttf", 
+			       30, 0, 190, Gosu::taCenter);
+    imgTimeHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
 
     hintButton.reset(new BaseButton(parent -> graphics(),
@@ -297,7 +311,13 @@ void StateGame::draw(){
 
     exitButton -> draw(17, 538, 2);
 
-    imgTimeBackground -> draw(17, 195, 2);
+    imgScoreBackground -> draw(17, 124, 2);
+    imgScoreHeader -> draw(17, 84, 3, 1, 1, Gosu::Color(0xffa0a9ff));
+    imgScoreHeader -> draw(18, 85, 2, 1, 1, Gosu::Color(0x66000000));
+
+    imgTimeBackground -> draw(17, 230, 2);
+    imgTimeHeader -> draw(17, 190, 3, 1, 1, Gosu::Color(0xffa0a9ff));
+    imgTimeHeader -> draw(18, 191, 2, 1, 1, Gosu::Color(0x66000000));
 
     fontTime ->draw(Gosu::widen(txtTime), 
 		    190 - fontTime ->textWidth(Gosu::widen(txtTime)),

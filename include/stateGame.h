@@ -172,8 +172,14 @@ private:
     vector<FloatingScore> scoreSet;
 
     boost::shared_ptr<Gosu::Image> imgTimeBackground;
+    boost::shared_ptr<Gosu::Image> imgTimeHeader;
+
+    boost::shared_ptr<Gosu::Image> imgScoreBackground;
+    boost::shared_ptr<Gosu::Image> imgScoreHeader;
+
     boost::shared_ptr<Gosu::Font> fontTime;
-    
+
+
     boost::shared_ptr<Gosu::Image> imgLoadingBanner;
 
     string txtTime;

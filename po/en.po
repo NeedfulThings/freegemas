@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freegemas 0.4\n"
 "Report-Msgid-Bugs-To: theom3ga@gmail.com\n"
-"POT-Creation-Date: 2010-07-23 02:42+0200\n"
+"POT-Creation-Date: 2010-08-07 02:05+0200\n"
 "PO-Revision-Date: 2010-07-23 01:49+0200\n"
 "Last-Translator: jose <jose@jose-desktop>\n"
 "Language-Team: English\n"
@@ -24,7 +24,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: src/stateGame.cpp:48 src/stateGame.cpp:570
+#: src/stateGame.cpp:590
 msgid "Apagar música"
 msgstr "Turn off music"
 
@@ -40,15 +40,15 @@ msgstr ""
 "The objective of the game is to swap one gem with an adjacent gem to form a "
 "horizontal or vertical chain of three or more gems."
 
-#: src/stateGame.cpp:567
+#: src/stateGame.cpp:62 src/stateGame.cpp:587
 msgid "Encender música"
 msgstr "Turn on music"
 
-#: src/scoreTable.cpp:33
+#: src/scoreTable.cpp:70
 msgid "Escribe tu nombre:"
 msgstr "Write your name"
 
-#: src/scoreTable.cpp:32
+#: src/scoreTable.cpp:50
 msgid "FIN DEL JUEGO"
 msgstr "GAME OVER"
 
@@ -58,14 +58,14 @@ msgid ""
 "quieras intercambiar. si el movimiento es correcto, se intercambiarán y las "
 "gemas que formen grupos desaparecerán, dándote puntos."
 msgstr ""
-"Click the first gem and then click the gem you want to swap it with. If"
-" the movement is correct, they will swap and the chained gems will disappear."
+"Click the first gem and then click the gem you want to swap it with. If the "
+"movement is correct, they will swap and the chained gems will disappear."
 
 #: src/stateMainMenu.cpp:38
 msgid "Modo contrarreloj"
 msgstr "Timetrial mode"
 
-#: src/stateGame.cpp:39
+#: src/stateGame.cpp:53
 msgid "Mostrar pista"
 msgstr "Show hint"
 
@@ -75,20 +75,28 @@ msgid ""
 "puntos, y pensar en estrategias para provocar reacciones en cadena."
 msgstr ""
 "Bonus points are given when more than three identical gems are formed. "
-"Sometimes chain reactions, called cascades, are triggered, where chains "
-"are formed by the falling gems. Cascades are awarded with bonus points."
+"Sometimes chain reactions, called cascades, are triggered, where chains are "
+"formed by the falling gems. Cascades are awarded with bonus points."
 
 #: src/stateHowtoplay.cpp:37
 msgid "Pulsa escape para volver"
 msgstr "Press escape to come back"
 
-#: src/stateGame.cpp:42
+#: src/stateGame.cpp:56
 msgid "Reiniciar juego"
 msgstr "Reset game"
 
-#: src/stateGame.cpp:45 src/stateMainMenu.cpp:41
+#: src/stateGame.cpp:59 src/stateMainMenu.cpp:41
 msgid "Salir"
 msgstr "Exit"
+
+#: src/stateGame.cpp:41
+msgid "puntos"
+msgstr "score"
+
+#: src/stateGame.cpp:46
+msgid "tiempo restante"
+msgstr "time left"
 
 #: src/stateMainMenu.cpp:39
 msgid "¿Cómo se juega?"

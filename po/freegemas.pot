@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freegemas 0.4\n"
 "Report-Msgid-Bugs-To: theom3ga@gmail.com\n"
-"POT-Creation-Date: 2010-07-23 02:42+0200\n"
+"POT-Creation-Date: 2010-08-07 02:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/stateGame.cpp:48 src/stateGame.cpp:570
+#: src/stateGame.cpp:590
 msgid "Apagar música"
 msgstr ""
 
@@ -36,15 +36,15 @@ msgid ""
 "horizontal o vertical, intercambiando gemas adyacentes."
 msgstr ""
 
-#: src/stateGame.cpp:567
+#: src/stateGame.cpp:62 src/stateGame.cpp:587
 msgid "Encender música"
 msgstr ""
 
-#: src/scoreTable.cpp:33
+#: src/scoreTable.cpp:70
 msgid "Escribe tu nombre:"
 msgstr ""
 
-#: src/scoreTable.cpp:32
+#: src/scoreTable.cpp:50
 msgid "FIN DEL JUEGO"
 msgstr ""
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Modo contrarreloj"
 msgstr ""
 
-#: src/stateGame.cpp:39
+#: src/stateGame.cpp:53
 msgid "Mostrar pista"
 msgstr ""
 
@@ -73,12 +73,20 @@ msgstr ""
 msgid "Pulsa escape para volver"
 msgstr ""
 
-#: src/stateGame.cpp:42
+#: src/stateGame.cpp:56
 msgid "Reiniciar juego"
 msgstr ""
 
-#: src/stateGame.cpp:45 src/stateMainMenu.cpp:41
+#: src/stateGame.cpp:59 src/stateMainMenu.cpp:41
 msgid "Salir"
+msgstr ""
+
+#: src/stateGame.cpp:41
+msgid "puntos"
+msgstr ""
+
+#: src/stateGame.cpp:46
+msgid "tiempo restante"
 msgstr ""
 
 #: src/stateMainMenu.cpp:39
