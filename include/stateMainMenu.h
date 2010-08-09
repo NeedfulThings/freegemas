@@ -6,6 +6,7 @@
 #include "state.h"
 #include "resManager.h"
 #include "jewelGroupAnim.h"
+#include "sdlfont.h"
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/foreach.hpp>
@@ -47,7 +48,7 @@ private:
     boost::shared_ptr<Gosu::Image> imgLogo;
     boost::shared_ptr<Gosu::Image> imgHighl;
 
-    boost::shared_ptr<Gosu::Font> font;
+    boost::shared_ptr<SDLFont> font;
     JewelGroupAnim jewelAnim;
 
     // Menu configuration
