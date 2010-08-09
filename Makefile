@@ -48,4 +48,5 @@ obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.
 obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h include/resManager.h include/jewelGroupAnim.h include/sdlfont.h
 obj/board.o: include/board.h include/log.h
 obj/scoreTable.o: include/scoreTable.h include/game.h
-obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h
+obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h include/sdlfont.h	
+

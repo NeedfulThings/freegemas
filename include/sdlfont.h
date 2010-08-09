@@ -113,18 +113,18 @@ class SDLFont : boost::noncopyable
     int process(bool toDraw, const std::wstring & text, int x, int y, Gosu::ZPos z, 
 		int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
 
-	if(text == L"") return 0;
+	    if(text == L"") return 0;
 	
-	int acumX = 0;
-	
-	BOOST_FOREACH(const wchar_t & w, text){
-	    boost::shared_ptr<Gosu::Image> currentGlyph = getGlyph(w);
-	    if(toDraw) currentGlyph-> draw(x + acumX, y, z, 1, 1, color);
+	    int acumX = 0;
 	    
-	    acumX += currentGlyph -> width();
-	}
-
-	return acumX;
+	    BOOST_FOREACH(const wchar_t & w, text){
+		    boost::shared_ptr<Gosu::Image> currentGlyph = getGlyph(w);
+		    if(toDraw) currentGlyph-> draw(x + acumX, y, z, 1, 1, color);
+		    
+		    acumX += currentGlyph -> width();
+	    }
+	    
+	    return acumX;
     }
 
 public:
@@ -157,7 +157,7 @@ public:
 	}
 
     unsigned textWidth(const std::wstring& text){
-	return process(false, text, 0, 0, 0, 0, 0, 0xffffffff);
+	    return process(false, text, 0, 0, 0, 0, 0, 0xffffffff);
     }
 
     int fontLineSkip(){
@@ -167,8 +167,8 @@ public:
     }
 
     void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, 
-	      int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
-	process(true, text, x, y, z, fx, fy, color);
+              int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
+	    process(true, text, x, y, z, fx, fy, color);
     }
 };
 
@@ -178,6 +178,63 @@ class SDLText{
     boost::shared_ptr<SDLFont> font;
 
     int textWidth, fontLineSkip;
+
+	vector<wstring> tokenize(const wstring & text, const wchar_t sep = L'\n'){
+		vector<wstring> tokens;	
+
+		string::size_type lastPos = text.find_first_not_of(sep, 0);
+		// Find first "non-delimiter".
+		string::size_type pos     = text.find_first_of(sep, lastPos);
+		
+		tokens.clear();
+		while (string::npos != pos || string::npos != lastPos)
+		{
+			// Found a token, add it to the vector.
+			tokens.push_back(text.substr(lastPos, pos - lastPos));
+
+			// Skip '\n'.  Note the "not_of"
+			lastPos = text.find_first_not_of(sep, pos);
+
+			// Find next "non-delimiter"
+			pos = text.find_first_of(sep, lastPos);
+		}	
+
+		return tokens;
+	}
+
+	vector<wstring> fitLines(const vector<wstring> & lines){
+		vector<wstring> result;
+		wstring tempString;
+		vector<wstring>::const_iterator i, j, w1, w2;
+
+		int acumWidth, currWordWidth;
+
+		for(i = lines.begin(), j = lines.end(); i != j; ++i){
+			acumWidth = 0;
+			tempString = L"";
+			vector<wstring> words = tokenize(*i, L' ');	
+
+			for(w1 = words.begin(), w2 = words.end(); w1 != w2; ++w1){
+				currWordWidth = font -> textWidth(*w1);
+				if(acumWidth + currWordWidth <= textWidth){
+					tempString += L" " + *w1;
+					acumWidth += currWordWidth;
+				}else{
+					result.push_back(tempString);
+					tempString = *w1;
+					acumWidth = currWordWidth;
+				}
+			}	
+
+			if(tempString != L""){
+				result.push_back(tempString);
+			}
+			result.push_back(L"\n");
+		}
+
+		return result;
+	}
+	
 public:
 
     SDLText(Gosu::Graphics & g, const std::wstring& fontName, unsigned fontHeight, int textWidth) : g(g), textWidth(textWidth){
@@ -186,16 +243,19 @@ public:
     }
 
     void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, Gosu::Color color){
-        
-        typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-        boost::char_separator<char> sep("", "\n");
-        tokenizer tokens(Gosu::wstringToUTF8(text), sep);
-        int i = 0;
-        for (tokenizer::iterator tok_iter = tokens.begin(); tok_iter != tokens.end(); ++tok_iter){
-            if(*tok_iter == "\n") continue;
-            int thisLineWidth = font -> textWidth(Gosu::utf8ToWstring(*tok_iter));
-            font -> draw(Gosu::utf8ToWstring(*tok_iter), x + textWidth / 2 - thisLineWidth / 2, y + i++ * fontLineSkip, z, 1, 1, color);
-        }        
+	    
+
+	    vector<wstring> textLines = fitLines(tokenize(text));
+	    vector<wstring>::iterator i, j;
+	    
+	    int c = 0;
+	    for(i = textLines.begin(), j = textLines.end();
+	        i != j; ++i){
+		    int thisLineWidth = font -> textWidth(*i);		        
+		    font -> draw(*i, x + textWidth / 2 - thisLineWidth / 2, y + c++ * (fontLineSkip + 5) * 1, 
+		                 z, 1, 1, color);
+	    }
+
     }
 };
 #endif /* _CUSTOMFONT_H_ */
