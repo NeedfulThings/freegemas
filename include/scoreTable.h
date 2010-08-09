@@ -44,7 +44,7 @@ using namespace std;
 
 #include "log.h"
 #include "game.h"
-
+#include "resManager.h"
 
 class ScoreTableInput : public Gosu::TextInput{
 public:
@@ -76,9 +76,9 @@ private:
 
     void fillEmptyScoreFile();
 
-    boost::shared_ptr<Gosu::Font> fntH1, fntH2;
+    boost::shared_ptr<SDLFont> fntH1, fntH2;
 
-    boost::shared_ptr<Gosu::Font> fntLcdBig, fntLcdSmall;
+    boost::shared_ptr<SDLFont> fntLcdBig, fntLcdSmall;
     fstream scoreFile;
 
     enum tState{

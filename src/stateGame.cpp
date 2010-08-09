@@ -320,10 +320,12 @@ void StateGame::draw(){
     imgTimeHeader -> draw(17, 190, 3, 1, 1, Gosu::Color(0xffa0a9ff));
     imgTimeHeader -> draw(18, 191, 2, 1, 1, Gosu::Color(0x66000000));
 
-    fontTime ->draw(Gosu::widen(txtTime), 
-		    190 - fontTime ->textWidth(Gosu::widen(txtTime)),
+    fontTime ->draw(Gosu::utf8ToWstring(txtTime), 
+		    190 - fontTime ->textWidth(Gosu::utf8ToWstring(txtTime)),
 		    232, 2, 1, 1,
 		    Gosu::Color(0xff4ec1be));
+
+    //*/
 
     int posX = 241, 
 	posY = 41;

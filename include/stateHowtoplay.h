@@ -6,6 +6,7 @@
 
 #include <boost/shared_ptr.hpp>
 
+class SDLFont;
 class Game;
 
 class StateHowtoplay : public State{
@@ -21,7 +22,7 @@ public:
 private:
     boost::shared_ptr<Gosu::Image> imgBackground;
 
-    boost::shared_ptr<Gosu::Font> fontTitle, fontSubtitle;
+    boost::shared_ptr<SDLFont> fontTitle, fontSubtitle;
     boost::shared_ptr<Gosu::Image> imgBodyText;
 
 };

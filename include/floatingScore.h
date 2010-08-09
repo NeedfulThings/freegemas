@@ -77,7 +77,7 @@ public:
 private:
     boost::shared_ptr<Gosu::Image> scoreImage;
 
-    boost::shared_ptr<Gosu::Font> scoreFont;
+    boost::shared_ptr<SDLFont> scoreFont;
     wstring scoreText;
 			   
     int x_;

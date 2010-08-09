@@ -36,6 +36,8 @@
 #include <string>
 using namespace std;
 
+#include "sdlfont.h"
+
 #define ResMgr ResourceManager::instance()
 
 /**
@@ -81,7 +83,7 @@ public:
     boost::shared_ptr<Gosu::Image> getImage(wstring path);
 
     /// Returns a shared_ptr to the requested font.
-    boost::shared_ptr<Gosu::Font> getFont(wstring path, int size);
+    boost::shared_ptr<SDLFont> getFont(wstring path, int size);
 
     /// Checks usage of resources and collects garbage, freeing unused resources.
     void collectGarbage(wstring bypass = L"");
@@ -95,13 +97,13 @@ private:
     boost::unordered_map<wstring, boost::shared_ptr<Gosu::Image> > loadedImages;
 
     /// Map of loaded fonts
-    boost::unordered_map<wstring, boost::shared_ptr<Gosu::Font> > loadedFonts;
+    boost::unordered_map<wstring, boost::shared_ptr<SDLFont> > loadedFonts;
 
     /// Iterator type definition for the map of images
     typedef boost::unordered_map<wstring, boost::shared_ptr<Gosu::Image> >::iterator imgMapIterator;
 
     /// Iterator type definition for the map of fonts
-    typedef boost::unordered_map<wstring, boost::shared_ptr<Gosu::Font> >::iterator fontMapIterator;
+    typedef boost::unordered_map<wstring, boost::shared_ptr<SDLFont> >::iterator fontMapIterator;
 
     /// Pointer to graphics object
     Gosu::Graphics * g;

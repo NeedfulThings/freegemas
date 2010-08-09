@@ -7,7 +7,7 @@
 #include <algorithm>
 
 //boost::unordered_map<string, boost::shared_ptr<Gosu::Image> > ResourceManager::loadedImages;
-//boost::unordered_map<string, boost::shared_ptr<Gosu::Font> > ResourceManager::loadedFonts;
+//boost::unordered_map<string, boost::shared_ptr<SDLFont> > ResourceManager::loadedFonts;
 
 boost::shared_ptr<ResourceManager> ResourceManager::pointerInstance;
 
@@ -36,13 +36,13 @@ boost::shared_ptr<Gosu::Image> ResourceManager::getImage(wstring path){
     return loadedImages[path];
 }
 
-boost::shared_ptr<Gosu::Font> ResourceManager::getFont(wstring path, int size){
+boost::shared_ptr<SDLFont> ResourceManager::getFont(wstring path, int size){
     wstring key = path + boost::lexical_cast<wstring>(size);
 
     if(loadedFonts.find(key) == loadedFonts.end()){
 //	lDEBUG << "Fetching " << Gosu::narrow(key) << "... NOT loaded. Loading now.";
 
-	loadedFonts[key].reset(new Gosu::Font(*g, path, size, 0));
+	loadedFonts[key].reset(new SDLFont(*g, path, size));
     }else{
 //	lDEBUG << "Fetching " << Gosu::narrow(key) << "... previously loaded.";
     }

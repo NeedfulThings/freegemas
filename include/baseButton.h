@@ -70,7 +70,7 @@ private:
     wstring buttonText;
     int textX;
 
-    boost::shared_ptr<Gosu::Font> buttonFont;
+    boost::shared_ptr<SDLFont> buttonFont;
 
     Gosu::Graphics & g;
 

@@ -1,5 +1,5 @@
 #include "scoreTable.h"
-#include "resManager.h"
+
 
 #include "inter.h"
 

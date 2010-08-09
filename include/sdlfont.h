@@ -40,10 +40,15 @@
 #include <map>
 #include <cstdio>
 
+#include <iostream>
+using namespace std;
+
+
 class SDLFont : boost::noncopyable
 {
     TTF_Font* font;
     
+
     class SDLSurface : boost::noncopyable
     {
 	SDL_Surface* surface;
@@ -51,11 +56,14 @@ class SDLFont : boost::noncopyable
     public:
 	SDLSurface(TTF_Font* font, const std::wstring& text, Gosu::Color c)
 	    {
+
 		SDL_Color color = { c.red(), c.green(), c.blue() };
 		surface = TTF_RenderUTF8_Blended(font, Gosu::wstringToUTF8(text).c_str(), color);
+		//		surface = TTF_RenderUTF8_Blended(font, "hola", color);
+
 		if (!surface)
-		    throw std::runtime_error("Could not render text " 
-					     + Gosu::wstringToUTF8(text));
+		    throw std::runtime_error("NO PUEDORR >" 
+					     + Gosu::wstringToUTF8(text) + "<");
 	    }
             
 	~SDLSurface()
@@ -78,6 +86,8 @@ class SDLFont : boost::noncopyable
 		return surface->pixels;
 	    }
     };
+
+    //*/
         
     Gosu::Graphics & graphics;
     boost::unordered_map<wchar_t, boost::shared_ptr<Gosu::Image> > fontGlyphs;
@@ -99,6 +109,23 @@ class SDLFont : boost::noncopyable
 	return fontGlyphs[w];	 
     }
     
+    int process(bool toDraw, const std::wstring & text, int x, int y, Gosu::ZPos z, 
+		int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
+
+	if(text == L"") return 0;
+	
+	int acumX = 0;
+	
+	BOOST_FOREACH(const wchar_t & w, text){
+	    boost::shared_ptr<Gosu::Image> currentGlyph = getGlyph(w);
+	    if(toDraw) currentGlyph-> draw(x + acumX, y, z, 1, 1, color);
+	    
+	    acumX += currentGlyph -> width();
+	}
+
+	return acumX;
+    }
+
 public:
     SDLFont(Gosu::Graphics & G, const std::wstring& fontName, unsigned fontHeight)
 	: graphics(G)
@@ -129,34 +156,12 @@ public:
 	}
 
     unsigned textWidth(const std::wstring& text){
-	return SDLSurface(font, text, 0xffffff).width();
+	return process(false, text, 0, 0, 0, 0, 0, 0xffffffff);
     }
 
-    void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
-	int acumX = 0;
-
-	BOOST_FOREACH(const wchar_t & w, text){
-	    boost::shared_ptr<Gosu::Image> currentGlyph = getGlyph(w);
-	    currentGlyph-> draw(x + acumX, y, z, 1, 1, color);
-	    
-	    acumX += currentGlyph -> width();
-	}
-    }
-
-    void drawText(Gosu::Bitmap& bmp, const std::wstring& text, int x, int y, Gosu::Color c) {
-	SDLSurface surf(font, text, c);
-
-	Gosu::Bitmap temp;
-	cout << surf.width() << " " << surf.height() << endl;
-
-	temp.resize(surf.width(), surf.height());
-	std::memcpy(temp.data(), surf.data(), temp.width() * temp.height() * 4);
-	    
-	if(bmp.height() < temp.height()){
-	    bmp.resize(surf.width(), temp.height());
-	}
-	    
-	bmp.insert(temp, x, y);
+    void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, 
+	      int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
+	process(true, text, x, y, z, fx, fy, color);
     }
 };
 
