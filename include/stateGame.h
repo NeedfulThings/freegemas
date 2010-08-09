@@ -180,6 +180,7 @@ private:
 
     //boost::shared_ptr<Gosu::Font> fontTime;
     boost::shared_ptr<SDLFont> fontTime;
+    boost::shared_ptr<SDLFont> fontScore;
 
 
     boost::shared_ptr<Gosu::Image> imgLoadingBanner;

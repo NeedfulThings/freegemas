@@ -34,6 +34,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/unordered/unordered_map.hpp>
 #include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
 
 #include <SDL_ttf.h>
 
@@ -159,10 +160,42 @@ public:
 	return process(false, text, 0, 0, 0, 0, 0, 0xffffffff);
     }
 
+    int fontLineSkip(){
+        if(font)
+                return TTF_FontLineSkip(font);
+        return 0;
+    }
+
     void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, 
 	      int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
 	process(true, text, x, y, z, fx, fy, color);
     }
 };
 
+
+class SDLText{  
+    Gosu::Graphics &g;
+    boost::shared_ptr<SDLFont> font;
+
+    int textWidth, fontLineSkip;
+public:
+
+    SDLText(Gosu::Graphics & g, const std::wstring& fontName, unsigned fontHeight, int textWidth) : g(g), textWidth(textWidth){
+        font.reset(new SDLFont(g, fontName, fontHeight));
+        fontLineSkip = font->fontLineSkip();
+    }
+
+    void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, Gosu::Color color){
+        
+        typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+        boost::char_separator<char> sep("", "\n");
+        tokenizer tokens(Gosu::wstringToUTF8(text), sep);
+        int i = 0;
+        for (tokenizer::iterator tok_iter = tokens.begin(); tok_iter != tokens.end(); ++tok_iter){
+            if(*tok_iter == "\n") continue;
+            int thisLineWidth = font -> textWidth(Gosu::utf8ToWstring(*tok_iter));
+            font -> draw(Gosu::utf8ToWstring(*tok_iter), x + textWidth / 2 - thisLineWidth / 2, y + i++ * fontLineSkip, z, 1, 1, color);
+        }        
+    }
+};
 #endif /* _CUSTOMFONT_H_ */

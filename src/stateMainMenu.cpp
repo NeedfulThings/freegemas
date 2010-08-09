@@ -46,7 +46,7 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     menuSelectedOption = 0;
     menuYStart = 350;
     menuYGap = 42;
-    menuYEnd = 350 + menuOptions.size() * menuYGap;
+    menuYEnd = 350 + (int) menuOptions.size() * menuYGap;
 
     int widthRead = 0, maxWidth = 0;
 
@@ -80,7 +80,7 @@ void StateMainMenu::update(){
 
     }
 
-    int mY = parent -> input().mouseY();
+    int mY = (int) parent -> input().mouseY();
 
     if(mY >= menuYStart && mY < menuYEnd){
 	menuSelectedOption = (mY - menuYStart) / menuYGap;
@@ -104,7 +104,7 @@ void StateMainMenu::draw(){
 				    800, menuYStart + 30, 0xffffffff, 5);
     //*/
 
-    for(int i = 0, s = menuOptions.size(); i < s; ++i){
+    for(int i = 0, s = (int) menuOptions.size(); i < s; ++i){
 	int hor = 800 / 2 - font -> textWidth(menuOptions[i].first) / 2;
 
 	font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap, 2);
@@ -138,7 +138,7 @@ void StateMainMenu::buttonDown(Gosu::Button B){
 
     else if(B == Gosu::kbUp){
 	if(--menuSelectedOption == -1){
-	    menuSelectedOption = menuOptions.size() - 1;
+	    menuSelectedOption = (int) menuOptions.size() - 1;
 	}
     }
 
@@ -147,8 +147,8 @@ void StateMainMenu::buttonDown(Gosu::Button B){
     }
 
     else if(B == Gosu::msLeft){
-	int mX = parent -> input().mouseX();
-	int mY = parent -> input().mouseY();
+	int mX = (int) parent -> input().mouseX();
+	int mY = (int) parent -> input().mouseY();
 
 	if(mX >= menuXStart && mX <= menuXEnd &&
 	   mY >= menuYStart && mY <= menuYEnd){

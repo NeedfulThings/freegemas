@@ -4,8 +4,6 @@
  * @author José Tomás Tocino García
  * @date 2010
  *
- * 
- * 
  * Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or
@@ -59,19 +57,19 @@ public:
 	float p = 1. - (float)currentStep/totalSteps;
 
 	int posX = 241 + x_ * 65;
-	int posY = 41 + y_ * 65 - (1 - p) * 20; 
+	int posY = int(41 + y_ * 65 - (1 - p) * 20); 
 
 	scoreFont -> draw(scoreText,
 			  posX, 
 			  posY, 
 			  6, 1, 1,
-			  Gosu::Color(p * 255, 255, 255, 255));
+			  Gosu::Color((int)(p * 255), 255, 255, 255));
 
 	scoreFont -> draw(scoreText,
 			   posX + 4,
 			   posY + 4,
 			   5.9, 1, 1,
-			   Gosu::Color(p * 255, 0, 0, 0));
+			   Gosu::Color((int)(p * 255), 0, 0, 0));
 
     }
 private:

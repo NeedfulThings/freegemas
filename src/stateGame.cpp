@@ -30,6 +30,8 @@ void StateGame::init(){
     // Images initialization
     //fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
     fontTime.reset(new SDLFont(parent -> graphics(), Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62));
+    fontScore.reset(new SDLFont(parent -> graphics(), Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33));
+
 //    fontHeaders = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 30);
 
     imgBoard = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/board.png");
@@ -142,8 +144,8 @@ void StateGame::update(){
     double timeDiff = (timeStart - Gosu::milliseconds()) / 1000;
 	
     if(timeDiff >= 0){
-	int minutes = timeDiff / 60;
-	int seconds = timeDiff - minutes * 60;
+	int minutes = int(timeDiff / 60);
+	int seconds = int(timeDiff - minutes * 60);
 	if(seconds < 10){
 	    txtTime = boost::lexical_cast<string>(minutes) + ":0" + boost::lexical_cast<string>(seconds);
 	}else{
@@ -320,9 +322,14 @@ void StateGame::draw(){
     imgTimeHeader -> draw(17, 190, 3, 1, 1, Gosu::Color(0xffa0a9ff));
     imgTimeHeader -> draw(18, 191, 2, 1, 1, Gosu::Color(0x66000000));
 
-    fontTime ->draw(Gosu::utf8ToWstring(txtTime), 
+    fontTime -> draw(Gosu::utf8ToWstring(txtTime), 
 		    190 - fontTime ->textWidth(Gosu::utf8ToWstring(txtTime)),
 		    232, 2, 1, 1,
+		    Gosu::Color(0xff4ec1be));
+
+    fontScore -> draw(boost::lexical_cast<wstring>(puntos), 
+		    197 - fontScore ->textWidth(boost::lexical_cast<wstring>(puntos)),
+		    127, 2, 1, 1,
 		    Gosu::Color(0xff4ec1be));
 
     //*/
@@ -332,7 +339,7 @@ void StateGame::draw(){
 
     std::for_each(scoreSet.begin(), scoreSet.end(), boost::bind(&FloatingScore::draw, _1));
 
-    txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
+    //txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
 
     boost::shared_ptr<Gosu::Image> img;
 
@@ -376,18 +383,18 @@ void StateGame::draw(){
 		if(img != NULL){
 		    if(state == eInicialGemas){
 			img -> draw(posX + i * 65,
-				    eqMovOut(pasoAnim,
-					     posY + board.squares[i][j].origY * 65,
-					     board.squares[i][j].destY * 65,
-					     totalAnimInit),
+				    eqMovOut(float(pasoAnim),
+					     float(posY + board.squares[i][j].origY * 65),
+					     float(board.squares[i][j].destY * 65),
+					     float(totalAnimInit)),
 				    3);
 		    }
 		    else if(state == eDesapareceBoard || state == eTimeFinished){
 			img -> draw(posX + i * 65,
-				    eqMovIn(pasoAnim,
-					    posY + board.squares[i][j].origY * 65,
-					    board.squares[i][j].destY * 65,
-					    totalAnimInit),
+				    eqMovIn(float(pasoAnim),
+					    float(posY + board.squares[i][j].origY * 65),
+					    float(board.squares[i][j].destY * 65),
+					    float(totalAnimInit)),
 				    3);
 		    }
 
@@ -396,10 +403,10 @@ void StateGame::draw(){
 
 			if(board.squares[i][j].mustFall){
 			    img -> draw(posX + i * 65,
-					eqMovOut(pasoAnim,
-						 posY + board.squares[i][j].origY * 65,
-						 board.squares[i][j].destY * 65,
-						 totalAnim),
+					eqMovOut(float(pasoAnim),
+						 float(posY + board.squares[i][j].origY * 65),
+						 float(board.squares[i][j].destY * 65),
+						 float(totalAnim)),
 					3);
 			}else{
 			    img -> draw(posX + i * 65,
@@ -413,15 +420,15 @@ void StateGame::draw(){
 			if(i == selectedSquareFirst.x && 
 			   j == selectedSquareFirst.y){
 
-			    img -> draw(eqMovOut(pasoAnim,
-						 posX + i * 65,
-						 (casillaMarcada2X - selectedSquareFirst.x) * 65,
-						 totalAnim),
+			    img -> draw(eqMovOut(float(pasoAnim),
+						 float(posX + i * 65),
+						 float((casillaMarcada2X - selectedSquareFirst.x) * 65),
+						 float(totalAnim)),
 
-					eqMovOut(pasoAnim,
-						 posY + j * 65,
-						 (casillaMarcada2Y - selectedSquareFirst.y) * 65,
-						 totalAnim),
+					eqMovOut(float(pasoAnim),
+						 float(posY + j * 65),
+						 float((casillaMarcada2Y - selectedSquareFirst.y) * 65),
+						 float(totalAnim)),
 
 					3);
 
@@ -430,15 +437,15 @@ void StateGame::draw(){
 			else if(i == casillaMarcada2X && 
 				j == casillaMarcada2Y){
 
-			    img -> draw(eqMovOut(pasoAnim,
-						 posX + i * 65,
-						 (selectedSquareFirst.x - casillaMarcada2X) * 65,
-						 totalAnim),
+			    img -> draw(eqMovOut(float(pasoAnim),
+						 float(posX + i * 65),
+						 float((selectedSquareFirst.x - casillaMarcada2X) * 65),
+						 float(totalAnim)),
 
-					eqMovOut(pasoAnim,
-						 posY + j * 65,
-						 (selectedSquareFirst.y - casillaMarcada2Y) * 65,
-						 totalAnim),
+					eqMovOut(float(pasoAnim),
+						 float(posY + j * 65),
+						 float((selectedSquareFirst.y - casillaMarcada2Y) * 65),
+						 float(totalAnim)),
 
 					3);
 
@@ -460,7 +467,7 @@ void StateGame::draw(){
 			    img -> draw(posX + i * 65,
 					posY + j * 65,
 					3, 1, 1,
-					Gosu::Color(255 * (1 -(float)pasoAnim/totalAnim), 
+					Gosu::Color(int(255 * (1 -(float)pasoAnim/totalAnim)), 
 						    255, 255, 255));
 			}
 			else{
@@ -477,8 +484,8 @@ void StateGame::draw(){
 	    }
 	}
 
-	int mX = parent -> input().mouseX();
-	int mY = parent -> input().mouseY();
+	int mX = (int) parent -> input().mouseX();
+	int mY = (int) parent -> input().mouseY();
 
 	if(overGem(mX, mY) ){
 	    imgSelector -> draw( 241 + getCoord(mX, mY).x * 65,
@@ -501,7 +508,7 @@ void StateGame::draw(){
 
 	    imgSelector -> draw(pX1, pY1,
 				3, 2 - p1, 2 - p1,
-				Gosu::Color(p1 * 255, 0, 255, 0));
+				Gosu::Color(int(p1 * 255), 0, 255, 0));
 
 	}
     }else{
@@ -554,8 +561,8 @@ void StateGame::buttonUp (Gosu::Button B){
 	clicking = false;
 
 	if(state == eGemaMarcada){
-	    int mX = parent -> input().mouseX();
-	    int mY = parent -> input().mouseY();
+	    int mX = (int) parent -> input().mouseX();
+	    int mY = (int) parent -> input().mouseY();
 
 	    coord res = getCoord(mX, mY);
 
@@ -574,8 +581,8 @@ void StateGame::buttonDown (Gosu::Button B){
     else if(B == Gosu::msLeft){ // Se pulsó el ratón
 	clicking = true;
 
-	int mX = parent -> input().mouseX();
-	int mY = parent -> input().mouseY();
+	int mX = (int) parent -> input().mouseX();
+	int mY = (int) parent -> input().mouseY();
 
 	if(exitButton -> clicked(mX, mY)){
 	    parent -> changeState("stateMainMenu");
@@ -623,14 +630,6 @@ void StateGame::buttonDown (Gosu::Button B){
 	showHint();
     }
 
-    else if(B == Gosu::kbP){
-	state = eDesapareceBoard;
-
-	gemsOutScreen();
-
-    }
-
-
     if(state == eShowingScoreTable){
 	scoreTable -> buttonDown(B);
     }
@@ -648,7 +647,7 @@ void StateGame::gemsOutScreen(){
 	for(int y = 0; y < 8; ++y){
 	    board.squares[x][y].mustFall = true;
 	    board.squares[x][y].origY = y;
-	    board.squares[x][y].destY = 9 + Gosu::random(1,7);
+	    board.squares[x][y].destY = int(9 + Gosu::random(1,7));
 	}
     }
 }
