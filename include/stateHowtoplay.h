@@ -27,6 +27,7 @@ private:
     boost::shared_ptr<SDLText> fontBodyText;
 
     wstring bodyText;
+    vector<wstring> preparedText;
     boost::shared_ptr<Gosu::Image> imgBodyText;
 
 };

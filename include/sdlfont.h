@@ -242,11 +242,12 @@ public:
         fontLineSkip = font->fontLineSkip();
     }
 
-    void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, Gosu::Color color){
-	    
+    vector<wstring> prepareText(const std::wstring & text){
+        return fitLines(tokenize(text));
+    }
 
-	    vector<wstring> textLines = fitLines(tokenize(text));
-	    vector<wstring>::iterator i, j;
+    void draw(const std::vector<wstring> & textLines, int x, int y, Gosu::ZPos z, Gosu::Color color){
+        vector<wstring>::const_iterator i, j;
 	    
 	    int c = 0;
 	    for(i = textLines.begin(), j = textLines.end();
@@ -255,7 +256,10 @@ public:
 		    font -> draw(*i, x + textWidth / 2 - thisLineWidth / 2, y + c++ * (fontLineSkip + 5) * 1, 
 		                 z, 1, 1, color);
 	    }
+    }
 
+    void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, Gosu::Color color){
+	    draw(fitLines(tokenize(text)), x, y, z, color);
     }
 };
 #endif /* _CUSTOMFONT_H_ */
