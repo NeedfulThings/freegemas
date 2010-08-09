@@ -35,16 +35,10 @@
 #include <boost/unordered/unordered_map.hpp>
 #include <boost/foreach.hpp>
 
-#include <SDL/SDL_ttf.h>
+#include <SDL_ttf.h>
 
-
-#include <iostream>
 #include <map>
 #include <cstdio>
-
-using std::cout;
-using std::cerr;
-using std::endl;
 
 class SDLFont : boost::noncopyable
 {

@@ -30,7 +30,7 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
 
     //font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 30);
     font.reset(new SDLFont(parent -> graphics(),
-			   L"media/fuenteMenu.ttf",
+			   Gosu::resourcePrefix() + L"media/fuenteMenu.ttf",
 			   30));
     
     
@@ -96,11 +96,13 @@ void StateMainMenu::draw(){
     imgLogo -> draw(86, 0, 2, 1, 1, 
 		    Gosu::Color(logoAlfa, 255, 255, 255));
 
+    /*
     parent -> graphics() . drawLine(0, menuYStart, 0xffffffff,
 				    800, menuYStart, 0xffffffff, 5);
 
     parent -> graphics() . drawLine(0, menuYStart + 30, 0xffffffff,
 				    800, menuYStart + 30, 0xffffffff, 5);
+    //*/
 
     for(int i = 0, s = menuOptions.size(); i < s; ++i){
 	int hor = 800 / 2 - font -> textWidth(menuOptions[i].first) / 2;

@@ -28,7 +28,8 @@ StateGame::StateGame(Game * p) : State(p){
 void StateGame::init(){
     state = eInicialGemas;
     // Images initialization
-    fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
+    //fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
+    fontTime.reset(new SDLFont(parent -> graphics(), Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62));
 //    fontHeaders = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 30);
 
     imgBoard = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/board.png");
