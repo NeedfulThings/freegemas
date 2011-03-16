@@ -7,8 +7,8 @@
 StateHowtoplay::StateHowtoplay(Game * p) : State(p){
     imgBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/howtoScreen.png");
 
-    fontTitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 48);
-    fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 23);
+    fontTitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 58);
+    fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 33);
     fontBodyText.reset(new SDLText(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 450));
 
     bodyText += Gosu::utf8ToWstring(_("El objetivo del juego es formar grupos de tres o más gemas iguales, en horizontal o vertical, intercambiando gemas adyacentes."));

@@ -179,8 +179,8 @@ private:
     boost::shared_ptr<Gosu::Image> imgScoreHeader;
 
     //boost::shared_ptr<Gosu::Font> fontTime;
-    boost::shared_ptr<SDLFont> fontTime;
-    boost::shared_ptr<SDLFont> fontScore;
+    boost::shared_ptr<Gosu::Font> fontTime;
+    boost::shared_ptr<Gosu::Font> fontScore;
 
 
     boost::shared_ptr<Gosu::Image> imgLoadingBanner;

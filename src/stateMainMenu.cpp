@@ -29,9 +29,9 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
 				  L"media/stateMainMenu/menuHighlight.png");
 
     //font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 30);
-    font.reset(new SDLFont(parent -> graphics(),
+    font.reset(new Gosu::Font(parent -> graphics(),
 			   Gosu::resourcePrefix() + L"media/fuenteMenu.ttf",
-			   30));
+			   40));
     
     
     animationTotalSteps = 30;

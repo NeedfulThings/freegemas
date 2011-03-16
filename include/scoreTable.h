@@ -76,9 +76,9 @@ private:
 
     void fillEmptyScoreFile();
 
-    boost::shared_ptr<SDLFont> fntH1, fntH2;
+    boost::shared_ptr<Gosu::Font> fntH1, fntH2;
 
-    boost::shared_ptr<SDLFont> fntLcdBig, fntLcdSmall;
+    boost::shared_ptr<Gosu::Font> fntLcdBig, fntLcdSmall;
     fstream scoreFile;
 
     enum tState{

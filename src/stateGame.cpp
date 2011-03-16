@@ -28,9 +28,8 @@ StateGame::StateGame(Game * p) : State(p){
 void StateGame::init(){
     state = eInicialGemas;
     // Images initialization
-    //fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
-    fontTime.reset(new SDLFont(parent -> graphics(), Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62));
-    fontScore.reset(new SDLFont(parent -> graphics(), Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33));
+    fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
+    fontScore = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33);
 
 //    fontHeaders = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 30);
 
@@ -43,12 +42,12 @@ void StateGame::init(){
     Gosu::Bitmap bmpTemp;
     bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("puntos")),
 			       Gosu::resourcePrefix() + L"media/fNormal.ttf", 
-			       30, 0, 190, Gosu::taCenter);
+			       37, 0, 190, Gosu::taCenter);
     imgScoreHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
     bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("tiempo restante")),
 			       Gosu::resourcePrefix() + L"media/fNormal.ttf", 
-			       30, 0, 190, Gosu::taCenter);
+			       37, 0, 190, Gosu::taCenter);
     imgTimeHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
 

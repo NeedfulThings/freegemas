@@ -23,7 +23,7 @@ public:
 private:
     boost::shared_ptr<Gosu::Image> imgBackground;
 
-    boost::shared_ptr<SDLFont> fontTitle, fontSubtitle;
+    boost::shared_ptr<Gosu::Font> fontTitle, fontSubtitle;
     boost::shared_ptr<SDLText> fontBodyText;
 
     wstring bodyText;

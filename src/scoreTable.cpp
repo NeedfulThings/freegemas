@@ -4,11 +4,11 @@
 #include "inter.h"
 
 ScoreTable::ScoreTable(Game * p, int points) : parent(p), points(points){
-    fntH1 = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 50);
-    fntH2 = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 28);
+    fntH1 = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 60);
+    fntH2 = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 38);
 
-    fntLcdBig = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
-    fntLcdSmall = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33);
+    fntLcdBig = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 72);
+    fntLcdSmall = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 43);
 
     string scoreFilePath = Gosu::narrow(Gosu::userSettingsPrefix()) + "freeGemasScore"; 
     lDEBUG << "Reading file " << scoreFilePath;

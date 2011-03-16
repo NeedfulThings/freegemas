@@ -48,7 +48,7 @@ private:
     boost::shared_ptr<Gosu::Image> imgLogo;
     boost::shared_ptr<Gosu::Image> imgHighl;
 
-    boost::shared_ptr<SDLFont> font;
+    boost::shared_ptr<Gosu::Font> font;
     JewelGroupAnim jewelAnim;
 
     // Menu configuration
