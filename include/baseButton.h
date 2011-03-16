@@ -1,3 +1,28 @@
+/**
+ * @file baseButton.h
+ * 
+ * @author José Tomás Tocino García
+ * @date 2011
+ *
+ * Copyright (C) 2011 José Tomás Tocino García <theom3ga@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ */
+
+
 #ifndef _BASEBUTTON_
 #define _BASEBUTTON_
 
@@ -11,71 +36,78 @@ using std::wstring;
 #include "resManager.h"
 #include "log.h"
 
+/**
+ * @class BaseButton
+ *
+ * @brief Base for buttons on the interface.
+ *
+ * They have a caption and may also have an icon. The text is centered in the
+ * button.
+ *
+ * @author José Tomás Tocino García <theom3ga@gmail.com> 
+ *
+ */
+
 class BaseButton{
 public:
-    BaseButton(Gosu::Graphics & g, std::wstring text, std::wstring imgIconPath = L"") : g(g){
-        buttonBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/buttonBackground.png");
-        buttonFont = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 29);
 
-        if(imgIconPath != L""){
-            imgIcon = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/" + imgIconPath);	
-        }
+    /** 
+     * Constructs a button using the given caption and the image in the chosen
+     * path.
+     * 
+     * @param g Reference to the graphics destination.
+     * @param text Caption for the label.
+     * @param imgIconPath Path for the image icon. It defaults to nothing.
+     */
+    BaseButton(Gosu::Graphics & g, std::wstring text, std::wstring imgIconPath = L"");
 
-        changeText(text);
-    }
+    /** 
+     * Changes the text of the button, calculating the position of the label
+     * within the button.
+     * 
+     * @param text The new text for the label.
+     */
+    void changeText(std::wstring text);
 
-    void changeText(std::wstring text){
-        buttonText = text;
-        int text_w = buttonFont -> textWidth(buttonText) / 2;
+    /** 
+     * Draws the text at the given position.
+     * 
+     */
+    void draw(int x, int y, double z);
 
-        if(imgIcon != 0){
-            int espacio = 35;
-            textX = Gosu::round(espacio + (buttonBackground -> width() - espacio) / 2 - text_w);
-        }else{
-            textX = Gosu::round(buttonBackground -> width() / 2 - text_w);
-        }
-    }
-
-    void draw(int x, int y, double z){
-        lastX = x;
-        lastY = y;
-
-        if(imgIcon != 0){
-            imgIcon -> draw(x + 7, y, z + 0.1);
-        }
-
-        buttonFont -> draw(buttonText,
-                           x + textX, y + 5, z + 0.2);
-
-        buttonFont -> draw(buttonText,
-                           x + textX + 1, y + 7, z + 0.1,
-                           1,1,0x44000000);
-
-        buttonBackground -> draw(x, y, z);
-	
-    }
-
-    bool clicked(unsigned int mX, unsigned int mY){
-        if(mX > lastX && mX < lastX + buttonBackground -> width() &&
-           mY > lastY && mY < lastY + buttonBackground -> height()){
-            return true;
-        }else{
-            return false;
-        }
-}
+    /** 
+     * Checks if the button was pressed. It uses the last drawing position to
+     * check if the mouse was within boundaries.
+     * 
+     * @param mX Horizontal mouse position
+     * @param mY Vertical mouse position
+     * 
+     * @return true if the button was pressed
+     */
+    bool clicked(unsigned int mX, unsigned int mY);
 
 private:
+
+    /// Image for the background of the button
     boost::shared_ptr<Gosu::Image> buttonBackground;
+
+    /// Image for the icon of the button, may be null.
     boost::shared_ptr<Gosu::Image> imgIcon;
 
+    /// Font used for the button's label
+    boost::shared_ptr<Gosu::Font> buttonFont;
+
+    /// Caption of the button
     wstring buttonText;
+
+    /// Position of the label within the button
     int textX;
 
-    boost::shared_ptr<Gosu::Font> buttonFont;
-    
+    /// Graphics target    
     Gosu::Graphics & g;
 
-    unsigned int lastX, lastY;
+    /// Last drawing position. It's used for the clicked method.
+    unsigned int lastX, lastY;    
 };
 
 #endif

@@ -36,8 +36,6 @@
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 
-#include <SDL_ttf.h>
-
 #include <map>
 #include <cstdio>
 
@@ -45,137 +43,9 @@
 using namespace std;
 
 
-class SDLFont : boost::noncopyable
-{
-    TTF_Font* font;
-    
-
-    class SDLSurface : boost::noncopyable
-    {
-	SDL_Surface* surface;
-        
-    public:
-	SDLSurface(TTF_Font* font, const std::wstring& text, Gosu::Color c)
-	    {
-
-		SDL_Color color = { c.red(), c.green(), c.blue() };
-		surface = TTF_RenderUTF8_Blended(font, Gosu::wstringToUTF8(text).c_str(), color);
-		//		surface = TTF_RenderUTF8_Blended(font, "hola", color);
-
-		if (!surface)
-		    throw std::runtime_error("NO PUEDORR >" 
-					     + Gosu::wstringToUTF8(text) + "<");
-	    }
-            
-	~SDLSurface()
-	    {
-		SDL_FreeSurface(surface);
-	    }
-            
-	unsigned height() const
-	    {
-		return surface->h;
-	    }
-            
-	unsigned width() const
-	    {
-		return surface->w;
-	    }
-            
-	const void* data() const
-	    {
-		return surface->pixels;
-	    }
-    };
-
-    //*/
-        
-    Gosu::Graphics & graphics;
-    boost::unordered_map<wchar_t, boost::shared_ptr<Gosu::Image> > fontGlyphs;
-
-    boost::shared_ptr<Gosu::Image> getGlyph(const wchar_t & w){
-	if(fontGlyphs.find(w) == fontGlyphs.end()){
-
-	    const std::wstring text(1, w);
-
-	    SDLSurface S(font, text, 0xffffffff);
-
-	    Gosu::Bitmap B;
-	    B.resize(S.width(), S.height());
-	    std::memcpy(B.data(), S.data(), S.width() * S.height() * 4);
-
-	    fontGlyphs[w].reset(new Gosu::Image(graphics, B));	    
-	}
-
-	return fontGlyphs[w];	 
-    }
-    
-    int process(bool toDraw, const std::wstring & text, int x, int y, Gosu::ZPos z, 
-		int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
-
-	    if(text == L"") return 0;
-	
-	    int acumX = 0;
-	    
-	    BOOST_FOREACH(const wchar_t & w, text){
-		    boost::shared_ptr<Gosu::Image> currentGlyph = getGlyph(w);
-		    if(toDraw) currentGlyph-> draw(x + acumX, y, z, 1, 1, color);
-		    
-		    acumX += currentGlyph -> width();
-	    }
-	    
-	    return acumX;
-    }
-
-public:
-    SDLFont(Gosu::Graphics & G, const std::wstring& fontName, unsigned fontHeight)
-	: graphics(G)
-	{
-	    static int initResult = TTF_Init();
-	    if (initResult < 0)
-		throw std::runtime_error("Could not initialize SDL_TTF");
-
-	    // Try to open the font at the given path
-	    font = TTF_OpenFont(Gosu::wstringToUTF8(fontName).c_str(), fontHeight);
-
-	    if (!font)
-		throw std::runtime_error("Could not open TTF file " 
-					 + Gosu::wstringToUTF8(fontName));
-	    
-	    /*
-	      cout << "FHeight: " << TTF_FontHeight(font) << endl
-	      << "FAscent: " << TTF_FontAscent(font) << endl
-	      << "FDescen: " << TTF_FontDescent(font) << endl
-	      << "FSkip:   " << TTF_FontLineSkip(font) << endl; 
-	    //*/
-		
-	}
-        
-    ~SDLFont()
-	{
-	    TTF_CloseFont(font);
-	}
-
-    unsigned textWidth(const std::wstring& text){
-	    return process(false, text, 0, 0, 0, 0, 0, 0xffffffff);
-    }
-
-    int fontLineSkip(){
-        if(font)
-                return TTF_FontLineSkip(font);
-        return 0;
-    }
-
-    void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, 
-              int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
-	    process(true, text, x, y, z, fx, fy, color);
-    }
-};
-
-
-class SDLText{  
+class TextBlock{  
     Gosu::Graphics &g;
-    boost::shared_ptr<SDLFont> font;
+    boost::shared_ptr<Gosu::Font> font;
 
     int textWidth, fontLineSkip;
 
@@ -237,9 +107,9 @@ class SDLText{
 	
 public:
 
-    SDLText(Gosu::Graphics & g, const std::wstring& fontName, unsigned fontHeight, int textWidth) : g(g), textWidth(textWidth){
-        font.reset(new SDLFont(g, fontName, fontHeight));
-        fontLineSkip = font->fontLineSkip();
+    TextBlock(Gosu::Graphics & g, const std::wstring& fontName, unsigned fontHeight, int textWidth) : g(g), textWidth(textWidth){
+        font.reset(new Gosu::Font(g, fontName, fontHeight));
+        fontLineSkip = fontHeight;
     }
 
     vector<wstring> prepareText(const std::wstring & text){

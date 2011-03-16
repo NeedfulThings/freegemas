@@ -49,4 +49,4 @@ obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h incl
 obj/board.o: include/board.h include/log.h
 obj/scoreTable.o: include/scoreTable.h include/game.h
 obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h include/sdlfont.h	
-
+obj/baseButton.o: include/baseButton.h include/resManager.h

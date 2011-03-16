@@ -8,8 +8,8 @@ StateHowtoplay::StateHowtoplay(Game * p) : State(p){
     imgBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/howtoScreen.png");
 
     fontTitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 58);
-    fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 33);
-    fontBodyText.reset(new SDLText(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 450));
+    fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 34);
+    fontBodyText.reset(new TextBlock(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 31, 450));
 
     bodyText += Gosu::utf8ToWstring(_("El objetivo del juego es formar grupos de tres o más gemas iguales, en horizontal o vertical, intercambiando gemas adyacentes."));
     bodyText += Gosu::utf8ToWstring("\n\n");
@@ -33,25 +33,25 @@ void StateHowtoplay::draw(){
 
     
     fontTitle -> draw(titleText, 
-		      300 + 470 / 2 - fontTitle -> textWidth(titleText) / 2,
-		      20, 1);
+                      300 + 470 / 2 - fontTitle -> textWidth(titleText) / 2,
+                      20, 1);
 
     fontTitle -> draw(titleText, 
-		      300 + 470 / 2 - fontTitle -> textWidth(titleText) / 2 + 1,
-		      20 + 2, 0.9,
-		      1, 1, 0x44000000);
+                      300 + 470 / 2 - fontTitle -> textWidth(titleText) / 2 + 1,
+                      20 + 2, 0.9,
+                      1, 1, 0x44000000);
 
     fontSubtitle -> draw(exitText,
-			 30, 550, 1);
+                         30, 550, 1);
 
     fontSubtitle -> draw(exitText,
-			 30 + 1, 550 + 2, 0.9,
-			 1, 1, 0x44000000);
+                         30 + 1, 550 + 2, 0.9,
+                         1, 1, 0x44000000);
 
     /*
-    imgBodyText -> draw(300, 110, 1);
+      imgBodyText -> draw(300, 110, 1);
 
-    imgBodyText -> draw(300+1, 110+2, 0.9, 1, 1, 0x44000000);
+      imgBodyText -> draw(300+1, 110+2, 0.9, 1, 1, 0x44000000);
     //*/
 
     fontBodyText -> draw(preparedText, 310, 110, 1, 0xffffffff);
@@ -60,7 +60,7 @@ void StateHowtoplay::draw(){
 
 void StateHowtoplay::buttonDown(Gosu::Button B){
     if(B == Gosu::kbEscape || B == Gosu::msLeft){
-	parent -> changeState("stateMainMenu");
+        parent -> changeState("stateMainMenu");
     }
 
 

@@ -38,11 +38,10 @@ using namespace std;
 class State;
 
 /**
- * @class Juego
+
+ * @brief Main class of the game.
  *
- * @brief Ventana principal del juego.
- *
- * Se encarga de gestionar el autómata de estados
+ * It manages the different stages of the game.
  *
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *

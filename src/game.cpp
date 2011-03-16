@@ -38,22 +38,22 @@ void Game::buttonUp(Gosu::Button button){
 
 void Game::changeState(string S){
     if(S == currentStateString)
-	return;
+        return;
 
     if(S == "stateMainMenu"){
-	currentState . reset(new StateMainMenu(this));
-	currentStateString = "stateMainMenu";
+        currentState . reset(new StateMainMenu(this));
+        currentStateString = "stateMainMenu";
     }
     else if(S == "stateGame"){
-	currentState . reset(new StateGame(this));
-	currentStateString = "estadoGame";
+        currentState . reset(new StateGame(this));
+        currentStateString = "estadoGame";
     }
     else if(S == "stateHowtoplay"){
-	currentState . reset(new StateHowtoplay(this));
-	currentStateString = "stateHowtoplay";
+        currentState . reset(new StateHowtoplay(this));
+        currentStateString = "stateHowtoplay";
     }
     else if(S == "stateQuit"){
-	close();
+        close();
     }
 }
 

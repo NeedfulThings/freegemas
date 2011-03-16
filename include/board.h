@@ -13,15 +13,16 @@ using namespace std;
 
 #include "log.h"
 
+/// Different kinds of gems in a square.
 enum tSquare { sqEmpty, sqWhite, sqRed, sqPurple, sqOrange, sqGreen, sqYellow, sqBlue };
 
 /**
- * @class Casilla
+ * @class Square
  *
- * @brief Representa una casilla del board.
+ * @brief Represents a square in the board.
  *
- * Además de la gema, tiene atributos para la gestión de las animaciones 
- * cuando desaparecen otras gemas.
+ * It holds the kind of gem it holds, as well as some animation-related
+ * attributes
  *
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
@@ -29,41 +30,40 @@ enum tSquare { sqEmpty, sqWhite, sqRed, sqPurple, sqOrange, sqGreen, sqYellow, s
 
 
 struct Square{
-    /// Tipo de gema que contiene la casilla.
+    /// Kind of gem this square is holding
     tSquare tipo;
 
+    /// Constructs a new square.
     Square(const tSquare & t = sqEmpty) : origY(0), destY(0), mustFall(false){
-	tipo = t;
+        tipo = t;
     }
 
     bool operator==(const Square & C){
-	return C.tipo == tipo;
+        return C.tipo == tipo;
     }
 
     bool operator==(const tSquare & t){
-	return tipo == t;
+        return tipo == t;
     }
 
     operator tSquare(){ return tipo; }
 
-    /// Posición inicial vertical de la casilla - Se usa para hacer las animaciones
+    /// Initial position of the square
     int origY;
 
-    /** Desplazamiento vertical. 
-
-	Cuando se ha hecho un grupo de figuras, y éstas desaparecen,
-	las que están encima deben caer. Este atributo cuenta el
-	número de casillas que debe caer hacia abajo.
-    */
+    /** Vertical offset.
+     * 
+     * This counts the number of positions this square has to fall
+     */
 
     int destY; 
     
-    /// Indica si debe o no caer
+    /// Indicates whether the square has to fall or not
     bool mustFall; 
 };
 
 /**
- * @class Punto cartesiano con coordenadas x e y
+ * Standard class for a 2D coordinate.
  *
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
@@ -71,51 +71,83 @@ struct Square{
 
 
 struct coord{
-    int x, y;
+    /// Horizontal position
+    int x;
+
+    /// Vertical position
+    int y;
+
+    /// Default constructor
     coord(int x = -1, int y = -1) : x(x), y(y) { }
 
     bool operator ==(const coord & c) const{
-	return (c.x == x && 
-		c.y == y);
+        return (c.x == x && 
+                c.y == y);
     }
 
     friend ostream& operator << (ostream& out, coord & C){
-	out << "(" << C.x << "," << C.y << ")";
+        out << "(" << C.x << "," << C.y << ")";
 
-	return out;
+        return out;
     }
 };
+
+/**
+ * A group of matched squares. 
+ * 
+ */
+
 
 class Match : public vector<coord>{
 public:
     coord midSquare() const{
-	return at(size() / 2);
+        return at(size() / 2);
     }
 
+    /** 
+     * Checks if the given coordinate is matched within the group
+     * 
+     * @param c The coordinates to look for.
+     * 
+     * @return true if c was found among the coords in the group.
+     */
     bool matched(coord c) {
-	return (std::find(begin(), end(), c) != end());
+        return (std::find(begin(), end(), c) != end());
     }
 
     friend ostream& operator << (ostream& out, Match & M){
-	out << "Match (" << M.size() << "): ";
-	for (size_t i = 0; i < M.size(); ++i)
-	{
-	    out << M[i] << ", ";
-	}
+        out << "Match (" << M.size() << "): ";
+        for (size_t i = 0; i < M.size(); ++i)
+        {
+            out << M[i] << ", ";
+        }
 	
-	return out;
+        return out;
     }
 };
 
+/**
+ * Group of multiple matches.
+ * 
+ */
+
 class MultipleMatch : public vector<Match>{
 public:
+
+    /** 
+     * Checks if the given coordinate is matched in any of the matched groups.
+     * 
+     * @param C The coordinates to look for
+     * 
+     * @return true if C was found in any of the matches
+     */
     bool matched(coord C){
-	vector<Match>::iterator it;
-	for(it = begin(); it != end(); ++it){
-	    if(it -> matched(C))
-	       return true;
-	}
-	return false;
+        vector<Match>::iterator it;
+        for(it = begin(); it != end(); ++it){
+            if(it -> matched(C))
+                return true;
+        }
+        return false;
     }
     
 };
@@ -123,12 +155,10 @@ public:
 /**
  * @class Board
  *
- * @brief Representa un board de juego en un momento dado.
+ * @brief A game board.
  *
- * Contiene una matriz de 8x8 con el contenido de las casillas
- * además de algoritmos que permiten hacer comprobaciones sobre el board.
- *
- * @author José Tomás Tocino García <theom3ga@gmail.com> 
+ * It's got a 8x8 matrix with the contents of the board, as well as some
+ * algorithms to work with the board.
  *
  */
 
@@ -166,7 +196,9 @@ public:
     /// Resets squares' animations
     void endAnimations();
 
+    /// Matrix of squares
     boost::array< boost::array<Square, 8>, 8> squares;
+
     friend ostream& operator <<(ostream& out, Board & B);
 };
 #endif /* _BOARD_H_ */
