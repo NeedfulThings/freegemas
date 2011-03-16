@@ -1,20 +1,20 @@
 #include "log.h"
 
 string Log::ToString(TLogLevel T){
-    switch(T){
-    case logERROR:
-	return "ERROR";
-	break;
-    case logWARNING:
-	return "WARNING";
-	break;
-    case logINFO:
-	return "INFO";
-	break;
-    case logDEBUG:
-	return "DEBUG";
-	break;
-    }
+	switch(T){
+	case logERROR:
+		return "ERROR";
+		break;
+	case logWARNING:
+		return "WARNING";
+		break;
+	case logINFO:
+		return "INFO";
+		break;
+	default:
+		return "DEBUG";
+		break;	
+	}
 }
 
 string Log::cRojo = "\033[01;31m";
@@ -31,9 +31,7 @@ string Log::DES(string s){
     return cRojo + "[-- Destructor] " + s + cDef;
 }
 
-std::ostringstream& Log::Get(TLogLevel level)
-{
-
+std::ostringstream& Log::Get(TLogLevel level){
     os << "[" << ToString(level) << "] ";
     return os;
 }

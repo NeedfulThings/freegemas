@@ -77,7 +77,7 @@ class TextBlock{
 		wstring tempString;
 		vector<wstring>::const_iterator i, j, w1, w2;
 
-		int acumWidth, currWordWidth;
+		double acumWidth, currWordWidth;
 
 		for(i = lines.begin(), j = lines.end(); i != j; ++i){
 			acumWidth = 0;
@@ -122,8 +122,9 @@ public:
 	    int c = 0;
 	    for(i = textLines.begin(), j = textLines.end();
 	        i != j; ++i){
-		    int thisLineWidth = font -> textWidth(*i);		        
-		    font -> draw(*i, x + textWidth / 2 - thisLineWidth / 2, y + c++ * (fontLineSkip + 5) * 1, 
+		    double thisLineWidth = font -> textWidth(*i);		        
+			font -> draw(*i, Gosu::round(x + textWidth / 2 - thisLineWidth / 2), 
+				Gosu::round(y + c++ * (fontLineSkip + 5) * 1), 
 		                 z, 1, 1, color);
 	    }
     }

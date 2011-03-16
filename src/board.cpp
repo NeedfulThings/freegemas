@@ -12,7 +12,7 @@ Board::Board(){
 }
 
 void Board::generate(){
-    std::srand(time(0));
+    std::srand((unsigned int) time(0));
     bool repeat = false;
     do{
 	lDEBUG << "### Generating..."; 
@@ -24,7 +24,7 @@ void Board::generate(){
 	    {
 		squares[i][j] = static_cast<tSquare>((int)Gosu::random(1,8));
 		squares[i][j].mustFall = true;
-		squares[i][j].origY = Gosu::random(-7, -1);
+		squares[i][j].origY = (int) Gosu::random(-7, -1);
 		squares[i][j].destY = j - squares[i][j].origY;
 	    }
 	}

@@ -39,8 +39,8 @@ public:
 
 	    if(composedStep < animationTotalSteps){
 		imgGems[i] -> draw(posX[i], 
-				   eqMovOut((float) composedStep, 600.0, (float) posFinalY - 600., (float) animationTotalSteps), 
-				   2.);
+				   eqMovOut((float) composedStep, 600.f, (float) posFinalY - 600.f, (float) animationTotalSteps), 
+				   2.f);
 	    }else{
 		imgGems[i] -> draw(posX[i], posFinalY, 2);
 	    }

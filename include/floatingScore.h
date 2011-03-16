@@ -54,7 +54,7 @@ public:
 	if(currentStep != totalSteps) ++currentStep;
 
 	++currentStep;
-	float p = 1. - (float)currentStep/totalSteps;
+	float p = 1.f - (float)currentStep/totalSteps;
 
 	int posX = 241 + x_ * 65;
 	int posY = int(41 + y_ * 65 - (1 - p) * 20); 

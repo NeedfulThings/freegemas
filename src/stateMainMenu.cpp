@@ -28,10 +28,8 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     imgHighl = ResMgr -> getImage(Gosu::resourcePrefix() +
 				  L"media/stateMainMenu/menuHighlight.png");
 
-    //font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 30);
-    font.reset(new Gosu::Font(parent -> graphics(),
-			   Gosu::resourcePrefix() + L"media/fuenteMenu.ttf",
-			   40));
+    font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 40);
+
     
     
     animationTotalSteps = 30;
@@ -48,7 +46,7 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     menuYGap = 42;
     menuYEnd = 350 + (int) menuOptions.size() * menuYGap;
 
-    int widthRead = 0, maxWidth = 0;
+    double widthRead = 0, maxWidth = 0;
 
     for(size_t i = 0, s = menuOptions.size();
 	i < s;
@@ -61,8 +59,8 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
 	}
     }
 
-    menuXStart = 800 / 2 - maxWidth / 2;
-    menuXEnd = menuXStart + maxWidth;
+	menuXStart = Gosu::round(800 / 2 - maxWidth / 2);
+	menuXEnd = Gosu::round(menuXStart + maxWidth);
 
 }
 
@@ -105,7 +103,7 @@ void StateMainMenu::draw(){
     //*/
 
     for(int i = 0, s = (int) menuOptions.size(); i < s; ++i){
-	int hor = 800 / 2 - font -> textWidth(menuOptions[i].first) / 2;
+		int hor = Gosu::round(800 / 2 - font -> textWidth(menuOptions[i].first) / 2);
 
 	font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap, 2);
 	font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap + 2, 

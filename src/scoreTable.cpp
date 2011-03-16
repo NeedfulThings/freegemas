@@ -48,10 +48,10 @@ ScoreTable::ScoreTable(Game * p, int points) : parent(p), points(points){
 void ScoreTable::draw(int x, int y, double z){
 
     wstring stringTitle = Gosu::utf8ToWstring(_("FIN DEL JUEGO"));
-    int w1 = fntH1 -> textWidth(stringTitle);
-    int wp = fntLcdBig -> textWidth(boost::lexical_cast<wstring>(points));
+    double w1 = fntH1 -> textWidth(stringTitle);
+    double wp = fntLcdBig -> textWidth(boost::lexical_cast<wstring>(points));
 
-    float center = x + scoreBoardWidth / 2;
+    int center = x + scoreBoardWidth / 2;
 
     fntH1 -> draw(stringTitle, 
 		 center - w1 / 2, 
@@ -68,7 +68,7 @@ void ScoreTable::draw(int x, int y, double z){
 
     if(state == eRequestPlayerName){
 	wstring stringSubtitle = Gosu::utf8ToWstring(_("Escribe tu nombre:"));
-	int w2 = fntH2 -> textWidth(stringSubtitle);
+	double w2 = fntH2 -> textWidth(stringSubtitle);
 
 	fntH2 -> draw(stringSubtitle, 
 		      center - w2 / 2, 
@@ -76,9 +76,9 @@ void ScoreTable::draw(int x, int y, double z){
 
 
 
-	int lineWidth = 200;
-	int lineStartX = center - lineWidth / 2;
-	int lineEndX = center + lineWidth / 2;
+	float lineWidth = 200.f;
+	float lineStartX = center - lineWidth / 2;
+	float lineEndX = center + lineWidth / 2;
 
 	parent -> graphics().drawLine(lineStartX, y + 210, KOL,
 				      lineEndX, y + 210, KOL, 

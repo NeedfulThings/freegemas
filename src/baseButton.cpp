@@ -13,7 +13,7 @@ BaseButton::BaseButton(Gosu::Graphics & g, std::wstring text, std::wstring imgIc
 
 void BaseButton::changeText(std::wstring text){
     buttonText = text;
-    int text_w = buttonFont -> textWidth(buttonText) / 2;
+    double text_w = buttonFont -> textWidth(buttonText) / 2;
 
     if(imgIcon != 0){
         int espacio = 35;
