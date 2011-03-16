@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="freegemas"
-	ProjectGUID="{160F5C4C-9555-49E5-9996-4DEB0A1D30D6}"
+	ProjectGUID="{413FC21A-BCC8-47BD-9813-019C1D7DF3E8}"
 	RootNamespace="freegemas"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -17,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\freegemas"
+			OutputDirectory="$(SolutionDir)..\..\"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -40,14 +41,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Users\Jose\Documents\Visual Studio 2005\Projects\freegemas\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\..\..\include\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -61,8 +61,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GosuDebug.lib SDL_ttf.lib SDL.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -87,16 +85,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\freegemas"
-			IntermediateDirectory="$(ConfigurationName)_obj"
+			OutputDirectory="$(SolutionDir)..\..\"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -118,12 +113,14 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Users\Jose\Documents\Visual Studio 2005\Projects\freegemas\include&quot;"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\..\..\include\&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
-				WarningLevel="2"
-				Detect64BitPortabilityProblems="true"
+				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -137,10 +134,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Gosu.lib SDL_ttf.lib SDL.lib SDLmain.lib"
-				ShowProgress="0"
 				LinkIncremental="1"
-				GenerateDebugInformation="false"
+				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -165,9 +160,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -181,43 +173,47 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\board.cpp"
+				RelativePath="..\..\src\baseButton.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\game.cpp"
+				RelativePath="..\..\src\board.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\log.cpp"
+				RelativePath="..\..\src\game.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\main.cpp"
+				RelativePath="..\..\src\log.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\resManager.cpp"
+				RelativePath="..\..\src\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\scoreTable.cpp"
+				RelativePath="..\..\src\resManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\state.cpp"
+				RelativePath="..\..\src\scoreTable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\stateGame.cpp"
+				RelativePath="..\..\src\state.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\stateHowtoplay.cpp"
+				RelativePath="..\..\src\stateGame.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\stateMainMenu.cpp"
+				RelativePath="..\..\src\stateHowtoplay.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\stateMainMenu.cpp"
 				>
 			</File>
 		</Filter>
@@ -227,59 +223,63 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\baseButton.h"
+				RelativePath="..\..\include\animation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\board.h"
+				RelativePath="..\..\include\baseButton.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\floatingScore.h"
+				RelativePath="..\..\include\board.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\game.h"
+				RelativePath="..\..\include\floatingScore.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\inter.h"
+				RelativePath="..\..\include\game.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\jewelGroupAnim.h"
+				RelativePath="..\..\include\inter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\log.h"
+				RelativePath="..\..\include\jewelGroupAnim.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\resManager.h"
+				RelativePath="..\..\include\log.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\scoreTable.h"
+				RelativePath="..\..\include\resManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\sdlfont.h"
+				RelativePath="..\..\include\scoreTable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\state.h"
+				RelativePath="..\..\include\sdlfont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\stateGame.h"
+				RelativePath="..\..\include\state.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\stateHowtoplay.h"
+				RelativePath="..\..\include\stateGame.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\stateMainMenu.h"
+				RelativePath="..\..\include\stateHowtoplay.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stateMainMenu.h"
 				>
 			</File>
 		</Filter>
