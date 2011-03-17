@@ -34,49 +34,42 @@ class Game;
 /**
  * @class State
  * 
- * @brief Clase base para los diferentes states del juego.
+ * @brief Base clase for the game states.
  *
- * Esta clase abstracta tiene los métodos a los que llamará la clase de control (Game).
- * Cada state deberá implementar estos métodos con las acciones que crea conveniente.
- * No puede instanciarse por sí misma, debe crearse una clase heredada.
+ * This abstract class holds the methods that the main class (Game) will
+ * call. Each state should implement these methods as needed.
+ *
 */
 
 class State{
 protected:
     /**
-     @brief Puntero al padre creador.
-
-     Nos sirve para poder cambiar de state (llamando a #Game::cambiarState()), acceder al sistema gráfico (con Game::graphics()) y otras acciones.
+     * @brief Reference to the game's main class
+     *
+     * It's used when we have to switch states (calling #Game::changeState(),
+     * access the graphics system (using Game::graphics()), etc.
     **/
     Game * parent;
 public:
-    /**
-       @brief Constructor - Crea un state.
-
-       Recibe un puntero a Game, que será quien lleve el control de los states.
-
-       @param p puntero a la clase Game que controla la aplicación
-    **/
+    /** 
+     * Default constructor. It receives a pointer to the game's main class.
+     * 
+     */
     State(Game * p);
 
-    /*
-    /// Si es necesario lanzar acciones independientes del constructor, irán aquí.
-    virtual void lanzar(){
-	lDEBUG << "lanzar";
-    }
-    */
-
-    /// Virtual puro. Cada state implementa la lógica de control aquí.
+    /// Control logic happens here
     virtual void update() = 0;
 
-    /// Virtual puro. Cada state implementa el redibujado aquí.
+    /// Drawing operations happen here
     virtual void draw() = 0;
 
-    /// Opcionalmente los states pueden responder a la entrada redefiniendo este método.
+    /// Triggers when a key is pressed
     virtual void buttonDown(Gosu::Button){};
 
+    /// Triggers when a key is released
     virtual void buttonUp(Gosu::Button){};
 
+    /// Default destructor
     virtual ~State();
 };
 

@@ -20,13 +20,13 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     currentTransitionState = TransitionIn;
 
     imgBackground = ResMgr -> getImage(Gosu::resourcePrefix() + 
-				       L"media/stateMainMenu/mainMenuBackground.png");
+                                       L"media/stateMainMenu/mainMenuBackground.png");
 
     imgLogo = ResMgr -> getImage(Gosu::resourcePrefix() + 
-				 L"media/stateMainMenu/mainMenuLogo.png");
+                                 L"media/stateMainMenu/mainMenuLogo.png");
 
     imgHighl = ResMgr -> getImage(Gosu::resourcePrefix() +
-				  L"media/stateMainMenu/menuHighlight.png");
+                                  L"media/stateMainMenu/menuHighlight.png");
 
     font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 40);
 
@@ -49,14 +49,14 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     double widthRead = 0, maxWidth = 0;
 
     for(size_t i = 0, s = menuOptions.size();
-	i < s;
-	++i){
+        i < s;
+        ++i){
 
-	widthRead = font -> textWidth(menuOptions[i].first);
+        widthRead = font -> textWidth(menuOptions[i].first);
 
-	if(widthRead > maxWidth){
-	    maxWidth = widthRead;
-	}
+        if(widthRead > maxWidth){
+            maxWidth = widthRead;
+        }
     }
 
 	menuXStart = Gosu::round(800 / 2 - maxWidth / 2);
@@ -66,11 +66,11 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
 
 void StateMainMenu::update(){
     if(currentTransitionState == TransitionIn){
-	animationCurrentStep ++;
+        animationCurrentStep ++;
 
-	if(animationCurrentStep == animationTotalSteps){
-	    currentTransitionState = Active;
-	}
+        if(animationCurrentStep == animationTotalSteps){
+            currentTransitionState = Active;
+        }
 
     } else if(currentTransitionState == Active){
 
@@ -81,7 +81,7 @@ void StateMainMenu::update(){
     int mY = (int) parent -> input().mouseY();
 
     if(mY >= menuYStart && mY < menuYEnd){
-	menuSelectedOption = (mY - menuYStart) / menuYGap;
+        menuSelectedOption = (mY - menuYStart) / menuYGap;
     }
 }
 
@@ -89,25 +89,25 @@ void StateMainMenu::draw(){
     imgBackground -> draw(0,0,1);
 
     int logoAlfa = clamp( (int)(255 * (float)animationCurrentStep / animationLogoSteps),
-				0, 255);
+                          0, 255);
 
     imgLogo -> draw(86, 0, 2, 1, 1, 
-		    Gosu::Color(logoAlfa, 255, 255, 255));
+                    Gosu::Color(logoAlfa, 255, 255, 255));
 
     /*
-    parent -> graphics() . drawLine(0, menuYStart, 0xffffffff,
-				    800, menuYStart, 0xffffffff, 5);
+      parent -> graphics() . drawLine(0, menuYStart, 0xffffffff,
+      800, menuYStart, 0xffffffff, 5);
 
-    parent -> graphics() . drawLine(0, menuYStart + 30, 0xffffffff,
-				    800, menuYStart + 30, 0xffffffff, 5);
+      parent -> graphics() . drawLine(0, menuYStart + 30, 0xffffffff,
+      800, menuYStart + 30, 0xffffffff, 5);
     //*/
 
     for(int i = 0, s = (int) menuOptions.size(); i < s; ++i){
 		int hor = Gosu::round(800 / 2 - font -> textWidth(menuOptions[i].first) / 2);
 
-	font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap, 2);
-	font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap + 2, 
-		     1.9, 1, 1, Gosu::Color(125, 0,0,0));
+        font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap, 2);
+        font -> draw(menuOptions[i].first, hor, menuYStart + i * menuYGap + 2, 
+                     1.9, 1, 1, Gosu::Color(125, 0,0,0));
     }
 
     jewelAnim . draw();
@@ -117,41 +117,33 @@ void StateMainMenu::draw(){
 
 void StateMainMenu::buttonDown(Gosu::Button B){
     if(B == Gosu::kbEscape){
-	parent -> close();
+        parent -> close();
     } 
-
-    else if(B == Gosu::kbSpace){
-	parent -> changeState("stateGame");
-    } 
-
-    else if(B == Gosu::kbR){
-	parent -> changeState("stateHowtoplay");
-    }
 
     else if(B == Gosu::kbDown){
-	if(++menuSelectedOption == (int)menuOptions.size()){
-	    menuSelectedOption = 0;
-	}
+        if(++menuSelectedOption == (int) menuOptions.size()){
+            menuSelectedOption = 0;
+        }
     }
 
     else if(B == Gosu::kbUp){
-	if(--menuSelectedOption == -1){
-	    menuSelectedOption = (int) menuOptions.size() - 1;
-	}
+        if(--menuSelectedOption == -1){
+            menuSelectedOption = (int) menuOptions.size() - 1;
+        }
     }
 
     else if(B == Gosu::kbReturn || B == Gosu::kbEnter){
-	optionChosen();
+        optionChosen();
     }
 
     else if(B == Gosu::msLeft){
-	int mX = (int) parent -> input().mouseX();
-	int mY = (int) parent -> input().mouseY();
+        int mX = (int) parent -> input().mouseX();
+        int mY = (int) parent -> input().mouseY();
 
-	if(mX >= menuXStart && mX <= menuXEnd &&
-	   mY >= menuYStart && mY <= menuYEnd){
-	    optionChosen();
-	}
+        if(mX >= menuXStart && mX <= menuXEnd &&
+           mY >= menuYStart && mY <= menuYEnd){
+            optionChosen();
+        }
     }
 }
 

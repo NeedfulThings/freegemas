@@ -4,7 +4,7 @@ LD     := g++
 AR     := ar rc
 RANLIB := ranlib
 
-CXXFLAGS  := -Wall -g
+CXXFLAGS  := -Wall -g --pedantic
 CXXFLAGS  += -I. -Igosu `gosu/bin/gosu-config --cxxflags` -Iinclude
 
 LDFLAGS   := -Wall
@@ -25,7 +25,7 @@ all: $(OUTPUT)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo "Compiling..." $(notdir $<)
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OUTPUT): $(OBJS)
 	@echo "Linking binary..."

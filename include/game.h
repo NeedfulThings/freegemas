@@ -28,7 +28,7 @@
 #define _GAME_H_
 
 #include <Gosu/Gosu.hpp>
-#include <Gosu/Autolink.hpp>
+#include <Gosu/AutoLink.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <string>
 using namespace std;

@@ -45,9 +45,11 @@ class Game;
 /**
  * @class StateMainMenu
  *
- * @brief 
+ * @brief State for the main menu
  *
- * 
+ * It manages the buttons of the main menu. The menu items are largely
+ * dynamic. Also, there's an additional class that manages the animations of the
+ * group of jewels that appear for decoration.
  *
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
@@ -57,45 +59,79 @@ class Game;
 class StateMainMenu : public State{
 public:
 
+    /// Creates a new StateMainMenu
     StateMainMenu(Game * p);
 
+    /// It controls the animations and the transitions
     void update();
 
+    /// Draws the different elements
     void draw();
 
+    /**
+     * @brief It gets called whenever the user presses a button.
+     *
+     * The user can press Up, Down and Return to select the menu entries, as
+     * well as the mouse.
+     * 
+     */
     void buttonDown(Gosu::Button B);
 
     ~StateMainMenu();
 
 private:
 
-
-
+    /// Possible states of the transition
     enum transitionState{ TransitionIn,
 			  Active,
 			  TransitionOut };
 
+    /// Current transition state
     transitionState currentTransitionState;
 
+    /// Current step of the animation
     int animationCurrentStep;
+
+    /// Logo animation's total steps
     int animationLogoSteps;
+
+    /// General animation's total steps
     int animationTotalSteps;
 			  
+    /// Image for the background
     boost::shared_ptr<Gosu::Image> imgBackground;
+
+    /// Image for the logo
     boost::shared_ptr<Gosu::Image> imgLogo;
+
+    /// Image for the higlight of the menu entry
     boost::shared_ptr<Gosu::Image> imgHighl;
 
+    /// Font for the menu entries
     boost::shared_ptr<Gosu::Font> font;
+
+    /// Class for the animation of the decorating jewels
     JewelGroupAnim jewelAnim;
 
-    // Menu configuration
-
+    /// Current highlighted option
     int menuSelectedOption;
+
+    /// List of menu options.
+    /// 
+    /// The first element of the pair represents the caption of the menu
+    /// entry. The second element holds the name of the state to load when the
+    /// user presses that menu option.
     vector<pair<wstring, string> > menuOptions;
+
+    /// It gets executed when the user choses an option. It changes the state
+    ///  to the proper one.
     void optionChosen();
     
+    /// @{
+    /// @name Coordinates of the menu elements
     int menuYStart, menuYEnd, menuYGap;
     int menuXStart, menuXEnd;
+    /// @}
 
 };
 
