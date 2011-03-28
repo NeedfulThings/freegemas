@@ -18,35 +18,54 @@ using boost::format;
 
 StateGame::StateGame(Game * p) : State(p){
     lDEBUG << Log::CON("StateGame");
+
+    // Set the initial loading state
     state = eLoading;
 
+    // Load the loading screen
     imgLoadingBanner = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/loadingBanner.png");
 
 }
 
 void StateGame::init(){
-    state = eInicialGemas;
-    
+
+    // Load the font for the timer
     fontTime = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 62);
+
+    // Load the font for the scoreboard
     fontScore = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33);
 
+    // Load the backgorund image
     imgBoard = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/board.png");
+
+    // Load the image for the square selector
     imgSelector = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/selector.png");    
 
+    // Load the background image for the time
     imgTimeBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/timeBackground.png");
+
+    // Load the background image for the scoreboard
     imgScoreBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/scoreBackground.png");
     
+    /***************************************/
+    // Temporal bitmap to create the images for the different texts
     Gosu::Bitmap bmpTemp;
+
+    // Image for scoreboard heading
     bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("puntos")),
                                Gosu::resourcePrefix() + L"media/fNormal.ttf", 
                                37, 0, 190, Gosu::taCenter);
     imgScoreHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
+    // Image for time heading
     bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("tiempo restante")),
                                Gosu::resourcePrefix() + L"media/fNormal.ttf", 
                                37, 0, 190, Gosu::taCenter);
     imgTimeHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
+
+    /**************************************/
+    // Buttons
 
     hintButton.reset(new BaseButton(parent -> graphics(),
                                     Gosu::utf8ToWstring(_("Mostrar pista")), L"iconHint.png"));
@@ -61,32 +80,44 @@ void StateGame::init(){
                                      Gosu::utf8ToWstring(_("Encender música")), L"iconMusic.png"));
 
 
-
-    // Sound loading
+    /**************************************/
+    // Sounds
     sfxMatch1.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match1.ogg"));
     sfxMatch2.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match2.ogg"));
     sfxMatch3.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/match3.ogg"));
     sfxSelect.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/select.ogg"));
     sfxFall.reset(new Gosu::Sample(Gosu::resourcePrefix() + L"media/fall.ogg"));
     sfxSong.reset(new Gosu::Song(Gosu::resourcePrefix() + L"media/music1.ogg"));
-    
-    selectedSquareFirst.x = -1;
-    selectedSquareFirst.y = -1;
-    //17 195
 
-    loadGems();
+    /**************************************/
+    // Images for the gems
+    imgWhite = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemWhite.png");
+    imgRed = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemRed.png");
+    imgPurple = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemPurple.png");
+    imgOrange = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemOrange.png");
+    imgGreen = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemGreen.png");
+    imgYellow = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemYellow.png");
+    imgBlue = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemBlue.png");
 
+    // Initial animation state
     pasoAnim = 0;
+
+    // Steps for short animations
     totalAnim = 17;
+
+    // Steps for long animations
     totalAnimInit = 50;
 
-    redrawScoreboard();
-
-    mostrandoPista = -1;
+    // Steps for the hint animation
     totalAnimPista = 50;
 
-    acumulator = 1;
-    
+    // Reset the hint flag
+    mostrandoPista = -1;
+
+    // Initial score multiplier
+    multiplier = 1;
+
+    // Reset the game to the initial values
     resetGame();
 
     //sfxSong -> play(true);
@@ -94,22 +125,33 @@ void StateGame::init(){
 }
 
 void StateGame::resetGame(){
+    
+    // Reset the score
     puntos = 0;
+
+    // Redraw the scoreboard
     redrawScoreboard();
+
+    // Restart the time (two minutes)
     timeStart = Gosu::milliseconds() + 2 * 60 * 1000;
 }
 
 void StateGame::redrawScoreboard(){
-    Gosu::Bitmap temporal = Gosu::createText(boost::lexical_cast<wstring>(puntos),
-                                             Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 33, 0, 190, Gosu::taRight);
+    Gosu::Bitmap temporal = Gosu::createText(
+        boost::lexical_cast<wstring>(puntos),  // Text of the bitmap
+        Gosu::resourcePrefix() + L"media/fuentelcd.ttf",   // Font of the bitmap
+        33, // Font size
+        0,  // Font flags
+        190,  // Text width
+        Gosu::taRight); // Text alignment
 
-    txtPuntos.reset(new Gosu::Image(parent -> graphics(), temporal));
+    txtPuntos.reset(new Gosu::Image(parent -> graphics(), temporal)); // reset the image
 }
 
 void StateGame::playMatchSound(){
-    if(acumulator == 1){
+    if(multiplier == 1){
         sfxMatch1 -> play(0.35);
-    }else if(acumulator == 2){
+    }else if(multiplier == 2){
         sfxMatch2 -> play(0.35);
     }else{
         sfxMatch3 -> play(0.35);
@@ -117,23 +159,50 @@ void StateGame::playMatchSound(){
 }
 
 void StateGame::createFloatingScores(){
+
+    // For each match in the group of matched squares
     foreach(Match & m, groupedSquares){
+
+        // Create a new floating score image
         scoreSet.push_back(FloatingScore(parent -> graphics(),
-                                         m.size() * 5 * acumulator,
+                                         m.size() * 5 * multiplier,
                                          m.midSquare().x,
-                                         m.midSquare().y));
-        puntos += m.size() * 5 * acumulator;       
+                                         m.midSquare().y, 8));
+
+        for(size_t i = 0, s = m.size(); i < s; ++i){
+            particleSet.push_back(SistemaParticulas(& parent -> graphics(),
+                                                    50, 150, 
+                                                    241 + m[i].x * 65 + 32, 
+                                                    41 + m[i].y * 65 + 32, 60, 0.5));
+
+        }
+
+        puntos += m.size() * 5 * multiplier;       
     }
 
     redrawScoreboard();
 }
 void StateGame::update(){
 
+    /*
+      Before doing anything else, we have to show, at least once, the loading
+      screen. After the first draw event, we'll jump to the eFirstFlip state, where
+      init() will be called and the resources will start to load
+    */
+
     if(state == eLoading)
         return;
 
     if(state == eFirstFlip){
+
+
+        // Call init to start loading resources
         init();
+
+        // Switch to the main game state
+        state = eInicialGemas;
+
+        // Then stop computing the rest of the logic
         return;
     }
 
@@ -154,6 +223,11 @@ void StateGame::update(){
     scoreSet.erase(remove_if(scoreSet.begin(), scoreSet.end(), 
                              boost::bind<bool>(&FloatingScore::ended, _1)), scoreSet.end());
 
+    // particleSet.erase(remove_if(particleSet.begin(), 
+    //                             particleSet.end(), 
+    //                             boost::bind<bool>(&SistemaParticulas::ended, _1)), 
+    //                   particleSet.end());
+
     if(state == eInicialGemas){
         if(++pasoAnim == totalAnimInit){
 
@@ -165,7 +239,7 @@ void StateGame::update(){
     }
 
     else if(state == eEspera){
-        acumulator = 0;
+        multiplier = 0;
     }
 
     else if(state == eGemasCambiando){	
@@ -175,7 +249,7 @@ void StateGame::update(){
             board.swap(selectedSquareFirst.x, selectedSquareFirst.y,
                        selectedSquareSecond.x, selectedSquareSecond.y);
 
-            ++acumulator;
+            ++multiplier;
             playMatchSound();
             createFloatingScores();
             pasoAnim = 0;
@@ -234,7 +308,7 @@ void StateGame::update(){
 
             if(! groupedSquares.empty()){
                 // Si encontramos más filas o columnas
-                ++acumulator;
+                ++multiplier;
                 createFloatingScores();
                 playMatchSound();
                 state = eGemasDesapareciendo;
@@ -326,12 +400,16 @@ void StateGame::draw(){
                       127, 2, 1, 1,
                       Gosu::Color(0xff4ec1be));
 
-    //*/
-
     int posX = 241, 
         posY = 41;
 
-    std::for_each(scoreSet.begin(), scoreSet.end(), boost::bind(&FloatingScore::draw, _1));
+    std::for_each(scoreSet.begin(), 
+                  scoreSet.end(), 
+                  boost::bind(&FloatingScore::draw, _1));
+
+    std::for_each(particleSet.begin(), 
+                  particleSet.end(), 
+                  boost::bind(&SistemaParticulas::draw, _1));
 
     //txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
 
@@ -646,14 +724,4 @@ StateGame::~StateGame(){
     lDEBUG << Log::DES("StateGame");
 }
 
-void StateGame::loadGems(){
 
-    imgWhite = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemWhite.png");
-    imgRed = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemRed.png");
-    imgPurple = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemPurple.png");
-    imgOrange = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemOrange.png");
-    imgGreen = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemGreen.png");
-    imgYellow = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemYellow.png");
-    imgBlue = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemBlue.png");
-
-}

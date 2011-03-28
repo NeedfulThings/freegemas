@@ -43,6 +43,7 @@ using namespace std;
 #include "baseButton.h"
 #include "scoreTable.h"
 #include "sdlfont.h"
+#include "particulas.h"
 
 class Game;
 
@@ -98,9 +99,6 @@ private:
 
     /// Loads the resources and intializes some variables
     void init();
-
-    /// Loads the images for the gems
-    void loadGems();
 
     /// Tests if the moouse is over a gem
     bool overGem(int mX, int mY);
@@ -201,6 +199,8 @@ private:
     /// Group of floating scores. There may be some at the same time.
     vector<FloatingScore> scoreSet;
 
+    vector<SistemaParticulas> particleSet;
+
     /// Background for the clock
     boost::shared_ptr<Gosu::Image> imgTimeBackground;
 
@@ -237,14 +237,15 @@ private:
     boost::scoped_ptr<Gosu::Song> sfxSong;
     /// @}
 
-    /// Current score acumulator
-    int acumulator;
+    /// Current score multiplier
+    int multiplier;
 
     /// Flag that indicates whether the user is clicking
     bool clicking;
 
     /// Reference to the score table
     boost::scoped_ptr<ScoreTable> scoreTable;
+
 };
 
 #endif /* _STATEGAME_H_ */

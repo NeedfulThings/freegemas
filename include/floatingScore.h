@@ -39,37 +39,43 @@ using namespace std;
 
 class FloatingScore{
 public:
-    FloatingScore(Gosu::Graphics & g, int score, int x, int y) : 
-	scoreText(boost::lexical_cast<wstring>(score)), 
-	x_(x), y_(y), currentStep(0), totalSteps(100){
+    FloatingScore(Gosu::Graphics & g, int score, float x, float y, float z) : 
+        scoreText(boost::lexical_cast<wstring>(score)), 
+        x_(x), y_(y), z_(z), currentStep(0), totalSteps(100){
 
-	scoreFont = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 60);
+        scoreFont = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuentelcd.ttf", 60);
     }
 
     bool ended(){
-	return currentStep == totalSteps;
+        return currentStep == totalSteps;
     }
 
     void draw(){
-	if(currentStep != totalSteps) ++currentStep;
+        if(currentStep != totalSteps) ++currentStep;
 
-	++currentStep;
-	float p = 1.f - (float)currentStep/totalSteps;
+        ++currentStep;
+        float p = 1.f - (float)currentStep/totalSteps;
 
-	int posX = 241 + x_ * 65;
-	int posY = int(41 + y_ * 65 - (1 - p) * 20); 
+        float posX = 241 + x_ * 65;
+        float posY = 41 + y_ * 65 - (1 - p) * 20; 
 
-	scoreFont -> draw(scoreText,
-			  posX, 
-			  posY, 
-			  6, 1, 1,
-			  Gosu::Color((int)(p * 255), 255, 255, 255));
+        scoreFont -> draw(scoreText,
+                          posX, 
+                          posY, 
+                          z_, 1, 1,
+                          Gosu::Color((int)(p * 255), 255, 255, 255));
 
-	scoreFont -> draw(scoreText,
-			   posX + 4,
-			   posY + 4,
-			   5.9, 1, 1,
-			   Gosu::Color((int)(p * 255), 0, 0, 0));
+        scoreFont -> draw(scoreText,
+                          posX + 2,
+                          posY + 2,
+                          z_ - 0.1, 1, 1,
+                          Gosu::Color((int)(p * 255), 0, 0, 0));
+
+        scoreFont -> draw(scoreText,
+                          posX - 2,
+                          posY - 2,
+                          z_ - 0.1, 1, 1,
+                          Gosu::Color((int)(p * 255), 0, 0, 0));
 
     }
 private:
@@ -78,8 +84,9 @@ private:
     boost::shared_ptr<Gosu::Font> scoreFont;
     wstring scoreText;
 			   
-    int x_;
-    int y_;
+    float x_;
+    float y_;
+    float z_;
     
     int currentStep;
     int totalSteps;
