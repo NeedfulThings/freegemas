@@ -94,14 +94,6 @@ void StateMainMenu::draw(){
     imgLogo -> draw(86, 0, 2, 1, 1, 
                     Gosu::Color(logoAlfa, 255, 255, 255));
 
-    /*
-      parent -> graphics() . drawLine(0, menuYStart, 0xffffffff,
-      800, menuYStart, 0xffffffff, 5);
-
-      parent -> graphics() . drawLine(0, menuYStart + 30, 0xffffffff,
-      800, menuYStart + 30, 0xffffffff, 5);
-    //*/
-
     for(int i = 0, s = (int) menuOptions.size(); i < s; ++i){
 		int hor = Gosu::round(800 / 2 - font -> textWidth(menuOptions[i].first) / 2);
 

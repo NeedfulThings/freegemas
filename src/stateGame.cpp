@@ -152,11 +152,11 @@ void StateGame::redrawScoreboard(){
 
 void StateGame::playMatchSound(){
     if(multiplier == 1){
-        sfxMatch1 -> play(0.35);
+        sfxMatch1 -> play(0.25);
     }else if(multiplier == 2){
-        sfxMatch2 -> play(0.35);
+        sfxMatch2 -> play(0.25);
     }else{
-        sfxMatch3 -> play(0.35);
+        sfxMatch3 -> play(0.25);
     }
 }
 
@@ -197,7 +197,6 @@ void StateGame::update(){
         return;
 
     if(state == eFirstFlip){
-
 
         // Call init to start loading resources
         init();
@@ -242,43 +241,66 @@ void StateGame::update(){
                                 boost::bind<bool>(&SistemaParticulas::ended, _1)), 
                       particleSet.end());
 
+    // Initial game state
     if(state == eInicialGemas){
-        if(++pasoAnim == totalAnimInit){
 
+        // If animation ended
+        if(++pasoAnim == totalAnimInit){
+            
+            // Switch to next state (waiting for user input)
             state = eEspera;
             board.endAnimations();
 
+            // reset animation step counter
             pasoAnim = 0;
         }
     }
 
+    // In the waiting state, the multiplier must be zero
     else if(state == eEspera){
         multiplier = 0;
     }
 
+    // In this state, the pair of selected gems are swapping
     else if(state == eGemasCambiando){	
+
+        // When animation ends
         if(++pasoAnim == totalAnim){
 
+            // Switch to the next state (gems start to disappear)
             state = eGemasDesapareciendo;
+
+            // Swap the gems in the board
             board.swap(selectedSquareFirst.x, selectedSquareFirst.y,
                        selectedSquareSecond.x, selectedSquareSecond.y);
 
+            // Increase the multiplier
             ++multiplier;
+
+            // Play matching sound
             playMatchSound();
+
+            // Create floating scores for the matching group
             createFloatingScores();
+
+            // Reset animation step counter
             pasoAnim = 0;
         }
     }
 
+    // In this state, the swapping gems are fading
     else if(state == eGemasDesapareciendo){
+
+        // When animation ends
         if(pasoAnim++ == totalAnim){
 
+            // Switch to the next state (new gems fall to their position)
             state = eGemasNuevasCayendo;
 
-            //TO-DO
-            //puntos += 10 * groupedSquares.size();
+            // Redraw the score board with new points
             redrawScoreboard();
 
+            // Delete the squares that were matched in the board
             for(size_t i = 0; i < groupedSquares.size(); ++i){
                 for(size_t j = 0; j < groupedSquares[i].size(); ++j){
                     board.del(groupedSquares[i][j].x,
@@ -286,54 +308,61 @@ void StateGame::update(){
                 }
             }
 
-            // Calculando los movimientos de caída...
-
+            // Calculate fall movements
             board.calcFallMovements();
 
-            //Aplicando las modificaciones según caídas a la matriz de squares...
-
+            // Apply changes to the board...
             board.applyFall();
 
-            // Rellenando los espacios que han quedado por arriba...
-
+            // Fill empty spaces
             board.fillSpaces();
 
+            // Reset animation step counter
             pasoAnim = 0;
         }
     }
 
+    // In this state, new gems are falling
     else if(state == eGemasNuevasCayendo){
+
+        // When animation ends
         if(pasoAnim++ == totalAnim){
+
+            // Play the fall sound fx
             sfxFall -> play(0.3);
+
+            // Switch to the next state (waiting state)
             state = eEspera;
+
+            // Reset animation counter
             pasoAnim = 0;
 
-            for(int x = 0; x < 8; ++x){
-                for(int y = 0; y < 8; ++y){
-                    board.squares[x][y].origY = y;
-                    board.squares[x][y].destY = 0;
-                    board.squares[x][y].mustFall = false;
-                }
-            }
+            // Reset animation variables
+            board.endAnimations();
 
-            // Fin de turno, pero comprobamos posibles movimientos ganadores indirectos...
-
+            // Check if there are matching groups
             groupedSquares = board.check();
 
+            // If there are...
             if(! groupedSquares.empty()){
-                // Si encontramos más filas o columnas
+
+                // Increase the score multiplier
                 ++multiplier;
+
+                // Create the floating scores
                 createFloatingScores();
+
+                // Play matching sound
                 playMatchSound();
+
+                // Go back to the gems-fading state
                 state = eGemasDesapareciendo;
             }
 
+            // If there are neither current solutions nor possible future solutions
             else if(board.solutions().empty()){
 
-                // Si el tablero no tiene más juegos posibles
-
-                lDEBUG << Log::cRojo << "ZOMG NO EXISTEN MÁS MOVIMIENTOS";
-
+                // Make the board disappear
                 state = eDesapareceBoard;
                 gemsOutScreen();
 
@@ -341,65 +370,79 @@ void StateGame::update(){
         }
     }
 
+    // In this state, the board is disappearing because there were no possible movements
     else if(state == eDesapareceBoard){
+
+        // When animation ends
         if(++pasoAnim == totalAnimInit){
 
+            // Switch to the initial state
             state = eInicialGemas;
+
+            // Generate a brand new board
             board.generate();
 
+            // Reset animation counter
             pasoAnim = 0;
         }
     }
 
+    // In this state, the time has finished, so we need to create a ScoreBoard
     else if(state == eTimeFinished){
+
+        // When animation ends
         if(++pasoAnim == totalAnimInit){
+
+            // Create a new score table
             scoreTable.reset(new ScoreTable(parent, puntos));
+
+            // Switch to the following state
             state = eShowingScoreTable;
 			 
+            // Reset animation counter
             pasoAnim = 0;
         }
     }
 
-    if(mostrandoPista != -1) mostrandoPista --;
+    // Whenever a hint is being shown, decrease its controlling variable
+    if(mostrandoPista != -1) 
+        mostrandoPista --;
 
 }
 
-/*
-  tiempo pasado, beginning, change, duration
-*/
-float StateGame::eqMovIn(float t, float b, float c, float d) {
-    t/=d;
-    return c*t*t + b;
-}
-
-float StateGame::eqMovOut(float t, float b, float c, float d) {
-    t/=d;
-    return -c *(t)*(t-2) + b;
-}
 
 
 void StateGame::draw(){
+    // If we're still loading resources, just show the loading screen
     if(state == eLoading || state == eFirstFlip){
         state = eFirstFlip;
         imgLoadingBanner -> draw(156, 200, 2);
         return;
     }
 
-
+    // Draw the background image
     imgBoard -> draw(0,0,1);
 
+    // Vertical initial position for the buttons
     int vertButStart = 360;
 
+    // Draw the buttons
     hintButton -> draw(17, vertButStart, 2);
     resetButton -> draw(17, vertButStart + 47, 2);
     musicButton -> draw(17, vertButStart + 47 * 2, 2);
-
     exitButton -> draw(17, 538, 2);
 
+    // Draw the score 
     imgScoreBackground -> draw(17, 124, 2);
     imgScoreHeader -> draw(17, 84, 3, 1, 1, Gosu::Color(0xffa0a9ff));
     imgScoreHeader -> draw(18, 85, 2, 1, 1, Gosu::Color(0x66000000));
 
+    fontScore -> draw(boost::lexical_cast<wstring>(puntos), 
+                      197 - fontScore ->textWidth(boost::lexical_cast<wstring>(puntos)),
+                      127, 2, 1, 1,
+                      Gosu::Color(0xff4ec1be));
+
+    // Draw the time
     imgTimeBackground -> draw(17, 230, 2);
     imgTimeHeader -> draw(17, 190, 3, 1, 1, Gosu::Color(0xffa0a9ff));
     imgTimeHeader -> draw(18, 191, 2, 1, 1, Gosu::Color(0x66000000));
@@ -409,29 +452,33 @@ void StateGame::draw(){
                      232, 2, 1, 1,
                      Gosu::Color(0xff4ec1be));
 
-    fontScore -> draw(boost::lexical_cast<wstring>(puntos), 
-                      197 - fontScore ->textWidth(boost::lexical_cast<wstring>(puntos)),
-                      127, 2, 1, 1,
-                      Gosu::Color(0xff4ec1be));
-
-    int posX = 241, 
-        posY = 41;
-
+    // Draw each score little messages
     std::for_each(scoreSet.begin(), 
                   scoreSet.end(), 
                   boost::bind(&FloatingScore::draw, _1));
 
+    // Draw each particle system
     std::for_each(particleSet.begin(), 
                   particleSet.end(), 
                   boost::bind(&SistemaParticulas::draw, _1));
 
-    //txtPuntos -> draw(8, 127, 5, 1, 1, Gosu::Color(0xff4ec1be));
+    // Starting position for the squares
+    int posX = 241, 
+        posY = 41;
 
+    // Generic pointer for drawing the squares
     boost::shared_ptr<Gosu::Image> img;
 
+    // If we're not in the final screen (showing the scores)
     if(state != eShowingScoreTable){
+
+        // Go through all of the squares
         for(int i = 0; i < 8; ++i){
             for(int j = 0; j < 8; ++j){
+
+                // Check the type of each square and
+                // save the proper image in the img pointer
+
                 switch(board.squares[i][j]){
                 case sqWhite:
                     img = imgWhite;
@@ -466,83 +513,83 @@ void StateGame::draw(){
                     break;
                 } // fin switch
 
+                // Now, if img is not NULL (there's something to draw)
                 if(img != NULL){
+                    // Default positions
+                    float imgX = posX + i * 65;
+                    float imgY = posY + j * 65;
+
+                    // Default color
+                    Gosu::Color imgColor = 0xffffffff;
+                    
+                    // In the initial state, the gems fall vertically
+                    // decreasing its speed
                     if(state == eInicialGemas){
-                        img -> draw(posX + i * 65,
-                                    Animacion::easeOutQuad(float(pasoAnim),
-                                                           float(posY + board.squares[i][j].origY * 65),
-                                                           float(board.squares[i][j].destY * 65),
-                                                           float(totalAnimInit)),
-                                    3);
+                        imgY = Animacion::easeOutQuad(
+                            float(pasoAnim),
+                            float(posY + board.squares[i][j].origY * 65),
+                            float(board.squares[i][j].destY * 65),
+                            float(totalAnimInit));                            
                     }
+
+                    // In the ending states, gems fall vertically, 
+                    // increasing their speed
                     else if(state == eDesapareceBoard || state == eTimeFinished){
-                        img -> draw(posX + i * 65,
-                                    Animacion::easeInQuad(float(pasoAnim),
-                                                          float(posY + board.squares[i][j].origY * 65),
-                                                          float(board.squares[i][j].destY * 65),
-                                                          float(totalAnimInit)),
-                                    3);
+                        imgY = Animacion::easeInQuad(
+                            float(pasoAnim),
+                            float(posY + board.squares[i][j].origY * 65),
+                            float(board.squares[i][j].destY * 65),
+                            float(totalAnimInit));
                     }
 
-                    else if(state == eEspera || state == eGemaMarcada ||
-                            state == eGemasNuevasCayendo){
+                    else if((state == eEspera || 
+                             state == eGemaMarcada ||
+                             state == eGemasNuevasCayendo)
+                            &&
+                            board.squares[i][j].mustFall)
+                    {
+                        imgY = Animacion::easeOutQuad(
+                            float(pasoAnim),
+                            float(posY + board.squares[i][j].origY * 65),
+                            float(board.squares[i][j].destY * 65),
+                            float(totalAnim));
+                    }                    
 
-                        if(board.squares[i][j].mustFall){
-                            img -> draw(posX + i * 65,
-                                        Animacion::easeOutQuad(float(pasoAnim),
-                                                               float(posY + board.squares[i][j].origY * 65),
-                                                               float(board.squares[i][j].destY * 65),
-                                                               float(totalAnim)),
-                                        3);
-                        }else{
-                            img -> draw(posX + i * 65,
-                                        posY + j * 65,
-                                        3);
-                        }
-                    }
-
-
+                    // When two gems are switching
                     else if(state == eGemasCambiando){
                         if(i == selectedSquareFirst.x && 
                            j == selectedSquareFirst.y){
 
-                            img -> draw(Animacion::easeOutQuad(float(pasoAnim),
-                                                               float(posX + i * 65),
-                                                               float((selectedSquareSecond.x - selectedSquareFirst.x) * 65),
-                                                               float(totalAnim)),
+                            imgX = Animacion::easeOutQuad(
+                                float(pasoAnim),
+                                float(posX + i * 65),
+                                float((selectedSquareSecond.x - selectedSquareFirst.x) * 65),
+                                float(totalAnim));
 
-                                        Animacion::easeOutQuad(float(pasoAnim),
-                                                               float(posY + j * 65),
-                                                               float((selectedSquareSecond.y - selectedSquareFirst.y) * 65),
-                                                               float(totalAnim)),
-
-                                        3);
+                            imgY = Animacion::easeOutQuad(
+                                float(pasoAnim),
+                                float(posY + j * 65),
+                                float((selectedSquareSecond.y - selectedSquareFirst.y) * 65),
+                                float(totalAnim));
 
                         }
 
                         else if(i == selectedSquareSecond.x && 
                                 j == selectedSquareSecond.y){
 
-                            img -> draw(Animacion::easeOutQuad(float(pasoAnim),
-                                                               float(posX + i * 65),
-                                                               float((selectedSquareFirst.x - selectedSquareSecond.x) * 65),
-                                                               float(totalAnim)),
+                            imgX = Animacion::easeOutQuad(
+                                float(pasoAnim),
+                                float(posX + i * 65),
+                                float((selectedSquareFirst.x - selectedSquareSecond.x) * 65),
+                                float(totalAnim));
 
-                                        Animacion::easeOutQuad(float(pasoAnim),
-                                                               float(posY + j * 65),
-                                                               float((selectedSquareFirst.y - selectedSquareSecond.y) * 65),
-                                                               float(totalAnim)),
-
-                                        3);
+                            imgY = Animacion::easeOutQuad(
+                                float(pasoAnim),
+                                float(posY + j * 65),
+                                float((selectedSquareFirst.y - selectedSquareSecond.y) * 65),
+                                float(totalAnim));
 
                         }
-
-                        else{
-                            img -> draw(posX + i * 65,
-                                        posY + j * 65,
-                                        3);
-                        }
-
                     }
 
                     else if(state == eGemasDesapareciendo){
@@ -550,43 +597,46 @@ void StateGame::draw(){
 
                         if(groupedSquares.matched(coord(i,j))){
 
-                            img -> draw(posX + i * 65,
-                                        posY + j * 65,
-                                        3, 1, 1,
-                                        Gosu::Color(int(255 * (1 -(float)pasoAnim/totalAnim)), 
-                                                    255, 255, 255));
+                            imgColor = Gosu::Color(int(255 * (1 -(float)pasoAnim/totalAnim)), 
+                                                   255, 255, 255);
                         }
-                        else{
-                            img -> draw(posX + i * 65,
-                                        posY + j * 65,
-                                        3);
-                        }
-
-
                     }
-                } // Fin if (img != NULL)
 
+                    // Finally draw the image
+                    img -> draw(imgX, imgY, 3, 1, 1, imgColor);
+
+                } // Fin if (img != NULL)
+                
                 img.reset();
             }
         }
 
+        // Get the mouse position
         int mX = (int) parent -> input().mouseX();
         int mY = (int) parent -> input().mouseY();
 
+        // If the mouse is over a gem
         if(overGem(mX, mY) ){
+
+            // Draw the selector over that gem
             imgSelector -> draw( 241 + getCoord(mX, mY).x * 65,
                                  41 + getCoord(mX, mY).y * 65,
                                  4);
         }
 
+        // If a gem was previously clicked
         if(state == eGemaMarcada){
+
+            // Draw the tinted selector over it
             imgSelector -> draw(241 + selectedSquareFirst.x * 65,
                                 41 + selectedSquareFirst.y * 65,
                                 4, 1, 1,
                                 Gosu::Color(0xffff0000));
         }
 
+        // If a hint is being shown
         if(mostrandoPista != -1){
+            // Get the opacity percentage
             float p1 = (float)mostrandoPista / totalAnimPista;
 
             float pX1 = 241 + coordPista.x * 65 - imgSelector -> width() * (2 - p1) / 2 + 65 / 2;
@@ -721,7 +771,6 @@ void StateGame::buttonDown (Gosu::Button B){
 void StateGame::showHint(){
     vector<coord> posibilidades = board.solutions();
     coordPista = posibilidades[0];
-    lDEBUG << "showHint: " << coordPista;
     mostrandoPista = totalAnimPista;   
 }
 

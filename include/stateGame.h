@@ -74,19 +74,6 @@ public:
 
 private:
 
-    /** 
-     * Function for the movement equation
-     * 
-     * @param t Delta of time
-     * @param b Initial value
-     * @param c Difference between initial and final value
-     * @param d Duration
-     * 
-     * @return the proper value according the easing equation
-     */
-    static float eqMovIn(float t, float b, float c, float d);
-    static float eqMovOut(float t, float b, float c, float d);
-
     void gemsOutScreen();
 
     int mostrandoPista;

@@ -85,6 +85,8 @@ public:
 
     /// Checks usage of resources and collects garbage, freeing unused resources.
     void collectGarbage(wstring bypass = L"");
+
+    ~ResourceManager();
 protected:
 
     /// Protected constructor to avoid multi-instantiation
