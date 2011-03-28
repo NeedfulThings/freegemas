@@ -3,6 +3,7 @@
 #include "game.h"
 #include "resManager.h"
 #include "inter.h"
+#include "animation.h"
 
 #include <cmath>
 #include <algorithm>
@@ -24,6 +25,7 @@ StateGame::StateGame(Game * p) : State(p){
 
     // Load the loading screen
     imgLoadingBanner = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/loadingBanner.png");
+    std::srand(std::clock());
 
 }
 
@@ -169,6 +171,7 @@ void StateGame::createFloatingScores(){
                                          m.midSquare().x,
                                          m.midSquare().y, 8));
 
+        // Create a new particle system for it to appear over the square
         for(size_t i = 0, s = m.size(); i < s; ++i){
             particleSet.push_back(SistemaParticulas(& parent -> graphics(),
                                                     50, 150, 
@@ -206,27 +209,38 @@ void StateGame::update(){
         return;
     }
 
-    double timeDiff = (timeStart - Gosu::milliseconds()) / 1000;
+    
+    // Compute the remaining time
+    double remainingTime = (timeStart - Gosu::milliseconds()) / 1000;
 	
-    if(timeDiff >= 0){
-        int minutes = int(timeDiff / 60);
-        int seconds = int(timeDiff - minutes * 60);
+    // If there's some remaining time, compute the string for the time board
+    if(remainingTime >= 0){
+        int minutes = int(remainingTime / 60);
+        int seconds = int(remainingTime - minutes * 60);
         txtTime = boost::lexical_cast<string>(minutes) + 
             (seconds < 10 ? ":0" : ":") + 
             boost::lexical_cast<string>(seconds);
     }
-    else if(timeDiff < 0 && state != eTimeFinished && state != eShowingScoreTable){
+
+    // If there's no time left and we're not in a final state
+    else if(remainingTime < 0 && state != eTimeFinished && state != eShowingScoreTable){
+
+        // End the game
         state = eTimeFinished;
+
+        // Take the gems out of the screen
         gemsOutScreen();
     }
 
+    // Remove the hidden floating score 
     scoreSet.erase(remove_if(scoreSet.begin(), scoreSet.end(), 
                              boost::bind<bool>(&FloatingScore::ended, _1)), scoreSet.end());
 
-    // particleSet.erase(remove_if(particleSet.begin(), 
-    //                             particleSet.end(), 
-    //                             boost::bind<bool>(&SistemaParticulas::ended, _1)), 
-    //                   particleSet.end());
+    // Remove the hiden particle systems
+    particleSet.erase(remove_if(particleSet.begin(), 
+                                particleSet.end(), 
+                                boost::bind<bool>(&SistemaParticulas::ended, _1)), 
+                      particleSet.end());
 
     if(state == eInicialGemas){
         if(++pasoAnim == totalAnimInit){
@@ -455,18 +469,18 @@ void StateGame::draw(){
                 if(img != NULL){
                     if(state == eInicialGemas){
                         img -> draw(posX + i * 65,
-                                    eqMovOut(float(pasoAnim),
-                                             float(posY + board.squares[i][j].origY * 65),
-                                             float(board.squares[i][j].destY * 65),
-                                             float(totalAnimInit)),
+                                    Animacion::easeOutQuad(float(pasoAnim),
+                                                           float(posY + board.squares[i][j].origY * 65),
+                                                           float(board.squares[i][j].destY * 65),
+                                                           float(totalAnimInit)),
                                     3);
                     }
                     else if(state == eDesapareceBoard || state == eTimeFinished){
                         img -> draw(posX + i * 65,
-                                    eqMovIn(float(pasoAnim),
-                                            float(posY + board.squares[i][j].origY * 65),
-                                            float(board.squares[i][j].destY * 65),
-                                            float(totalAnimInit)),
+                                    Animacion::easeInQuad(float(pasoAnim),
+                                                          float(posY + board.squares[i][j].origY * 65),
+                                                          float(board.squares[i][j].destY * 65),
+                                                          float(totalAnimInit)),
                                     3);
                     }
 
@@ -475,10 +489,10 @@ void StateGame::draw(){
 
                         if(board.squares[i][j].mustFall){
                             img -> draw(posX + i * 65,
-                                        eqMovOut(float(pasoAnim),
-                                                 float(posY + board.squares[i][j].origY * 65),
-                                                 float(board.squares[i][j].destY * 65),
-                                                 float(totalAnim)),
+                                        Animacion::easeOutQuad(float(pasoAnim),
+                                                               float(posY + board.squares[i][j].origY * 65),
+                                                               float(board.squares[i][j].destY * 65),
+                                                               float(totalAnim)),
                                         3);
                         }else{
                             img -> draw(posX + i * 65,
@@ -492,15 +506,15 @@ void StateGame::draw(){
                         if(i == selectedSquareFirst.x && 
                            j == selectedSquareFirst.y){
 
-                            img -> draw(eqMovOut(float(pasoAnim),
-                                                 float(posX + i * 65),
-                                                 float((selectedSquareSecond.x - selectedSquareFirst.x) * 65),
-                                                 float(totalAnim)),
+                            img -> draw(Animacion::easeOutQuad(float(pasoAnim),
+                                                               float(posX + i * 65),
+                                                               float((selectedSquareSecond.x - selectedSquareFirst.x) * 65),
+                                                               float(totalAnim)),
 
-                                        eqMovOut(float(pasoAnim),
-                                                 float(posY + j * 65),
-                                                 float((selectedSquareSecond.y - selectedSquareFirst.y) * 65),
-                                                 float(totalAnim)),
+                                        Animacion::easeOutQuad(float(pasoAnim),
+                                                               float(posY + j * 65),
+                                                               float((selectedSquareSecond.y - selectedSquareFirst.y) * 65),
+                                                               float(totalAnim)),
 
                                         3);
 
@@ -509,15 +523,15 @@ void StateGame::draw(){
                         else if(i == selectedSquareSecond.x && 
                                 j == selectedSquareSecond.y){
 
-                            img -> draw(eqMovOut(float(pasoAnim),
-                                                 float(posX + i * 65),
-                                                 float((selectedSquareFirst.x - selectedSquareSecond.x) * 65),
-                                                 float(totalAnim)),
+                            img -> draw(Animacion::easeOutQuad(float(pasoAnim),
+                                                               float(posX + i * 65),
+                                                               float((selectedSquareFirst.x - selectedSquareSecond.x) * 65),
+                                                               float(totalAnim)),
 
-                                        eqMovOut(float(pasoAnim),
-                                                 float(posY + j * 65),
-                                                 float((selectedSquareFirst.y - selectedSquareSecond.y) * 65),
-                                                 float(totalAnim)),
+                                        Animacion::easeOutQuad(float(pasoAnim),
+                                                               float(posY + j * 65),
+                                                               float((selectedSquareFirst.y - selectedSquareSecond.y) * 65),
+                                                               float(totalAnim)),
 
                                         3);
 

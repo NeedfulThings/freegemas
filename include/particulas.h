@@ -74,6 +74,8 @@ struct Particula{
             - imagen -> width() * coefTam / 2;
         posY = Gosu::offsetY(angulo, posTemp * distancia) 
             - imagen -> height() * coefTam / 2;
+
+        
     }
 
     void draw(int oX, int oY){
@@ -138,7 +140,7 @@ public:
 
         activo = true;
 
-        std::srand(std::clock());
+
 	
         partc1 . reset(new Gosu::Image(*g, L"media/partc1.png"));
         partc2 . reset(new Gosu::Image(*g, L"media/partc2.png"));
@@ -152,8 +154,6 @@ public:
             vectorParticulas.push_back(boost::shared_ptr<Particula>(nuevaPartc()));
         }
 
-        lDEBUG << "Nuevo sistema de partículas a pintar en "
-               << x << " " << y << " " << cantidadParticulas << " partículas";
     }
 
     Particula * nuevaPartc(){
@@ -166,7 +166,7 @@ public:
     }
 
     bool ended(){
-        return activo;
+        return !activo;
     }
 
     void draw(){
@@ -175,8 +175,7 @@ public:
             for (unsigned i = 0; i < cantidadParticulas; ++i){
                 vectorParticulas[i] -> update();
                 vectorParticulas[i] -> draw(x,y);
-            }
-            //lDEBUG << "PINTAME";
+            }            
         }else{
             activo = false;
         }
