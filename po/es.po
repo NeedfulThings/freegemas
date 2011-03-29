@@ -1,103 +1,103 @@
-# Spanish translations for PACKAGE package.
-# Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
-# This file is distributed under the same license as the PACKAGE package.
-# jose <jose@jose-desktop>, 2010.
+# Spanish translations for freegemas package.
+# Copyright (C) 2011 José Tomás Tocino García <theom3ga@gmail.com>
+# This file is distributed under the same license as the freegemas package.
+# jose <theom3ga@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: freegemas 0.4\n"
 "Report-Msgid-Bugs-To: theom3ga@gmail.com\n"
-"POT-Creation-Date: 2010-08-07 02:05+0200\n"
-"PO-Revision-Date: 2010-07-23 01:49+0200\n"
-"Last-Translator: jose <jose@jose-desktop>\n"
+"POT-Creation-Date: 2011-03-29 13:08+0200\n"
+"PO-Revision-Date: 2011-03-29 12:58+0200\n"
+"Last-Translator: jose <theom3ga@gmail.com>\n"
 "Language-Team: Spanish\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/stateHowtoplay.cpp:15 src/stateHowtoplay.cpp:17
+#: src/stateHowtoplay.cpp:20
 msgid ""
-"\n"
-"\n"
+"Bonus points are given when more than three identical gems are formed. "
+"Sometimes chain reactions, called cascades, are triggered, where chains are "
+"formed by the falling gems. Cascades are awarded with bonus points."
 msgstr ""
-"\n"
-"\n"
-
-#: src/stateGame.cpp:590
-msgid "Apagar música"
-msgstr "Apagar música"
-
-#: src/stateHowtoplay.cpp:36
-msgid "Cómo jugar"
-msgstr "Cómo jugar"
-
-#: src/stateHowtoplay.cpp:14
-msgid ""
-"El objetivo del juego es formar grupos de tres o más gemas iguales, en "
-"horizontal o vertical, intercambiando gemas adyacentes."
-msgstr ""
-"El objetivo del juego es formar grupos de tres o más gemas iguales, en "
-"horizontal o vertical, intercambiando gemas adyacentes."
-
-#: src/stateGame.cpp:62 src/stateGame.cpp:587
-msgid "Encender música"
-msgstr "Encender música"
-
-#: src/scoreTable.cpp:70
-msgid "Escribe tu nombre:"
-msgstr "Escribe tu nombre:"
-
-#: src/scoreTable.cpp:50
-msgid "FIN DEL JUEGO"
-msgstr "FIN DEL JUEGO"
-
-#: src/stateHowtoplay.cpp:16
-msgid ""
-"Haz click en la primera gema y luego haz click en la gema por la que la "
-"quieras intercambiar. si el movimiento es correcto, se intercambiarán y las "
-"gemas que formen grupos desaparecerán, dándote puntos."
-msgstr ""
-"Haz click en la primera gema y luego haz click en la gema por la que la "
-"quieras intercambiar. si el movimiento es correcto, se intercambiarán y las "
-"gemas que formen grupos desaparecerán, dándote puntos."
-
-#: src/stateMainMenu.cpp:38
-msgid "Modo contrarreloj"
-msgstr "Modo contrarreloj"
-
-#: src/stateGame.cpp:53
-msgid "Mostrar pista"
-msgstr ""
+"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más "
+"puntos, y pensar en estrategias para provocar reacciones en cadena."
 
 #: src/stateHowtoplay.cpp:18
 msgid ""
-"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más "
-"puntos, y pensar en estrategias para provocar reacciones en cadena."
+"Click the first gem and then click the gem you want to swap it with. If the "
+"movement is correct, they will swap and the chained gems will disappear."
 msgstr ""
-"Puedes intentar hacer grupos de cuatro o más gemas para conseguir más "
-"puntos, y pensar en estrategias para provocar reacciones en cadena."
+"Haz click en la primera gema y luego haz click en la gema por la que la "
+"quieras intercambiar. Si el movimiento es correcto, se intercambiarán y las "
+"gemas que formen grupos desaparecerán, dándote puntos."
 
-#: src/stateHowtoplay.cpp:37
-msgid "Pulsa escape para volver"
-msgstr "Pulsa escape para volver"
-
-#: src/stateGame.cpp:56
-msgid "Reiniciar juego"
-msgstr ""
-
-#: src/stateGame.cpp:59 src/stateMainMenu.cpp:41
-msgid "Salir"
+#: src/stateGame.cpp:79 src/stateMainMenu.cpp:42
+msgid "Exit"
 msgstr "Salir"
 
-#: src/stateGame.cpp:41
-msgid "puntos"
-msgstr "puntos"
+#: src/scoreTable.cpp:51
+msgid "GAME OVER"
+msgstr "FIN DEL JUEGO"
 
-#: src/stateGame.cpp:46
-msgid "tiempo restante"
-msgstr "tiempo restante"
+#: src/stateHowtoplay.cpp:30
+msgid "How to play"
+msgstr "Cómo jugar"
+
+#: src/stateMainMenu.cpp:40
+msgid "How to play?"
+msgstr "¿Cómo jugar?"
+
+#: src/stateHowtoplay.cpp:31
+msgid "Press escape to come back"
+msgstr "Pulsa escape para volver"
+
+#: src/stateGame.cpp:76
+msgid "Reset game"
+msgstr "Reiniciar juego"
+
+#: src/stateGame.cpp:73
+msgid "Show hint"
+msgstr "Mostrar pista"
+
+#: src/stateHowtoplay.cpp:16
+msgid ""
+"The objective of the game is to swap one gem with an adjacent gem to form a "
+"horizontal or vertical chain of three or more gems."
+msgstr ""
+"El objetivo del juego es formar grupos de tres o más gemas iguales, en "
+"horizontal o vertical, intercambiando gemas adyacentes."
 
 #: src/stateMainMenu.cpp:39
-msgid "¿Cómo se juega?"
-msgstr "¿Cómo se juega?"
+msgid "Timetrial mode"
+msgstr "Modo contrarreloj"
+
+#: src/stateGame.cpp:733
+msgid "Turn off music"
+msgstr "Apagar música"
+
+#: src/stateGame.cpp:82 src/stateGame.cpp:730
+msgid "Turn on music"
+msgstr "Encender música"
+
+#: src/scoreTable.cpp:71
+msgid "Write your name:"
+msgstr "Escribe tu nombre:"
+
+#: src/main.cpp:39
+msgid "i18n not available"
+msgstr "Español"
+
+#: src/stateGame.cpp:57
+msgid "score"
+msgstr "puntos"
+
+#: src/stateGame.cpp:63
+msgid "time left"
+msgstr "tiempo restante"
+
+#~ msgid "hola"
+#~ msgstr "Hola desde español"

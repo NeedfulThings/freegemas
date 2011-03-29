@@ -54,13 +54,13 @@ void StateGame::init(){
     Gosu::Bitmap bmpTemp;
 
     // Image for scoreboard heading
-    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("puntos")),
+    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("score")),
                                Gosu::resourcePrefix() + L"media/fNormal.ttf", 
                                37, 0, 190, Gosu::taCenter);
     imgScoreHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
     // Image for time heading
-    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("tiempo restante")),
+    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("time left")),
                                Gosu::resourcePrefix() + L"media/fNormal.ttf", 
                                37, 0, 190, Gosu::taCenter);
     imgTimeHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
@@ -70,16 +70,16 @@ void StateGame::init(){
     // Buttons
 
     hintButton.reset(new BaseButton(parent -> graphics(),
-                                    Gosu::utf8ToWstring(_("Mostrar pista")), L"iconHint.png"));
+                                    Gosu::utf8ToWstring(_("Show hint")), L"iconHint.png"));
 
     resetButton.reset(new BaseButton(parent -> graphics(),
-                                     Gosu::utf8ToWstring(_("Reiniciar juego")), L"iconRestart.png"));
+                                     Gosu::utf8ToWstring(_("Reset game")), L"iconRestart.png"));
 
     exitButton.reset(new BaseButton(parent -> graphics(),
-                                    Gosu::utf8ToWstring(_("Salir")), L"iconExit.png"));
+                                    Gosu::utf8ToWstring(_("Exit")), L"iconExit.png"));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
-                                     Gosu::utf8ToWstring(_("Encender música")), L"iconMusic.png"));
+                                     Gosu::utf8ToWstring(_("Turn on music")), L"iconMusic.png"));
 
 
     /**************************************/
@@ -727,10 +727,10 @@ void StateGame::buttonDown (Gosu::Button B){
 
         else if(musicButton -> clicked(mX, mY)){
             if(sfxSong -> playing()){
-                musicButton -> changeText(Gosu::utf8ToWstring(_("Encender música")));
+                musicButton -> changeText(Gosu::utf8ToWstring(_("Turn on music")));
                 sfxSong -> stop();
             }else{
-                musicButton -> changeText(Gosu::utf8ToWstring(_("Apagar música")));
+                musicButton -> changeText(Gosu::utf8ToWstring(_("Turn off music")));
                 sfxSong -> play(true);
             }	    
         }
