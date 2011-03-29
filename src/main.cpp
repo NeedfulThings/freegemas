@@ -30,13 +30,12 @@
 int main(int argc, char *argv[])
 {
 #ifndef WIN32
-//    bind_textdomain_codeset ("freegemas", "UTF-8");
     setlocale(LC_ALL, "");
     bindtextdomain("freegemas", "lang" );
     textdomain("freegemas");    
 #endif
 
-    lDEBUG << "Translation language: " << _("i18n not available");
+    lDEBUG << "Translation language: " << _("using default");
     Game j;
     j.show();
 
