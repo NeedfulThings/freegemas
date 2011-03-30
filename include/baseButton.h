@@ -95,7 +95,7 @@ private:
     boost::shared_ptr<Gosu::Image> imgIcon;
 
     /// Font used for the button's label
-    boost::shared_ptr<Font> buttonFont;
+    boost::shared_ptr<CustomFont> buttonFont;
 
     /// Caption of the button
     wstring buttonText;

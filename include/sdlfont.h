@@ -48,7 +48,7 @@ using namespace std;
 #include <SDL/SDL_ttf.h>
 #endif
 
-class Font : boost::noncopyable
+class CustomFont : boost::noncopyable
 {
 	TTF_Font* font;
 
@@ -130,7 +130,7 @@ class Font : boost::noncopyable
 	}
 
 public:
-	Font(Gosu::Graphics & G, const std::wstring& fontName, unsigned fontHeight, int flags = 0)
+	CustomFont(Gosu::Graphics & G, const std::wstring& fontName, unsigned fontHeight, int flags = 0)
 		: graphics(G)
 	{
 		static int initResult = TTF_Init();
@@ -153,7 +153,7 @@ public:
 
 	}
 
-	~Font()
+	~CustomFont()
 	{
 		TTF_CloseFont(font);
 	}
@@ -176,7 +176,7 @@ public:
 
 class TextBlock{  
     Gosu::Graphics &g;
-    boost::shared_ptr<Font> font;
+    boost::shared_ptr<CustomFont> font;
 
     int textWidth, fontLineSkip;
 
@@ -239,7 +239,7 @@ class TextBlock{
 public:
 
     TextBlock(Gosu::Graphics & g, const std::wstring& fontName, unsigned fontHeight, int textWidth) : g(g), textWidth(textWidth){
-        font.reset(new Font(g, fontName, fontHeight));
+        font.reset(new CustomFont(g, fontName, fontHeight));
         fontLineSkip = fontHeight;
     }
 

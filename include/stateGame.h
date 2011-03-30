@@ -201,10 +201,10 @@ private:
     boost::shared_ptr<Gosu::Image> imgScoreHeader;
 
     /// Font for the clock
-    boost::shared_ptr<Font> fontTime;
+    boost::shared_ptr<CustomFont> fontTime;
 
     /// Font for the current-score text
-    boost::shared_ptr<Font> fontScore;
+    boost::shared_ptr<CustomFont> fontScore;
 
     /// Loading screen image
     boost::shared_ptr<Gosu::Image> imgLoadingBanner;

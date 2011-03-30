@@ -23,7 +23,7 @@ public:
 private:
     boost::shared_ptr<Gosu::Image> imgBackground;
 
-    boost::shared_ptr<Font> fontTitle, fontSubtitle;
+    boost::shared_ptr<CustomFont> fontTitle, fontSubtitle;
     boost::shared_ptr<TextBlock> fontBodyText;
 
     wstring bodyText;
