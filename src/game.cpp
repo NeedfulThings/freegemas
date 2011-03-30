@@ -58,5 +58,9 @@ void Game::changeState(string S){
 }
 
 Game::~Game(){
+    lDEBUG << "Freeing resource manager...";
+    ResourceManager::delInstance();
+    lDEBUG << "Resource Manager should have been freed";
+
     lDEBUG << Log::DES("Game");
 }

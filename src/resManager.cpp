@@ -16,7 +16,7 @@ boost::shared_ptr<ResourceManager> ResourceManager::instance(){
 }
 
 void ResourceManager::delInstance(){
-    if(pointerInstance == 0)
+    if(pointerInstance != 0)
         pointerInstance.reset();
 }
 
