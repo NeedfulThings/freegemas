@@ -121,9 +121,9 @@ class CustomFont : boost::noncopyable
 
 			BOOST_FOREACH(const wchar_t & w, text){
 				boost::shared_ptr<Gosu::Image> currentGlyph = getGlyph(w);
-				if(toDraw) currentGlyph-> draw(x + acumX, y, z, 1, 1, color);
+				if(toDraw) currentGlyph-> draw(x + acumX, y, z, 0.5, 0.5, color);
 
-				acumX += currentGlyph -> width();
+				acumX += currentGlyph -> width() / 2;
 			}
 
 			return acumX;
@@ -138,7 +138,7 @@ public:
 			throw std::runtime_error("Could not initialize SDL_TTF");
 
 		// Try to open the font at the given path
-		font = TTF_OpenFont(Gosu::wstringToUTF8(fontName).c_str(), fontHeight);
+		font = TTF_OpenFont(Gosu::wstringToUTF8(fontName).c_str(), fontHeight*2);
 
 		if (!font)
 			throw std::runtime_error("Could not open TTF file " 
@@ -169,7 +169,7 @@ public:
 	}
 
 	void draw(const std::wstring & text, int x, int y, Gosu::ZPos z, 
-		int fx = 1, int fy = 1, Gosu:: Color color = 0xffffffff){
+		float fx = 1, float fy = 1, Gosu:: Color color = 0xffffffff){
 			process(true, text, x, y, z, fx, fy, color);
 	}
 };
