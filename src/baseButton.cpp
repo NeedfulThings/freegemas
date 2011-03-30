@@ -2,7 +2,7 @@
 
 BaseButton::BaseButton(Gosu::Graphics & g, std::wstring text, std::wstring imgIconPath) : g(g){
     buttonBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/buttonBackground.png");
-    buttonFont = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 29);
+    buttonFont = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fNormal.ttf", 27);
 
     if(imgIconPath != L""){
         imgIcon = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/" + imgIconPath);	

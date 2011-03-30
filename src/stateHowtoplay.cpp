@@ -9,9 +9,9 @@ StateHowtoplay::StateHowtoplay(Game * p) : State(p){
 
     imgBackground = ResMgr -> getImage(Gosu::resourcePrefix() + L"media/howtoScreen.png");
 
-    fontTitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 58);
-    fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 34);
-    fontBodyText.reset(new TextBlock(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 31, 450));
+    fontTitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 48);
+    fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 23);
+    fontBodyText.reset(new TextBlock(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 450));
 
     bodyText += Gosu::widen(_("The objective of the game is to swap one gem with an adjacent gem to form a horizontal or vertical chain of three or more gems."));
     bodyText += Gosu::widen("\n\n");

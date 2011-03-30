@@ -2,6 +2,7 @@
 #define _STATEHOWTOPLAY_H_
 
 #include <Gosu/Gosu.hpp>
+#include "sdlfont.h"
 #include "state.h"
 
 #include <boost/shared_ptr.hpp>
@@ -22,7 +23,7 @@ public:
 private:
     boost::shared_ptr<Gosu::Image> imgBackground;
 
-    boost::shared_ptr<Gosu::Font> fontTitle, fontSubtitle;
+    boost::shared_ptr<Font> fontTitle, fontSubtitle;
     boost::shared_ptr<TextBlock> fontBodyText;
 
     wstring bodyText;

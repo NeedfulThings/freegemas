@@ -34,11 +34,11 @@ boost::shared_ptr<Gosu::Image> ResourceManager::getImage(wstring path){
     return loadedImages[path];
 }
 
-boost::shared_ptr<Gosu::Font> ResourceManager::getFont(wstring path, int size){
+boost::shared_ptr<Font> ResourceManager::getFont(wstring path, int size){
     wstring key = path + boost::lexical_cast<wstring>(size);
 
     if(loadedFonts.find(key) == loadedFonts.end())
-        loadedFonts[key].reset(new Gosu::Font(*g, path, size, 0));
+        loadedFonts[key].reset(new Font(*g, path, size, 0));
 
     collectGarbage(key);
     return loadedFonts[key];

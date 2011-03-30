@@ -28,7 +28,7 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     imgHighl = ResMgr -> getImage(Gosu::resourcePrefix() +
                                   L"media/stateMainMenu/menuHighlight.png");
 
-    font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 40);
+    font = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 30);
 
     
     

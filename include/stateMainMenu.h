@@ -108,7 +108,7 @@ private:
     boost::shared_ptr<Gosu::Image> imgHighl;
 
     /// Font for the menu entries
-    boost::shared_ptr<Gosu::Font> font;
+    boost::shared_ptr<Font> font;
 
     /// Class for the animation of the decorating jewels
     JewelGroupAnim jewelAnim;
