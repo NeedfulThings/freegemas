@@ -13,11 +13,11 @@ StateHowtoplay::StateHowtoplay(Game * p) : State(p){
     fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 34);
     fontBodyText.reset(new TextBlock(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 31, 450));
 
-    bodyText += Gosu::utf8ToWstring(_("The objective of the game is to swap one gem with an adjacent gem to form a horizontal or vertical chain of three or more gems."));
-    bodyText += Gosu::utf8ToWstring("\n\n");
-    bodyText += Gosu::utf8ToWstring(_("Click the first gem and then click the gem you want to swap it with. If the movement is correct, they will swap and the chained gems will disappear."));
-    bodyText += Gosu::utf8ToWstring("\n\n");
-    bodyText += Gosu::utf8ToWstring(_("Bonus points are given when more than three identical gems are formed. Sometimes chain reactions, called cascades, are triggered, where chains are formed by the falling gems. Cascades are awarded with bonus points."));
+    bodyText += Gosu::widen(_("The objective of the game is to swap one gem with an adjacent gem to form a horizontal or vertical chain of three or more gems."));
+    bodyText += Gosu::widen("\n\n");
+    bodyText += Gosu::widen(_("Click the first gem and then click the gem you want to swap it with. If the movement is correct, they will swap and the chained gems will disappear."));
+    bodyText += Gosu::widen("\n\n");
+    bodyText += Gosu::widen(_("Bonus points are given when more than three identical gems are formed. Sometimes chain reactions, called cascades, are triggered, where chains are formed by the falling gems. Cascades are awarded with bonus points."));
 
     preparedText = fontBodyText->prepareText(bodyText);
 }
@@ -27,8 +27,8 @@ void StateHowtoplay::update(){ }
 void StateHowtoplay::draw(){
     imgBackground -> draw(0,0,0);
 
-    wstring titleText = Gosu::utf8ToWstring(_("How to play"));
-    wstring exitText = Gosu::utf8ToWstring(_("Press escape to come back"));
+    wstring titleText = Gosu::widen(_("How to play"));
+    wstring exitText = Gosu::widen(_("Press escape to come back"));
 
     
     fontTitle -> draw(titleText, 

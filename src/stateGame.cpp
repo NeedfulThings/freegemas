@@ -54,13 +54,13 @@ void StateGame::init(){
     Gosu::Bitmap bmpTemp;
 
     // Image for scoreboard heading
-    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("score")),
+    bmpTemp = Gosu::createText(Gosu::widen(_("score")),
                                Gosu::resourcePrefix() + L"media/fNormal.ttf", 
                                37, 0, 190, Gosu::taCenter);
     imgScoreHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
 
     // Image for time heading
-    bmpTemp = Gosu::createText(Gosu::utf8ToWstring(_("time left")),
+    bmpTemp = Gosu::createText(Gosu::widen(_("time left")),
                                Gosu::resourcePrefix() + L"media/fNormal.ttf", 
                                37, 0, 190, Gosu::taCenter);
     imgTimeHeader.reset(new Gosu::Image(parent -> graphics(), bmpTemp));
@@ -70,16 +70,16 @@ void StateGame::init(){
     // Buttons
 
     hintButton.reset(new BaseButton(parent -> graphics(),
-                                    Gosu::utf8ToWstring(_("Show hint")), L"iconHint.png"));
+                                    Gosu::widen(_("Show hint")), L"iconHint.png"));
 
     resetButton.reset(new BaseButton(parent -> graphics(),
-                                     Gosu::utf8ToWstring(_("Reset game")), L"iconRestart.png"));
+                                     Gosu::widen(_("Reset game")), L"iconRestart.png"));
 
     exitButton.reset(new BaseButton(parent -> graphics(),
-                                    Gosu::utf8ToWstring(_("Exit")), L"iconExit.png"));
+                                    Gosu::widen(_("Exit")), L"iconExit.png"));
 
     musicButton.reset(new BaseButton(parent -> graphics(),
-                                     Gosu::utf8ToWstring(_("Turn on music")), L"iconMusic.png"));
+                                     Gosu::widen(_("Turn on music")), L"iconMusic.png"));
 
 
     /**************************************/
@@ -447,8 +447,8 @@ void StateGame::draw(){
     imgTimeHeader -> draw(17, 190, 3, 1, 1, Gosu::Color(0xffa0a9ff));
     imgTimeHeader -> draw(18, 191, 2, 1, 1, Gosu::Color(0x66000000));
 
-    fontTime -> draw(Gosu::utf8ToWstring(txtTime), 
-                     190 - fontTime ->textWidth(Gosu::utf8ToWstring(txtTime)),
+    fontTime -> draw(Gosu::widen(txtTime), 
+                     190 - fontTime ->textWidth(Gosu::widen(txtTime)),
                      232, 2, 1, 1,
                      Gosu::Color(0xff4ec1be));
 
@@ -727,10 +727,10 @@ void StateGame::buttonDown (Gosu::Button B){
 
         else if(musicButton -> clicked(mX, mY)){
             if(sfxSong -> playing()){
-                musicButton -> changeText(Gosu::utf8ToWstring(_("Turn on music")));
+                musicButton -> changeText(Gosu::widen(_("Turn on music")));
                 sfxSong -> stop();
             }else{
-                musicButton -> changeText(Gosu::utf8ToWstring(_("Turn off music")));
+                musicButton -> changeText(Gosu::widen(_("Turn off music")));
                 sfxSong -> play(true);
             }	    
         }

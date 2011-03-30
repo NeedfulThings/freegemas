@@ -36,10 +36,10 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     animationLogoSteps = 30;
     animationCurrentStep = 0;
 
-    menuOptions.push_back(make_pair(Gosu::utf8ToWstring(_("Timetrial mode")), "stateGame"));
-    menuOptions.push_back(make_pair(Gosu::utf8ToWstring(_("How to play?")), "stateHowtoplay"));
+    menuOptions.push_back(make_pair(Gosu::widen(_("Timetrial mode")), "stateGame"));
+    menuOptions.push_back(make_pair(Gosu::widen(_("How to play?")), "stateHowtoplay"));
 //    menuOptions.push_back(make_pair(L"Créditos");
-    menuOptions.push_back(make_pair(Gosu::utf8ToWstring(_("Exit")), "stateQuit"));
+    menuOptions.push_back(make_pair(Gosu::widen(_("Exit")), "stateQuit"));
 
     menuSelectedOption = 0;
     menuYStart = 350;

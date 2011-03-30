@@ -48,7 +48,7 @@ ScoreTable::ScoreTable(Game * p, int points) : parent(p), points(points){
 
 void ScoreTable::draw(int x, int y, double z){
 
-    wstring stringTitle = Gosu::utf8ToWstring(_("GAME OVER"));
+    wstring stringTitle = Gosu::widen(_("GAME OVER"));
     double w1 = fntH1 -> textWidth(stringTitle);
     double wp = fntLcdBig -> textWidth(boost::lexical_cast<wstring>(points));
 
@@ -68,7 +68,7 @@ void ScoreTable::draw(int x, int y, double z){
 
 
     if(state == eRequestPlayerName){
-        wstring stringSubtitle = Gosu::utf8ToWstring(_("Write your name:"));
+        wstring stringSubtitle = Gosu::widen(_("Write your name:"));
         double w2 = fntH2 -> textWidth(stringSubtitle);
 
         fntH2 -> draw(stringSubtitle, 
@@ -99,7 +99,7 @@ void ScoreTable::draw(int x, int y, double z){
             Gosu::Color clr = (it -> first == Gosu::narrow(nameInput.text()) && it -> second == points) ?
                 0xffff0000 : 0xffffffff;
 
-            fntH2 -> draw(Gosu::utf8ToWstring(it -> first), 
+            fntH2 -> draw(Gosu::widen(it -> first), 
                           x + 50, y + 140 + ii * 30, z, 1, 1, clr);
 
             fntLcdSmall -> draw(boost::lexical_cast<wstring>(it -> second),

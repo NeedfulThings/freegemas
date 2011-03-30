@@ -29,11 +29,10 @@
 
 int main(int argc, char *argv[])
 {
-#ifndef WIN32
+
     setlocale(LC_ALL, "");
     bindtextdomain("freegemas", "lang" );
     textdomain("freegemas");    
-#endif
 
     lDEBUG << "Translation language: " << _("using default");
     Game j;
