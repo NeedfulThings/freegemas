@@ -15,6 +15,11 @@ boost::shared_ptr<ResourceManager> ResourceManager::instance(){
     return pointerInstance;
 }
 
+void ResourceManager::delInstance(){
+    if(pointerInstance == 0)
+        pointerInstance.reset();
+}
+
 void ResourceManager::init(Gosu::Graphics & g_){
     g = &g_;
 }

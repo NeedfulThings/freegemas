@@ -74,6 +74,8 @@ public:
     /// Returns the instance of the resource manager.
     static boost::shared_ptr<ResourceManager> instance();
 
+    static void delInstance();
+
     /// Initializes the resource manager.
     void init(Gosu::Graphics & g_);
 
