@@ -42,7 +42,11 @@
 #include <iostream>
 using namespace std;
 
+#ifdef WIN32
 #include <SDL_ttf.h>
+#else
+#include <SDL/SDL_ttf.h>
+#endif
 
 class Font : boost::noncopyable
 {
