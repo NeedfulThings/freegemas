@@ -8,7 +8,9 @@ CXXFLAGS  := -Wall -pipe -g --pedantic
 CXXFLAGS  += -I. -Igosu `gosu/bin/gosu-config --cxxflags` -Iinclude
 
 LDFLAGS   := -Wall
-LDFLAGS   += `gosu/bin/gosu-config --libs --cxxflags` 
+LDFLAGS   += -lX11 -pthread -lpangoft2-1.0 -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 
+LDFLAGS   += -lgthread-2.0 -lrt -lglib-2.0   -lsndfile -lvorbisfile -lvorbis -logg -lm -lopenal -lpng -lstdc++ -lGL -lSDL_ttf -lfreeimage
+#LDFLAGS   += `gosu/bin/gosu-config --libs --cxxflags` 
 
 LIBS      := gosu/lib/libgosu.a
 

@@ -31,6 +31,8 @@
 #include "Gosu/Gosu.hpp"
 
 #include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
+
 #include <boost/lexical_cast.hpp>
 #include <boost/unordered/unordered_map.hpp>
 #include <boost/foreach.hpp>
@@ -38,6 +40,7 @@
 
 #include <map>
 #include <cstdio>
+#include <cstring>
 
 #include <iostream>
 using namespace std;

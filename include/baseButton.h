@@ -29,6 +29,7 @@
 #include <Gosu/Gosu.hpp>
 
 #include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <string>
 using std::wstring;
