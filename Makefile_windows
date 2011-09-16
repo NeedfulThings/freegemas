@@ -23,8 +23,6 @@ SRCDIR := src
 OBJS := obj/animation.o obj/baseButton.o obj/board.o obj/ecuaciones.o obj/game.o obj/log.o obj/main.o obj/resManager.o 
 OBJS += obj/scoreTable.o obj/state.o obj/stateGame.o obj/stateHowtoplay.o obj/stateMainMenu.o
 
-$(addprefix $(OBJDIR)/, $(addsuffix .o,$(basename $(SRCS))))
-
 all: $(OUTPUT)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
@@ -32,9 +30,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 
 $(OUTPUT): $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) $(LDFLAGS)
-
-clean:
-	rm $(OBJS) $(OUTPUT) *~ -rf
 
 obj/log.o: include/log.h
 obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h include/stateMainMenu.h include/resManager.h include/stateHowtoplay.h include/inter.h
