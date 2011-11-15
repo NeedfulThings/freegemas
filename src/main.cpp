@@ -29,11 +29,6 @@
 
 int main(int argc, char *argv[])
 {
-
-    setlocale(LC_ALL, "");
-    bindtextdomain("freegemas", "lang" );
-    textdomain("freegemas");    
-
     lDEBUG << "Translation language: " << _("using default");
     Game j;
     j.show();

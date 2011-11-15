@@ -25,6 +25,7 @@
 		D444BBC1147321FB002A003F /* stateHowtoplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D444BBB4147321FB002A003F /* stateHowtoplay.cpp */; };
 		D444BBC2147321FB002A003F /* stateMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D444BBB5147321FB002A003F /* stateMainMenu.cpp */; };
 		D444BC8B14732980002A003F /* media in Resources */ = {isa = PBXBuildFile; fileRef = D444BC6514732980002A003F /* media */; };
+		D444BC8F147329CB002A003F /* inter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D444BC8E147329CB002A003F /* inter.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -113,6 +114,7 @@
 		D444BC3E14732956002A003F /* menuHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuHighlight.png; sourceTree = "<group>"; };
 		D444BC3F14732956002A003F /* timeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeBackground.png; sourceTree = "<group>"; };
 		D444BC6514732980002A003F /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; name = media; path = ../media; sourceTree = SOURCE_ROOT; };
+		D444BC8E147329CB002A003F /* inter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = inter.cpp; path = ../src/inter.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				D444BBAB147321FB002A003F /* board.cpp */,
 				D444BBAC147321FB002A003F /* ecuaciones.cpp */,
 				D444BBAD147321FB002A003F /* game.cpp */,
+				D444BC8E147329CB002A003F /* inter.cpp */,
 				D444BBAE147321FB002A003F /* log.cpp */,
 				D444BBAF147321FB002A003F /* main.cpp */,
 				D444BBB0147321FB002A003F /* resManager.cpp */,
@@ -356,6 +359,7 @@
 				D444BBC0147321FB002A003F /* stateGame.cpp in Sources */,
 				D444BBC1147321FB002A003F /* stateHowtoplay.cpp in Sources */,
 				D444BBC2147321FB002A003F /* stateMainMenu.cpp in Sources */,
+				D444BC8F147329CB002A003F /* inter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
