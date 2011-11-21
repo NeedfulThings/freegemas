@@ -717,11 +717,13 @@ void StateGame::buttonDown (Gosu::Button B){
         int mX = (int) parent -> input().mouseX();
         int mY = (int) parent -> input().mouseY();
 
+#ifndef GOSU_IS_IPHONE
         if(exitButton -> clicked(mX, mY)){
             parent -> changeState("stateMainMenu");
         }
-
-        else if(hintButton -> clicked(mX, mY)){
+        else 
+#endif
+        if(hintButton -> clicked(mX, mY)){
             showHint();
         }
 

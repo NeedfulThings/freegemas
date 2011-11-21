@@ -1,7 +1,8 @@
+#include "inter.h"
 #include <Gosu/Platform.hpp>
 
 #ifdef GOSU_IS_MAC
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 const char* _(const char* x) {
     return [NSLocalizedString([NSString stringWithUTF8String:x], nil) UTF8String];
 }

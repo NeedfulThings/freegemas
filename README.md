@@ -4,10 +4,11 @@ Gosu needs a nice example project to get people started with iOS development. Be
 
 # Work in Progress. TODO:
 
- * Find/add gettext->Strings.plist converter for localization
- * Add iOS Xcode4 project and document it for the Gosu Wiki
- * Add touch interface
+ * Fix all the #ifdef GOSU_IS_IPHONE stuff - shouldn't be so ugly!
+ * Recreate iOS Xcode4 project and document it for the Gosu Wiki
+ * Document what was necessary to port this typical 4:3 game to iOS
  * Fix all remaining Font inconsistencies
+ * Find/add gettext->Strings.plist converter for localization
  * Flesh out this README
 
 # Licensing

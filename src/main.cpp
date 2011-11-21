@@ -26,7 +26,15 @@
 
 #include "inter.h"
 #include "game.h"
+#include <Gosu/Platform.hpp>
 
+#ifdef GOSU_IS_IPHONE
+Gosu::Window& windowInstance()
+{
+    static Game game;
+    return game;
+}
+#else
 int main(int argc, char *argv[])
 {
     lDEBUG << "Translation language: " << _("using default");
@@ -35,4 +43,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
+#endif

@@ -59,6 +59,10 @@ public:
 
     void buttonUp(Gosu::Button button);
 
+#ifdef GOSU_IS_IPHONE
+    void touchBegan(Gosu::Touch touch);
+#endif
+    
     void changeState(string S);
 
     ~Game();

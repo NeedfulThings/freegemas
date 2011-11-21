@@ -17,6 +17,10 @@ Game::Game () : Gosu::Window(800, 600, false) {
     ResourceManager::instance() -> init(graphics());    
 
     changeState("stateMainMenu");
+    
+#ifdef GOSU_IS_IPHONE
+    input().setMouseFactors(800/480.f, 800/480.f);
+#endif
 }
 
 void Game::update(){
@@ -24,9 +28,28 @@ void Game::update(){
 }
 
 void Game::draw(){
+#ifdef GOSU_IS_IPHONE
+    graphics().pushTransform(Gosu::rotate(90));
+    graphics().pushTransform(Gosu::translate(0, -(int)graphics().height()));
+    graphics().pushTransform(Gosu::scale(480.f / 800));
+#endif
     mousePointer -> draw(input().mouseX(), input().mouseY(), 90);
     currentState -> draw();
+#ifdef GOSU_IS_IPHONE
+    graphics().popTransform();
+    graphics().popTransform();
+    graphics().popTransform();
+#endif
 }
+
+#ifdef GOSU_IS_IPHONE
+void Game::touchBegan(Gosu::Touch touch) {
+    float mouseX = touch.x;
+    float mouseY = touch.y;
+    input().setMousePosition(mouseX, mouseY);
+    buttonDown(Gosu::msLeft);
+}
+#endif
 
 void Game::buttonDown(Gosu::Button button){
     currentState -> buttonDown(button);

@@ -39,7 +39,9 @@ StateMainMenu::StateMainMenu(Game * p) : State(p){
     menuOptions.push_back(make_pair(Gosu::widen(_("Timetrial mode")), "stateGame"));
     menuOptions.push_back(make_pair(Gosu::widen(_("How to play?")), "stateHowtoplay"));
 //    menuOptions.push_back(make_pair(L"Créditos");
+    #ifndef GOSU_IS_IPHONE
     menuOptions.push_back(make_pair(Gosu::widen(_("Exit")), "stateQuit"));
+    #endif
 
     menuSelectedOption = 0;
     menuYStart = 350;

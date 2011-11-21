@@ -7,23 +7,87 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4835B0A147ADB5C00F41BB3 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835AFC147ADB5C00F41BB3 /* animation.cpp */; };
+		D4835B0B147ADB5C00F41BB3 /* baseButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835AFD147ADB5C00F41BB3 /* baseButton.cpp */; };
+		D4835B0C147ADB5C00F41BB3 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835AFE147ADB5C00F41BB3 /* board.cpp */; };
+		D4835B0D147ADB5C00F41BB3 /* ecuaciones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835AFF147ADB5C00F41BB3 /* ecuaciones.cpp */; };
+		D4835B0E147ADB5C00F41BB3 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B00147ADB5C00F41BB3 /* game.cpp */; };
+		D4835B0F147ADB5C00F41BB3 /* inter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B01147ADB5C00F41BB3 /* inter.cpp */; };
+		D4835B10147ADB5C00F41BB3 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B02147ADB5C00F41BB3 /* log.cpp */; };
+		D4835B11147ADB5C00F41BB3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B03147ADB5C00F41BB3 /* main.cpp */; };
+		D4835B12147ADB5C00F41BB3 /* resManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B04147ADB5C00F41BB3 /* resManager.cpp */; };
+		D4835B13147ADB5C00F41BB3 /* scoreTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B05147ADB5C00F41BB3 /* scoreTable.cpp */; };
+		D4835B14147ADB5C00F41BB3 /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B06147ADB5C00F41BB3 /* state.cpp */; };
+		D4835B15147ADB5C00F41BB3 /* stateGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B07147ADB5C00F41BB3 /* stateGame.cpp */; };
+		D4835B16147ADB5C00F41BB3 /* stateHowtoplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B08147ADB5C00F41BB3 /* stateHowtoplay.cpp */; };
+		D4835B17147ADB5C00F41BB3 /* stateMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4835B09147ADB5C00F41BB3 /* stateMainMenu.cpp */; };
+		D4835B23147ADB9600F41BB3 /* libGosuTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4835B20147ADB7B00F41BB3 /* libGosuTouch.a */; };
+		D4835B26147AE21D00F41BB3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4835B25147AE21D00F41BB3 /* OpenAL.framework */; };
+		D4835B28147AE23D00F41BB3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4835B27147AE23D00F41BB3 /* AudioToolbox.framework */; };
+		D4835B2A147AE24D00F41BB3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4835B29147AE24D00F41BB3 /* AVFoundation.framework */; };
+		D4835B2D147AE2A900F41BB3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4835B2C147AE2A900F41BB3 /* QuartzCore.framework */; };
+		D4835B2F147AE56B00F41BB3 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D4835B2E147AE56B00F41BB3 /* media */; };
 		D4C63264147AA481002E90FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63263147AA481002E90FB /* UIKit.framework */; };
 		D4C63266147AA481002E90FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63265147AA481002E90FB /* Foundation.framework */; };
 		D4C63268147AA481002E90FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63267147AA481002E90FB /* CoreGraphics.framework */; };
-		D4C6326A147AA481002E90FB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63269147AA481002E90FB /* GLKit.framework */; };
 		D4C6326C147AA481002E90FB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C6326B147AA481002E90FB /* OpenGLES.framework */; };
 		D4C63272147AA481002E90FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C63270147AA481002E90FB /* InfoPlist.strings */; };
-		D4C63274147AA481002E90FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C63273147AA481002E90FB /* main.m */; };
-		D4C63278147AA481002E90FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C63277147AA481002E90FB /* AppDelegate.m */; };
-		D4C6327A147AA481002E90FB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = D4C63279147AA481002E90FB /* Shader.fsh */; };
-		D4C6327C147AA481002E90FB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = D4C6327B147AA481002E90FB /* Shader.vsh */; };
-		D4C6327F147AA481002E90FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C6327E147AA481002E90FB /* ViewController.m */; };
-		D4C63282147AA481002E90FB /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C63280147AA481002E90FB /* ViewController_iPhone.xib */; };
-		D4C63285147AA481002E90FB /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C63283147AA481002E90FB /* ViewController_iPad.xib */; };
 		D4C6328C147AA6EA002E90FB /* iPhoneIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C6328B147AA6EA002E90FB /* iPhoneIconSmall.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D4835B1F147ADB7B00F41BB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4835B18147ADB7B00F41BB3 /* GosuTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D44A4CEC146B26F500B715D1;
+			remoteInfo = GosuTouch;
+		};
+		D4835B21147ADB8A00F41BB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4835B18147ADB7B00F41BB3 /* GosuTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D44A4CEB146B26F400B715D1;
+			remoteInfo = GosuTouch;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		D4835AED147ADB4700F41BB3 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../../include/animation.h; sourceTree = "<group>"; };
+		D4835AEE147ADB4700F41BB3 /* baseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = baseButton.h; path = ../../include/baseButton.h; sourceTree = "<group>"; };
+		D4835AEF147ADB4700F41BB3 /* board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = board.h; path = ../../include/board.h; sourceTree = "<group>"; };
+		D4835AF0147ADB4700F41BB3 /* floatingScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = floatingScore.h; path = ../../include/floatingScore.h; sourceTree = "<group>"; };
+		D4835AF1147ADB4700F41BB3 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../../include/game.h; sourceTree = "<group>"; };
+		D4835AF2147ADB4700F41BB3 /* inter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inter.h; path = ../../include/inter.h; sourceTree = "<group>"; };
+		D4835AF3147ADB4700F41BB3 /* jewelGroupAnim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jewelGroupAnim.h; path = ../../include/jewelGroupAnim.h; sourceTree = "<group>"; };
+		D4835AF4147ADB4700F41BB3 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = log.h; path = ../../include/log.h; sourceTree = "<group>"; };
+		D4835AF5147ADB4700F41BB3 /* particulas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particulas.h; path = ../../include/particulas.h; sourceTree = "<group>"; };
+		D4835AF6147ADB4700F41BB3 /* resManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resManager.h; path = ../../include/resManager.h; sourceTree = "<group>"; };
+		D4835AF7147ADB4700F41BB3 /* scoreTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scoreTable.h; path = ../../include/scoreTable.h; sourceTree = "<group>"; };
+		D4835AF8147ADB4700F41BB3 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = state.h; path = ../../include/state.h; sourceTree = "<group>"; };
+		D4835AF9147ADB4700F41BB3 /* stateGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stateGame.h; path = ../../include/stateGame.h; sourceTree = "<group>"; };
+		D4835AFA147ADB4700F41BB3 /* stateHowtoplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stateHowtoplay.h; path = ../../include/stateHowtoplay.h; sourceTree = "<group>"; };
+		D4835AFB147ADB4700F41BB3 /* stateMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stateMainMenu.h; path = ../../include/stateMainMenu.h; sourceTree = "<group>"; };
+		D4835AFC147ADB5C00F41BB3 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation.cpp; path = ../../src/animation.cpp; sourceTree = "<group>"; };
+		D4835AFD147ADB5C00F41BB3 /* baseButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = baseButton.cpp; path = ../../src/baseButton.cpp; sourceTree = "<group>"; };
+		D4835AFE147ADB5C00F41BB3 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = board.cpp; path = ../../src/board.cpp; sourceTree = "<group>"; };
+		D4835AFF147ADB5C00F41BB3 /* ecuaciones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ecuaciones.cpp; path = ../../src/ecuaciones.cpp; sourceTree = "<group>"; };
+		D4835B00147ADB5C00F41BB3 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../../src/game.cpp; sourceTree = "<group>"; };
+		D4835B01147ADB5C00F41BB3 /* inter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = inter.cpp; path = ../../src/inter.cpp; sourceTree = "<group>"; };
+		D4835B02147ADB5C00F41BB3 /* log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = log.cpp; path = ../../src/log.cpp; sourceTree = "<group>"; };
+		D4835B03147ADB5C00F41BB3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../src/main.cpp; sourceTree = "<group>"; };
+		D4835B04147ADB5C00F41BB3 /* resManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resManager.cpp; path = ../../src/resManager.cpp; sourceTree = "<group>"; };
+		D4835B05147ADB5C00F41BB3 /* scoreTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scoreTable.cpp; path = ../../src/scoreTable.cpp; sourceTree = "<group>"; };
+		D4835B06147ADB5C00F41BB3 /* state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = state.cpp; path = ../../src/state.cpp; sourceTree = "<group>"; };
+		D4835B07147ADB5C00F41BB3 /* stateGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stateGame.cpp; path = ../../src/stateGame.cpp; sourceTree = "<group>"; };
+		D4835B08147ADB5C00F41BB3 /* stateHowtoplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stateHowtoplay.cpp; path = ../../src/stateHowtoplay.cpp; sourceTree = "<group>"; };
+		D4835B09147ADB5C00F41BB3 /* stateMainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stateMainMenu.cpp; path = ../../src/stateMainMenu.cpp; sourceTree = "<group>"; };
+		D4835B18147ADB7B00F41BB3 /* GosuTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GosuTouch.xcodeproj; path = ../../Gosu/ios/GosuTouch.xcodeproj; sourceTree = "<group>"; };
+		D4835B25147AE21D00F41BB3 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		D4835B27147AE23D00F41BB3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D4835B29147AE24D00F41BB3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D4835B2C147AE2A900F41BB3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D4835B2E147AE56B00F41BB3 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; name = media; path = ../../media; sourceTree = "<group>"; };
 		D4C6325F147AA481002E90FB /* FreeGemas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreeGemas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4C63263147AA481002E90FB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D4C63265147AA481002E90FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,16 +96,6 @@
 		D4C6326B147AA481002E90FB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D4C6326F147AA481002E90FB /* FreeGemas-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FreeGemas-Info.plist"; sourceTree = "<group>"; };
 		D4C63271147AA481002E90FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D4C63273147AA481002E90FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D4C63275147AA481002E90FB /* FreeGemas-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FreeGemas-Prefix.pch"; sourceTree = "<group>"; };
-		D4C63276147AA481002E90FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		D4C63277147AA481002E90FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D4C63279147AA481002E90FB /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		D4C6327B147AA481002E90FB /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
-		D4C6327D147AA481002E90FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D4C6327E147AA481002E90FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		D4C63281147AA481002E90FB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		D4C63284147AA481002E90FB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		D4C6328B147AA6EA002E90FB /* iPhoneIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIconSmall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,10 +104,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4835B2D147AE2A900F41BB3 /* QuartzCore.framework in Frameworks */,
+				D4835B2A147AE24D00F41BB3 /* AVFoundation.framework in Frameworks */,
+				D4835B28147AE23D00F41BB3 /* AudioToolbox.framework in Frameworks */,
+				D4835B26147AE21D00F41BB3 /* OpenAL.framework in Frameworks */,
 				D4C63264147AA481002E90FB /* UIKit.framework in Frameworks */,
+				D4835B23147ADB9600F41BB3 /* libGosuTouch.a in Frameworks */,
 				D4C63266147AA481002E90FB /* Foundation.framework in Frameworks */,
 				D4C63268147AA481002E90FB /* CoreGraphics.framework in Frameworks */,
-				D4C6326A147AA481002E90FB /* GLKit.framework in Frameworks */,
 				D4C6326C147AA481002E90FB /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,9 +119,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4835AEC147ADB3300F41BB3 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D4835AFC147ADB5C00F41BB3 /* animation.cpp */,
+				D4835AFD147ADB5C00F41BB3 /* baseButton.cpp */,
+				D4835AFE147ADB5C00F41BB3 /* board.cpp */,
+				D4835AFF147ADB5C00F41BB3 /* ecuaciones.cpp */,
+				D4835B00147ADB5C00F41BB3 /* game.cpp */,
+				D4835B01147ADB5C00F41BB3 /* inter.cpp */,
+				D4835B02147ADB5C00F41BB3 /* log.cpp */,
+				D4835B03147ADB5C00F41BB3 /* main.cpp */,
+				D4835B04147ADB5C00F41BB3 /* resManager.cpp */,
+				D4835B05147ADB5C00F41BB3 /* scoreTable.cpp */,
+				D4835B06147ADB5C00F41BB3 /* state.cpp */,
+				D4835B07147ADB5C00F41BB3 /* stateGame.cpp */,
+				D4835B08147ADB5C00F41BB3 /* stateHowtoplay.cpp */,
+				D4835B09147ADB5C00F41BB3 /* stateMainMenu.cpp */,
+				D4835AED147ADB4700F41BB3 /* animation.h */,
+				D4835AEE147ADB4700F41BB3 /* baseButton.h */,
+				D4835AEF147ADB4700F41BB3 /* board.h */,
+				D4835AF0147ADB4700F41BB3 /* floatingScore.h */,
+				D4835AF1147ADB4700F41BB3 /* game.h */,
+				D4835AF2147ADB4700F41BB3 /* inter.h */,
+				D4835AF3147ADB4700F41BB3 /* jewelGroupAnim.h */,
+				D4835AF4147ADB4700F41BB3 /* log.h */,
+				D4835AF5147ADB4700F41BB3 /* particulas.h */,
+				D4835AF6147ADB4700F41BB3 /* resManager.h */,
+				D4835AF7147ADB4700F41BB3 /* scoreTable.h */,
+				D4835AF8147ADB4700F41BB3 /* state.h */,
+				D4835AF9147ADB4700F41BB3 /* stateGame.h */,
+				D4835AFA147ADB4700F41BB3 /* stateHowtoplay.h */,
+				D4835AFB147ADB4700F41BB3 /* stateMainMenu.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		D4835B19147ADB7B00F41BB3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4835B20147ADB7B00F41BB3 /* libGosuTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D4C63254147AA481002E90FB = {
 			isa = PBXGroup;
 			children = (
+				D4835B2C147AE2A900F41BB3 /* QuartzCore.framework */,
+				D4835B29147AE24D00F41BB3 /* AVFoundation.framework */,
+				D4835B27147AE23D00F41BB3 /* AudioToolbox.framework */,
+				D4835B25147AE21D00F41BB3 /* OpenAL.framework */,
 				D4C6328B147AA6EA002E90FB /* iPhoneIconSmall.png */,
 				D4C6326D147AA481002E90FB /* FreeGemas */,
 				D4C63262147AA481002E90FB /* Frameworks */,
@@ -82,6 +188,7 @@
 		D4C63262147AA481002E90FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4835B18147ADB7B00F41BB3 /* GosuTouch.xcodeproj */,
 				D4C63263147AA481002E90FB /* UIKit.framework */,
 				D4C63265147AA481002E90FB /* Foundation.framework */,
 				D4C63267147AA481002E90FB /* CoreGraphics.framework */,
@@ -94,14 +201,8 @@
 		D4C6326D147AA481002E90FB /* FreeGemas */ = {
 			isa = PBXGroup;
 			children = (
-				D4C63276147AA481002E90FB /* AppDelegate.h */,
-				D4C63277147AA481002E90FB /* AppDelegate.m */,
-				D4C63279147AA481002E90FB /* Shader.fsh */,
-				D4C6327B147AA481002E90FB /* Shader.vsh */,
-				D4C6327D147AA481002E90FB /* ViewController.h */,
-				D4C6327E147AA481002E90FB /* ViewController.m */,
-				D4C63280147AA481002E90FB /* ViewController_iPhone.xib */,
-				D4C63283147AA481002E90FB /* ViewController_iPad.xib */,
+				D4835B2E147AE56B00F41BB3 /* media */,
+				D4835AEC147ADB3300F41BB3 /* Source */,
 				D4C6326E147AA481002E90FB /* Supporting Files */,
 			);
 			path = FreeGemas;
@@ -112,8 +213,6 @@
 			children = (
 				D4C6326F147AA481002E90FB /* FreeGemas-Info.plist */,
 				D4C63270147AA481002E90FB /* InfoPlist.strings */,
-				D4C63273147AA481002E90FB /* main.m */,
-				D4C63275147AA481002E90FB /* FreeGemas-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -132,6 +231,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4835B22147ADB8A00F41BB3 /* PBXTargetDependency */,
 			);
 			name = FreeGemas;
 			productName = FreeGemas;
@@ -157,6 +257,12 @@
 			mainGroup = D4C63254147AA481002E90FB;
 			productRefGroup = D4C63260147AA481002E90FB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D4835B19147ADB7B00F41BB3 /* Products */;
+					ProjectRef = D4835B18147ADB7B00F41BB3 /* GosuTouch.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D4C6325E147AA481002E90FB /* FreeGemas */,
@@ -164,17 +270,24 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		D4835B20147ADB7B00F41BB3 /* libGosuTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGosuTouch.a;
+			remoteRef = D4835B1F147ADB7B00F41BB3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		D4C6325D147AA481002E90FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D4C63272147AA481002E90FB /* InfoPlist.strings in Resources */,
-				D4C6327A147AA481002E90FB /* Shader.fsh in Resources */,
-				D4C6327C147AA481002E90FB /* Shader.vsh in Resources */,
-				D4C63282147AA481002E90FB /* ViewController_iPhone.xib in Resources */,
-				D4C63285147AA481002E90FB /* ViewController_iPad.xib in Resources */,
 				D4C6328C147AA6EA002E90FB /* iPhoneIconSmall.png in Resources */,
+				D4835B2F147AE56B00F41BB3 /* media in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,13 +298,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C63274147AA481002E90FB /* main.m in Sources */,
-				D4C63278147AA481002E90FB /* AppDelegate.m in Sources */,
-				D4C6327F147AA481002E90FB /* ViewController.m in Sources */,
+				D4835B0A147ADB5C00F41BB3 /* animation.cpp in Sources */,
+				D4835B0B147ADB5C00F41BB3 /* baseButton.cpp in Sources */,
+				D4835B0C147ADB5C00F41BB3 /* board.cpp in Sources */,
+				D4835B0D147ADB5C00F41BB3 /* ecuaciones.cpp in Sources */,
+				D4835B0E147ADB5C00F41BB3 /* game.cpp in Sources */,
+				D4835B0F147ADB5C00F41BB3 /* inter.cpp in Sources */,
+				D4835B10147ADB5C00F41BB3 /* log.cpp in Sources */,
+				D4835B11147ADB5C00F41BB3 /* main.cpp in Sources */,
+				D4835B12147ADB5C00F41BB3 /* resManager.cpp in Sources */,
+				D4835B13147ADB5C00F41BB3 /* scoreTable.cpp in Sources */,
+				D4835B14147ADB5C00F41BB3 /* state.cpp in Sources */,
+				D4835B15147ADB5C00F41BB3 /* stateGame.cpp in Sources */,
+				D4835B16147ADB5C00F41BB3 /* stateHowtoplay.cpp in Sources */,
+				D4835B17147ADB5C00F41BB3 /* stateMainMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4835B22147ADB8A00F41BB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GosuTouch;
+			targetProxy = D4835B21147ADB8A00F41BB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D4C63270147AA481002E90FB /* InfoPlist.strings */ = {
@@ -200,22 +332,6 @@
 				D4C63271147AA481002E90FB /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D4C63280147AA481002E90FB /* ViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D4C63281147AA481002E90FB /* en */,
-			);
-			name = ViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		D4C63283147AA481002E90FB /* ViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D4C63284147AA481002E90FB /* en */,
-			);
-			name = ViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -269,9 +385,11 @@
 		D4C63289147AA481002E90FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FreeGemas/FreeGemas-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/Users/jlnr/Projekte/Gosu/,
+				);
 				INFOPLIST_FILE = "FreeGemas/FreeGemas-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -282,9 +400,11 @@
 		D4C6328A147AA481002E90FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FreeGemas/FreeGemas-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/Users/jlnr/Projekte/Gosu/,
+				);
 				INFOPLIST_FILE = "FreeGemas/FreeGemas-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
