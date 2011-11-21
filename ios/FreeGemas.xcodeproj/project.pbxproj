@@ -1,0 +1,319 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D4C63264147AA481002E90FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63263147AA481002E90FB /* UIKit.framework */; };
+		D4C63266147AA481002E90FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63265147AA481002E90FB /* Foundation.framework */; };
+		D4C63268147AA481002E90FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63267147AA481002E90FB /* CoreGraphics.framework */; };
+		D4C6326A147AA481002E90FB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C63269147AA481002E90FB /* GLKit.framework */; };
+		D4C6326C147AA481002E90FB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C6326B147AA481002E90FB /* OpenGLES.framework */; };
+		D4C63272147AA481002E90FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4C63270147AA481002E90FB /* InfoPlist.strings */; };
+		D4C63274147AA481002E90FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C63273147AA481002E90FB /* main.m */; };
+		D4C63278147AA481002E90FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C63277147AA481002E90FB /* AppDelegate.m */; };
+		D4C6327A147AA481002E90FB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = D4C63279147AA481002E90FB /* Shader.fsh */; };
+		D4C6327C147AA481002E90FB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = D4C6327B147AA481002E90FB /* Shader.vsh */; };
+		D4C6327F147AA481002E90FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C6327E147AA481002E90FB /* ViewController.m */; };
+		D4C63282147AA481002E90FB /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C63280147AA481002E90FB /* ViewController_iPhone.xib */; };
+		D4C63285147AA481002E90FB /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4C63283147AA481002E90FB /* ViewController_iPad.xib */; };
+		D4C6328C147AA6EA002E90FB /* iPhoneIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C6328B147AA6EA002E90FB /* iPhoneIconSmall.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D4C6325F147AA481002E90FB /* FreeGemas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreeGemas.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4C63263147AA481002E90FB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D4C63265147AA481002E90FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D4C63267147AA481002E90FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D4C63269147AA481002E90FB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D4C6326B147AA481002E90FB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D4C6326F147AA481002E90FB /* FreeGemas-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FreeGemas-Info.plist"; sourceTree = "<group>"; };
+		D4C63271147AA481002E90FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4C63273147AA481002E90FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D4C63275147AA481002E90FB /* FreeGemas-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FreeGemas-Prefix.pch"; sourceTree = "<group>"; };
+		D4C63276147AA481002E90FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D4C63277147AA481002E90FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D4C63279147AA481002E90FB /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		D4C6327B147AA481002E90FB /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		D4C6327D147AA481002E90FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D4C6327E147AA481002E90FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D4C63281147AA481002E90FB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		D4C63284147AA481002E90FB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		D4C6328B147AA6EA002E90FB /* iPhoneIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIconSmall.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4C6325C147AA481002E90FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4C63264147AA481002E90FB /* UIKit.framework in Frameworks */,
+				D4C63266147AA481002E90FB /* Foundation.framework in Frameworks */,
+				D4C63268147AA481002E90FB /* CoreGraphics.framework in Frameworks */,
+				D4C6326A147AA481002E90FB /* GLKit.framework in Frameworks */,
+				D4C6326C147AA481002E90FB /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D4C63254147AA481002E90FB = {
+			isa = PBXGroup;
+			children = (
+				D4C6328B147AA6EA002E90FB /* iPhoneIconSmall.png */,
+				D4C6326D147AA481002E90FB /* FreeGemas */,
+				D4C63262147AA481002E90FB /* Frameworks */,
+				D4C63260147AA481002E90FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D4C63260147AA481002E90FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4C6325F147AA481002E90FB /* FreeGemas.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4C63262147AA481002E90FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4C63263147AA481002E90FB /* UIKit.framework */,
+				D4C63265147AA481002E90FB /* Foundation.framework */,
+				D4C63267147AA481002E90FB /* CoreGraphics.framework */,
+				D4C63269147AA481002E90FB /* GLKit.framework */,
+				D4C6326B147AA481002E90FB /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4C6326D147AA481002E90FB /* FreeGemas */ = {
+			isa = PBXGroup;
+			children = (
+				D4C63276147AA481002E90FB /* AppDelegate.h */,
+				D4C63277147AA481002E90FB /* AppDelegate.m */,
+				D4C63279147AA481002E90FB /* Shader.fsh */,
+				D4C6327B147AA481002E90FB /* Shader.vsh */,
+				D4C6327D147AA481002E90FB /* ViewController.h */,
+				D4C6327E147AA481002E90FB /* ViewController.m */,
+				D4C63280147AA481002E90FB /* ViewController_iPhone.xib */,
+				D4C63283147AA481002E90FB /* ViewController_iPad.xib */,
+				D4C6326E147AA481002E90FB /* Supporting Files */,
+			);
+			path = FreeGemas;
+			sourceTree = "<group>";
+		};
+		D4C6326E147AA481002E90FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D4C6326F147AA481002E90FB /* FreeGemas-Info.plist */,
+				D4C63270147AA481002E90FB /* InfoPlist.strings */,
+				D4C63273147AA481002E90FB /* main.m */,
+				D4C63275147AA481002E90FB /* FreeGemas-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4C6325E147AA481002E90FB /* FreeGemas */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4C63288147AA481002E90FB /* Build configuration list for PBXNativeTarget "FreeGemas" */;
+			buildPhases = (
+				D4C6325B147AA481002E90FB /* Sources */,
+				D4C6325C147AA481002E90FB /* Frameworks */,
+				D4C6325D147AA481002E90FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FreeGemas;
+			productName = FreeGemas;
+			productReference = D4C6325F147AA481002E90FB /* FreeGemas.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4C63256147AA481002E90FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Raschke & Ludwig GbR";
+			};
+			buildConfigurationList = D4C63259147AA481002E90FB /* Build configuration list for PBXProject "FreeGemas" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D4C63254147AA481002E90FB;
+			productRefGroup = D4C63260147AA481002E90FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4C6325E147AA481002E90FB /* FreeGemas */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4C6325D147AA481002E90FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4C63272147AA481002E90FB /* InfoPlist.strings in Resources */,
+				D4C6327A147AA481002E90FB /* Shader.fsh in Resources */,
+				D4C6327C147AA481002E90FB /* Shader.vsh in Resources */,
+				D4C63282147AA481002E90FB /* ViewController_iPhone.xib in Resources */,
+				D4C63285147AA481002E90FB /* ViewController_iPad.xib in Resources */,
+				D4C6328C147AA6EA002E90FB /* iPhoneIconSmall.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4C6325B147AA481002E90FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4C63274147AA481002E90FB /* main.m in Sources */,
+				D4C63278147AA481002E90FB /* AppDelegate.m in Sources */,
+				D4C6327F147AA481002E90FB /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D4C63270147AA481002E90FB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4C63271147AA481002E90FB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D4C63280147AA481002E90FB /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4C63281147AA481002E90FB /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		D4C63283147AA481002E90FB /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4C63284147AA481002E90FB /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D4C63286147AA481002E90FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4C63287147AA481002E90FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D4C63289147AA481002E90FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FreeGemas/FreeGemas-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "FreeGemas/FreeGemas-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D4C6328A147AA481002E90FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FreeGemas/FreeGemas-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "FreeGemas/FreeGemas-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4C63259147AA481002E90FB /* Build configuration list for PBXProject "FreeGemas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4C63286147AA481002E90FB /* Debug */,
+				D4C63287147AA481002E90FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4C63288147AA481002E90FB /* Build configuration list for PBXNativeTarget "FreeGemas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4C63289147AA481002E90FB /* Debug */,
+				D4C6328A147AA481002E90FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4C63256147AA481002E90FB /* Project object */;
+}
