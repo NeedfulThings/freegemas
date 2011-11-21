@@ -74,7 +74,6 @@
 		D444BBCC1473220A002A003F /* particulas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particulas.h; path = ../include/particulas.h; sourceTree = SOURCE_ROOT; };
 		D444BBCD1473220A002A003F /* resManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resManager.h; path = ../include/resManager.h; sourceTree = SOURCE_ROOT; };
 		D444BBCE1473220A002A003F /* scoreTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scoreTable.h; path = ../include/scoreTable.h; sourceTree = SOURCE_ROOT; };
-		D444BBCF1473220A002A003F /* sdlfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlfont.h; path = ../include/sdlfont.h; sourceTree = SOURCE_ROOT; };
 		D444BBD01473220A002A003F /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = state.h; path = ../include/state.h; sourceTree = SOURCE_ROOT; };
 		D444BBD11473220A002A003F /* stateGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stateGame.h; path = ../include/stateGame.h; sourceTree = SOURCE_ROOT; };
 		D444BBD21473220A002A003F /* stateHowtoplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stateHowtoplay.h; path = ../include/stateHowtoplay.h; sourceTree = SOURCE_ROOT; };
@@ -224,7 +223,6 @@
 				D444BBCC1473220A002A003F /* particulas.h */,
 				D444BBCD1473220A002A003F /* resManager.h */,
 				D444BBCE1473220A002A003F /* scoreTable.h */,
-				D444BBCF1473220A002A003F /* sdlfont.h */,
 				D444BBD01473220A002A003F /* state.h */,
 				D444BBD11473220A002A003F /* stateGame.h */,
 				D444BBD21473220A002A003F /* stateHowtoplay.h */,

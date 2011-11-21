@@ -81,7 +81,7 @@ public:
 private:
     boost::shared_ptr<Gosu::Image> scoreImage;
 
-    boost::shared_ptr<CustomFont> scoreFont;
+    boost::shared_ptr<Gosu::Font> scoreFont;
     wstring scoreText;
 			   
     float x_;

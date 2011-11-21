@@ -31,7 +31,6 @@
 #include "state.h"
 #include "resManager.h"
 #include "jewelGroupAnim.h"
-#include "sdlfont.h"
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/foreach.hpp>
@@ -108,7 +107,7 @@ private:
     boost::shared_ptr<Gosu::Image> imgHighl;
 
     /// Font for the menu entries
-    boost::shared_ptr<CustomFont> font;
+    boost::shared_ptr<Gosu::Font> font;
 
     /// Class for the animation of the decorating jewels
     JewelGroupAnim jewelAnim;

@@ -42,7 +42,6 @@ using namespace std;
 #include "floatingScore.h"
 #include "baseButton.h"
 #include "scoreTable.h"
-#include "sdlfont.h"
 #include "particulas.h"
 
 class Game;
@@ -201,10 +200,10 @@ private:
     boost::shared_ptr<Gosu::Image> imgScoreHeader;
 
     /// Font for the clock
-    boost::shared_ptr<CustomFont> fontTime;
+    boost::shared_ptr<Gosu::Font> fontTime;
 
     /// Font for the current-score text
-    boost::shared_ptr<CustomFont> fontScore;
+    boost::shared_ptr<Gosu::Font> fontScore;
 
     /// Loading screen image
     boost::shared_ptr<Gosu::Image> imgLoadingBanner;

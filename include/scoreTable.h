@@ -78,13 +78,13 @@ private:
     void fillEmptyScoreFile();
 
     /// Font for the first header
-    boost::shared_ptr<CustomFont> fntH1;
+    boost::shared_ptr<Gosu::Font> fntH1;
 
     /// Font for the second header
-    boost::shared_ptr<CustomFont> fntH2;
+    boost::shared_ptr<Gosu::Font> fntH2;
 
     /// LCD-style fonts for the content
-    boost::shared_ptr<CustomFont> fntLcdBig, fntLcdSmall;
+    boost::shared_ptr<Gosu::Font> fntLcdBig, fntLcdSmall;
 
     /// Stream to access the file of scores
     fstream scoreFile;

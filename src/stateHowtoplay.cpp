@@ -11,15 +11,16 @@ StateHowtoplay::StateHowtoplay(Game * p) : State(p){
 
     fontTitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 48);
     fontSubtitle = ResMgr -> getFont(Gosu::resourcePrefix() + L"media/fuenteMenu.ttf", 23);
-    fontBodyText.reset(new TextBlock(parent -> graphics(), Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 450));
-
+    
+    std::wstring bodyText;
     bodyText += Gosu::widen(_("The objective of the game is to swap one gem with an adjacent gem to form a horizontal or vertical chain of three or more gems."));
     bodyText += Gosu::widen("\n\n");
     bodyText += Gosu::widen(_("Click the first gem and then click the gem you want to swap it with. If the movement is correct, they will swap and the chained gems will disappear."));
     bodyText += Gosu::widen("\n\n");
     bodyText += Gosu::widen(_("Bonus points are given when more than three identical gems are formed. Sometimes chain reactions, called cascades, are triggered, where chains are formed by the falling gems. Cascades are awarded with bonus points."));
-
-    preparedText = fontBodyText->prepareText(bodyText);
+    Gosu::Bitmap bodyTextBitmap = Gosu::createText(bodyText,
+        Gosu::resourcePrefix() + L"media/fNormal.ttf", 28, 0, 450, Gosu::taLeft);
+    imgBodyText.reset(new Gosu::Image(parent -> graphics(), bodyTextBitmap, false));
 }
 
 void StateHowtoplay::update(){ }
@@ -46,9 +47,9 @@ void StateHowtoplay::draw(){
     fontSubtitle -> draw(exitText,
                          30 + 1, 550 + 2, 0.9,
                          1, 1, 0x44000000);
-
-    fontBodyText -> draw(preparedText, 310, 110, 1, 0xffffffff);
-    fontBodyText -> draw(preparedText, 310 + 1, 110 + 2, 1 - 0.1, 0x44000000);
+    
+    imgBodyText -> draw(310, 110, 1, 1, 1, 0xffffffff);
+    imgBodyText -> draw(310 + 1, 110 + 2, 1 - 0.1, 1, 1, 0x44000000);
 }
 
 void StateHowtoplay::buttonDown(Gosu::Button B){
