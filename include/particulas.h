@@ -142,8 +142,8 @@ public:
 
 
 	
-        partc1 . reset(new Gosu::Image(*g, L"media/partc1.png"));
-        partc2 . reset(new Gosu::Image(*g, L"media/partc2.png"));
+        partc1 . reset(new Gosu::Image(*g, Gosu::resourcePrefix() + L"media/partc1.png"));
+        partc2 . reset(new Gosu::Image(*g, Gosu::resourcePrefix() + L"media/partc2.png"));
 
         pasoActual = 0;
 
